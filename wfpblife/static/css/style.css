@@ -1,16 +1,64 @@
 body {
     margin: 0;
+    overflow: hidden;
     padding: 0;
 }
 
 .alert {
+    position: relative;
     text-align: center;
-    width: 100%
+    width: 100%;
+}
+
+.btn_wrapper {
+    position: relative;
 }
 
 .card {
     left: 50%;
+    max-width: 30vw;
     position: absolute;
+    top: 23%;
     transform: translateX(-50%);
     width: 100%;
+}
+
+.btn.home_rotw, .btn.home_rotw:active {
+    background-color: #61a5a0;
+    backface-visibility: hidden;
+    border: 2px solid #61a5a0;
+    box-shadow: 0 0 0.5rem black;
+    color: white;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    transition: all 0.2s;
+}
+
+.home_rotw:hover {
+    background-color: white;
+    border: 2px solid #61a5a0;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
+    color: #61a5a0;
+    transform: translate(-50%, -1%)
+}
+
+
+
+.jumbotron {
+    background-color: transparent;
+    background-image: url("https://www.forksoverknives.com/wp-content/uploads/sweet-potato-flapjacks-for-wordpress-dimensions-scaled.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 50vh;
+}
+
+.navbar, .navbar-brand, .nav-item {
+    background-color: #61a5a0;
+    color: white;
+}
+
+.orange {
+    background-color: orange;
 }
