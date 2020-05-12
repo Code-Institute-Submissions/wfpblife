@@ -5,7 +5,9 @@ from wfpblife import app, db
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    from wfpblife.recipe_of_the_week import rotw
+    rotw = db.recipes.aggregate(rotw, allowDiskUse = False)
+    return render_template('index.html', rotw=rotw)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():

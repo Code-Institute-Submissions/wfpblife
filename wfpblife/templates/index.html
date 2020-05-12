@@ -1,1 +1,17 @@
 {% extends 'base.html' %}
+
+{% block content %}
+    <div class="container jumbotron-container">
+        <h1 class="display-5 text-center mt-5" style="background-image:url({{rotw.image}});">Recipe of the week</h1>
+        <div class="jumbotron mt-5" id="recipe-of-the-week">
+            {% for rotw in rotw %}
+                <h1 class = "pb-3 text-center">{{ rotw.title}}</h1>
+                    <img src={{rotw.image}} class="rotw-img" alt="placeholder image">
+                <p class=" py-3 text-center">{{ rotw.description }}</p>
+            {% endfor %}
+            <div class="btn_wrapper">
+                <a class="btn btn-lg home_rotw" href="#" role="button">View recipe</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
