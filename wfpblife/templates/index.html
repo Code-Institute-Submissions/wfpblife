@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
     <div class="container jumbotron-container">
         <h1 class="display-5 text-center mt-5" style="background-image:url({{rotw.image}});">Recipe of the week</h1>
         <div class="jumbotron mt-5" id="recipe-of-the-week">
@@ -34,4 +35,13 @@
            </div>
         {% endfor %}
      </div>
+     <div class="container">
+        {% for mpr in mpr %}
+           <h1 class = "pb-3 text-center">{{ mpr.title}}</h1>
+              <img src={{mpr.image}} class="mpr-img" alt="placeholder image">
+           <p class=" py-3 text-center">{{ mpr.description }}</p>
+        {% endfor %}
+     </div>
+</div>
+    
 {% endblock content %}

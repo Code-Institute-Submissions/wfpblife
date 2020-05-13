@@ -13,7 +13,20 @@ def index():
     from wfpblife.latest_recipes import latest_recipes
     recipes = db.recipes.aggregate(latest_recipes, allowDiskUse = True)
 
-    return render_template('index.html', rotw=rotw, recipes=recipes)
+    from wfpblife.most_popular_recipe import mpr
+    mpr = db.recipes.aggregate(mpr, allowDiskUse = False)
+
+    return render_template('index.html', rotw=rotw, recipes=recipes, mpr=mpr)
+
+@app.route('/recipes')
+def get_recipes():
+    recipes = db.recipes.find({}).limit(10)
+    return render_template('recipes.html', recipes=recipes)
+
+@app.route('/recipes2')
+def get_recipes2():
+    recipes = db.recipes.find({}).skip(10).limit(10)
+    return render_template('recipes2.html', recipes=recipes)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():

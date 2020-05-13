@@ -52,7 +52,7 @@ body {
     margin-top: 5rem;
 }
 
-.rotw-img {
+.rotw-img, .mpr-img {
     display: flex;
     margin: auto;
     width: 100%;
