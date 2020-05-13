@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    overflow: hidden;
     padding: 0;
 }
 
@@ -12,15 +11,6 @@ body {
 
 .btn_wrapper {
     position: relative;
-}
-
-.card {
-    left: 50%;
-    max-width: 30vw;
-    position: absolute;
-    top: 23%;
-    transform: translateX(-50%);
-    width: 100%;
 }
 
 .btn.home_rotw, .btn.home_rotw:active {
@@ -58,8 +48,12 @@ body {
     color: white;
 }
 
+.recipes-container {
+    margin-top: 5rem;
+}
+
 .rotw-img {
     display: flex;
     margin: auto;
-    width: 50%;
+    width: 100%;
 }

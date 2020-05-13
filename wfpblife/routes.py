@@ -5,9 +5,15 @@ from wfpblife import app, db
 
 @app.route('/')
 def index():
+    # Get the recipe designated recipe of the week
     from wfpblife.recipe_of_the_week import rotw
     rotw = db.recipes.aggregate(rotw, allowDiskUse = False)
-    return render_template('index.html', rotw=rotw)
+
+    # Get the five more recently published recipes
+    from wfpblife.latest_recipes import latest_recipes
+    recipes = db.recipes.aggregate(latest_recipes, allowDiskUse = True)
+
+    return render_template('index.html', rotw=rotw, recipes=recipes)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
