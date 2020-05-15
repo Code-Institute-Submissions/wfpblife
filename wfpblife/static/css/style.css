@@ -3,6 +3,11 @@ body {
     padding: 0;
 }
 
+.add-ingredient {
+    justify-content: right;
+    margin-left: auto;
+}
+
 .alert {
     position: relative;
     text-align: center;

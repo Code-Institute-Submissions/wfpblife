@@ -7,30 +7,39 @@
         <div class="jumbotron mt-5" id="recipe-of-the-week">
             {% for rotw in rotw %}
                 <h1 class = "pb-3 text-center">{{ rotw.title}}</h1>
-                    <img src={{rotw.image}} class="rotw-img" alt="placeholder image">
+                    <img src={{rotw.image}} class="rotw-img" alt="recipe image">
                 <p class=" py-3 text-center">{{ rotw.description }}</p>
+               <div class="btn_wrapper">
+                  <form action="{{ url_for('get_recipe') }}"  method="GET">
+                       <input type="hidden" name="title" value="{{ rotw.title }}">
+                    <button class="btn btn-lg">View recipe</button>
+                  </form>
+              </div>
             {% endfor %}
-            <div class="btn_wrapper">
-                <a class="btn btn-lg home_rotw" href="#" role="button">View recipe</a>
-            </div>
         </div>
     </div>
     <div class="container">
         {% for recipe in recipes %}
            <div class="container recipes-container">
               <div class="card mb-3">
-                 <div class="row no-gutters">
-                 <div class="col-md-4">
-                    <img src={{recipe.recipes.image_small}} class="card-img recipe-img" alt="placeholder image">
-                 </div>
-                 <div class="col-md-8">
-                    <div class="card-body">
-                       <h5 class="card-title">{{recipe.recipes.title}}</h5>
-                       <p class="card-text">{{recipe.recipes.description}}</p>
-                       <p class="card-text"><small class="text-muted">Submitted by {{recipe.recipes.username}} on {{recipe.recipes.date_added.strftime('%Y-%m-%d')}}</small></p>
-                    </div>
-                 </div>
-                 </div>
+                  <div class="row no-gutters">
+                     <div class="col-md-4">
+                        <img src={{recipe.recipes.image_small}} class="card-img recipe-img" alt="placeholder image">
+                     </div>
+                     <div class="col-md-8">
+                        <div class="card-body">
+                           <h5 class="card-title">{{recipe.recipes.title}}</h5>
+                           <p class="card-text">{{recipe.recipes.description}}</p>
+                           <p class="card-text"><small class="text-muted">Submitted by {{recipe.recipes.username}} on {{recipe.recipes.date_added.strftime('%Y-%m-%d')}}</small></p>
+                        </div>
+                        <div class="btn_wrapper">
+                           <form action="{{ url_for('get_recipe') }}"  method="GET">
+                                <input type="hidden" name="title" value="{{ recipe.recipes.title }}">
+                             <button class="btn btn-lg">View recipe</button>
+                           </form>
+                       </div>
+                     </div>
+                  </div>
               </div>
            </div>
         {% endfor %}
@@ -40,6 +49,12 @@
            <h1 class = "pb-3 text-center">{{ mpr.title}}</h1>
               <img src={{mpr.image}} class="mpr-img" alt="placeholder image">
            <p class=" py-3 text-center">{{ mpr.description }}</p>
+           <div class="btn_wrapper">
+               <form action="{{ url_for('get_recipe') }}"  method="GET">
+                  <input type="hidden" name="title" value="{{ mpr.title }}">
+               <button class="btn btn-lg">View recipe</button>
+               </form>
+         </div>
         {% endfor %}
      </div>
 </div>

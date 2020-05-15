@@ -1,4 +1,5 @@
 from flask import redirect, request, render_template, url_for, flash, session
+from datetime import datetime
 from wfpblife.forms import SignUpForm, LoginForm
 from wfpblife import app, db
 
@@ -18,19 +19,12 @@ def index():
 
     return render_template('index.html', rotw=rotw, recipes=recipes, mpr=mpr)
 
-@app.route('/recipes')
-def get_recipes():
-    recipes = db.recipes.find({}).limit(10)
-    return render_template('recipes.html', recipes=recipes)
-
-@app.route('/recipes2')
-def get_recipes2():
-    recipes = db.recipes.find({}).skip(10).limit(10)
-    return render_template('recipes2.html', recipes=recipes)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignUpForm()
+
+    # Clear any previous flashed messages
     session.pop('_flashes', None)
 
     if form.validate_on_submit():
@@ -55,7 +49,6 @@ def signup():
                 "email": form.email.data,
                 "password": form.password.data
             })
-
                 # Successful account creation message
                 flash(f'Account created for {form.username.data}!', 'success')
                 return redirect(url_for('index'))
@@ -69,13 +62,46 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+
+    # Clear any previous flashed messages
     session.pop('_flashes', None)
 
     if form.validate_on_submit():
         if form.email.data == 'admin@blog.com' and form.password.data == 'password':
-            flash(f'You are now logged in', 'success')
+            flash('You are now logged in', 'success')
             return redirect(url_for('index'))
         else:
             if request.form['submit'] == 'login':
                 flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', form=form)
+
+
+@app.route('/submit_recipe', methods=['GET', 'POST'])
+def submit_recipe():
+
+    # if request.method == 'POST':
+    #     db.recipes.insert_one({
+    #         'title': request.form.get('title'),
+    #         'description': request.form.get('description'),
+    #         'ingredients': [{'quantity': request.form.get('quantity'), 'measurement': request.form.get('measurement'), 'item': request.form.get('item')}]
+    #     })
+    return render_template('submit_recipe.html')
+
+
+@app.route('/recipe')
+def get_recipe():
+    title = request.args.get('title')
+    recipe = db.recipes.find_one({'title': title})
+    return render_template('recipe.html', recipe=recipe)
+
+
+@app.route('/recipes')
+def get_recipes():
+    recipes = db.recipes.find({}).limit(10)
+    return render_template('recipes.html', recipes=recipes)
+
+
+@app.route('/recipes2')
+def get_recipes2():
+    recipes = db.recipes.find({}).skip(10).limit(10)
+    return render_template('recipes2.html', recipes=recipes)

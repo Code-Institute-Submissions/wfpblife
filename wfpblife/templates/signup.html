@@ -1,72 +1,23 @@
 {% extends 'base.html' %}
+{% from'_form_base.html' import form_base %}
+
 
 {% block content %}
 <div class="row">
     <div class="card-container">
         <div class="card signup-card" style="border:none">
             <form action="", method="POST">
-                <!-- Creates a Cross Site Request Forgery token -->
+                <!-- Create a Cross Site Request Forgery token -->
                 {{ form.hidden_tag() }}
     
                 <fieldset class="form-group">
                     <legend class="card-header bg-success text-white text-center border-bottom mb-4">
                         Sign Up Today
-                        
                     </legend>
-                    
-                    <div class="form-group mx-2">
-                        {{ form.username.label(class="form-control-label") }}
-                        {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.username.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.username(class="form-control form-control-lg") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group mx-2">
-                        {{ form.email.label(class="form-control-label") }}
-                        {% if form.email.errors %}
-                            {{ form.email(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.email.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.email(class="form-control form-control-lg") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group mx-2">
-                        {{ form.password.label(class="form-control-label") }}
-                        {% if form.password.errors %}
-                            {{ form.password(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.password.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.password(class="form-control form-control-lg") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group mx-2">
-                        {{ form.confirm_password.label(class="form-control-label") }}
-                        {% if form.confirm_password.errors %}
-                            {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.confirm_password.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.confirm_password(class="form-control form-control-lg") }}
-                        {% endif %}
-                    </div>
-                    
+                    {{ form_base(form.username) }}
+                    {{ form_base(form.email) }}
+                    {{ form_base(form.password) }}
+                    {{ form_base(form.confirm_password) }}                    
                 </fieldset>
                 <div class="form-group mx-2">
                     {{ form.submit(class="btn btn-outline-info") }}
