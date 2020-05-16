@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% from'_recipe_btn.html' import recipe_btn %}
+
 
 {% block content %}
 <div class="container">
@@ -6,15 +8,12 @@
         <h1 class="display-5 text-center mt-5" style="background-image:url({{rotw.image}});">Recipe of the week</h1>
         <div class="jumbotron mt-5" id="recipe-of-the-week">
             {% for rotw in rotw %}
-                <h1 class = "pb-3 text-center">{{ rotw.title}}</h1>
-                    <img src={{rotw.image}} class="rotw-img" alt="recipe image">
-                <p class=" py-3 text-center">{{ rotw.description }}</p>
-               <div class="btn_wrapper">
-                  <form action="{{ url_for('get_recipe') }}"  method="GET">
-                       <input type="hidden" name="title" value="{{ rotw.title }}">
-                    <button class="btn btn-lg">View recipe</button>
-                  </form>
-              </div>
+               <h1 class = "pb-3 text-center">{{ rotw.title}}</h1>
+                  <img src={{rotw.image}} class="rotw-img" alt="recipe image">
+               <p class=" py-3 text-center">{{ rotw.description }}</p>
+
+               {{ recipe_btn(rotw) }}
+
             {% endfor %}
         </div>
     </div>
@@ -32,12 +31,9 @@
                            <p class="card-text">{{recipe.recipes.description}}</p>
                            <p class="card-text"><small class="text-muted">Submitted by {{recipe.recipes.username}} on {{recipe.recipes.date_added.strftime('%Y-%m-%d')}}</small></p>
                         </div>
-                        <div class="btn_wrapper">
-                           <form action="{{ url_for('get_recipe') }}"  method="GET">
-                                <input type="hidden" name="title" value="{{ recipe.recipes.title }}">
-                             <button class="btn btn-lg">View recipe</button>
-                           </form>
-                       </div>
+
+                        {{ recipe_btn(recipe.recipes) }}
+
                      </div>
                   </div>
               </div>
@@ -46,17 +42,15 @@
      </div>
      <div class="container">
         {% for mpr in mpr %}
-           <h1 class = "pb-3 text-center">{{ mpr.title}}</h1>
-              <img src={{mpr.image}} class="mpr-img" alt="placeholder image">
-           <p class=" py-3 text-center">{{ mpr.description }}</p>
-           <div class="btn_wrapper">
-               <form action="{{ url_for('get_recipe') }}"  method="GET">
-                  <input type="hidden" name="title" value="{{ mpr.title }}">
-               <button class="btn btn-lg">View recipe</button>
-               </form>
-         </div>
-        {% endfor %}
-     </div>
+            <h1 class = "pb-3 text-center">{{ mpr.title}}</h1>
+            <img src={{mpr.image}} class="mpr-img" alt="placeholder image">
+            <p class=" py-3 text-center">{{ mpr.description }}</p>
+
+            {{ recipe_btn(mpr) }}
+
+         {% endfor %}
+      </div>
+      <a href="{{ url_for('submit_recipe') }}">Submit recipe</a>
 </div>
     
 {% endblock content %}

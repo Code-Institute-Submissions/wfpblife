@@ -38,8 +38,6 @@ body {
     transform: translate(-50%, -1%)
 }
 
-
-
 .jumbotron {
     background-color: transparent;
     background-position: center center;
@@ -61,4 +59,11 @@ body {
     display: flex;
     margin: auto;
     width: 100%;
+}
+
+.signlog-container {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

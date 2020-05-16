@@ -63,29 +63,42 @@ def signup():
 def login():
     form = LoginForm()
 
-    # Clear any previous flashed messages
-    session.pop('_flashes', None)
-
     if form.validate_on_submit():
-        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+        # Clear any previous flashed messages
+        session.pop('_flashes', None)
+        
+        email = form.email.data
+        password = form.password.data
+        user = db.users.find_one({'email': email})
+        if user['password'] == password:
+            session['email'] = email
             flash('You are now logged in', 'success')
             return redirect(url_for('index'))
         else:
-            if request.form['submit'] == 'login':
-                flash('Login unsuccessful. Please check username and password', 'danger')
+            flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', form=form)
 
 
+@app.route('/logout')
+def logout():
+    if 'email' in session:
+        session.pop('email')
+        flash('Keep safe, see you again soon!', 'success')
+        return redirect(url_for('index'))
+
 @app.route('/submit_recipe', methods=['GET', 'POST'])
 def submit_recipe():
-
+    if 'email' in session:
     # if request.method == 'POST':
-    #     db.recipes.insert_one({
-    #         'title': request.form.get('title'),
-    #         'description': request.form.get('description'),
-    #         'ingredients': [{'quantity': request.form.get('quantity'), 'measurement': request.form.get('measurement'), 'item': request.form.get('item')}]
-    #     })
-    return render_template('submit_recipe.html')
+        #     db.recipes.insert_one({
+        #         'title': request.form.get('title'),
+        #         'description': request.form.get('description'),
+        #         'ingredients': [{'quantity': request.form.get('quantity'), 'measurement': request.form.get('measurement'), 'item': request.form.get('item')}]
+        #     })
+        return render_template('submit_recipe.html')
+    else:
+        flash('You need to be logged in to submit a recipe', 'warning')
+        return redirect(url_for('login'))
 
 
 @app.route('/recipe')

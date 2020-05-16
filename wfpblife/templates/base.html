@@ -29,8 +29,18 @@
                         <a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a>
                         <a class="nav-item nav-link" href="{{ url_for('get_recipes') }}">Recipes</a>
                         <a class="nav-item nav-link" href="#">Shop</a>
-                        <a class="nav-item nav-link" id="signup" href="{{ url_for('signup') }}">Sign Up</a>
-                        <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+
+                        <!-- Choose nav-items dependent on whether user is logged in or not -->
+                        {% if not session['email'] %}
+                            <a class="nav-item nav-link" id="signup" href="{{ url_for('signup') }}">Sign Up</a>
+                        {% endif %}
+
+                        {% if not session['email'] %}
+                            <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                        {% else %}    
+                            <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

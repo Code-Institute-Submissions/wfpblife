@@ -1,0 +1,9 @@
+<!-- Create a base form template -->
+{% macro recipe_btn(recipe) %}
+    <div class="btn_wrapper">
+        <form action="{{ url_for('get_recipe') }}"  method="GET">
+            <input type="hidden" name="title" value="{{ recipe.title }}">
+        <button class="btn btn-lg">View recipe</button>
+        </form>
+    </div>
+{% endmacro %}
