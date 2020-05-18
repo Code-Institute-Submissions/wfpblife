@@ -5,8 +5,10 @@
     <h4>Submit a recipe</h4>
 
 
-    <form action="", method="POST">
-        <!-- Creates a Cross Site Request Forgery token -->
+    <form action="", class="ingredients-form" , method="POST">
+        <!-- Create a Cross Site Request Forgery token -->
+        {{ form.hidden_tag() }}
+
         <div class="form-group mx-2">
             <label for="title">Recipe title</label>
             <input type="text" class="form-control" id="title" name="title">
@@ -15,40 +17,59 @@
             <label for="description">Description</label>
             <textarea class="form-control" id="description" name="description" rows="3"></textarea>
         </div>
-
-        <div class="form-row col-12 mx-0 px-0">
-            <div class="form-group col-1">
-                <label for="quantity">Qty.</label>
-                <input class="form-control form-control-lg" type="text" name="quantity">
-            </div>
-            <div class="form-group col-3">
-                <label for="measurement">Measurement</label>
-                <input class=" form-control form-control-lg" type="text" name="measurement">
-            </div>
-            <div class="form-group col-8">
-                <label for="item">Item</label>
-                <input class="form-control form-control-lg" type="text" name="item">
-            </div>
+        <div class="from-group">
+            <table class="table table-borderless">
+                <thead>
+                    <tr class="row ingredients-row mx-2">
+                        <th class="col-sm-1">
+                            {{ form.quantity.label(class="form-control-label") }}
+                        </th>                                    
+                        <th class="col-sm-3">
+                            {{ form.measurement.label(class="form-control-label") }}
+                        </th>                            
+                        <th class="col-sm-6">
+                            {{ form.item.label(class="form-control-label") }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="dynamic_row">
+                    <tr class="row ingredients-row mx-2">
+                        <td class="col-sm-1">
+                            {{ form.quantity(class="form-control form-control-lg") }}
+                        </td>
+                        <td class="col-sm-3">
+                            {{ form.measurement(class="form-control form-control-lg") }}
+                        </td>
+                        <td class="col-sm-7">   
+                            {{ form.item(class="form-control form-control-lg") }}
+                        </td>
+                        <td class="text-right col-sm-1 mt-1">
+                            <button type="button" id="add" class="btn btn-success mx-sm-3 mb-2"><i class="fas fa-plus-circle"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-            
-
-
-
-
-
-
-
-
-
-
         <button type="submit" class="btn btn-primary">Submit</button>
 
-        <!-- <div class="form-group mx-2">
-            <button type="reset" class="btn btn-warning">Reset form</button>
-        </div> -->
-    </form>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 
+        <script>
+            $(document).ready( () => {
+    
+                var i = 1;
+    
+                $('#add').click( () => {
+                    i++;
+                    $('#dynamic_row').append('<tr class="row mx-2" id="row'+i+'"><td class="col-sm-1">{{ form.quantity(class="form-control form-control-lg") }}</td><td class="col-sm-3">{{ form.measurement(class="form-control form-control-lg") }}</td><td class="col-sm-7">{{ form.item(class="form-control form-control-lg") }}</td><td class="text-right col-sm-1 mt-1"><button type="button" id="'+i+'" class="btn btn-danger btn-remove mx-sm-3 mb-2"><i class="fas fa-minus-circle"></i></button></td></tr>');
+                })                
+            })
+    
+            $(document).on('click', '.btn-remove', function() {
+                var button_id = this.id;
+                $('#row'+button_id+'').remove();
+            })
+        </script>
 
     
 {% endblock content %}

@@ -1,6 +1,6 @@
 from flask import redirect, request, render_template, url_for, flash, session
 from datetime import datetime
-from wfpblife.forms import SignUpForm, LoginForm
+from wfpblife.forms import SignUpForm, LoginForm, IngredientsForm
 from wfpblife import app, db
 
 
@@ -86,19 +86,39 @@ def logout():
         flash('Keep safe, see you again soon!', 'success')
         return redirect(url_for('index'))
 
+
 @app.route('/submit_recipe', methods=['GET', 'POST'])
 def submit_recipe():
+    form = IngredientsForm()
     if 'email' in session:
-    # if request.method == 'POST':
-        #     db.recipes.insert_one({
-        #         'title': request.form.get('title'),
-        #         'description': request.form.get('description'),
-        #         'ingredients': [{'quantity': request.form.get('quantity'), 'measurement': request.form.get('measurement'), 'item': request.form.get('item')}]
-        #     })
-        return render_template('submit_recipe.html')
+        if request.method == 'POST':
+
+            data = request.form.to_dict(flat=False)
+            for quantity in data['quantity']:
+                quantity = data['quantity']
+                measurement = data['measurement']
+                item = data['item']
+            
+            ingredients = []
+
+            for i in range(len(quantity)):
+                ingredients.append({
+                    'quantity': quantity[i],
+                    'measurement': measurement[i],
+                    'item': item[i]
+                })
+
+            inserted_recipe = db.recipes.insert_one({
+                'title': request.form.get('title'),
+                'description': request.form.get('description'),
+                'ingredients': ingredients
+            }, {"w": "majority"})
+            recipe = db.recipes.find_one({"_id": inserted_recipe.inserted_id})
+            return render_template('recipe.html', recipe=recipe)
     else:
         flash('You need to be logged in to submit a recipe', 'warning')
         return redirect(url_for('login'))
+    return render_template('submit_recipe.html', form=form)
 
 
 @app.route('/recipe')

@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, FieldList, FormField, Form
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
+
 class SignUpForm(FlaskForm):
     username = StringField('Username',
                             validators=[DataRequired(),
@@ -22,3 +23,9 @@ class LoginForm(FlaskForm):
                             validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+class IngredientsForm(FlaskForm):
+    quantity = StringField('Qty.', validators= [DataRequired()])
+    measurement = StringField('Measurement', validators= [DataRequired()])
+    item = StringField('item', validators= [DataRequired()])
