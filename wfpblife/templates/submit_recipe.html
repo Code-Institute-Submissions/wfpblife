@@ -5,7 +5,7 @@
     <h4>Submit a recipe</h4>
 
 
-    <form action="", class="ingredients-form" , method="POST">
+    <form action="", class="ingredients-form" , method="POST" enctype="multipart/form-data">
         <!-- Create a Cross Site Request Forgery token -->
         {{ form.hidden_tag() }}
 
@@ -16,6 +16,9 @@
         <div class="form-group mx-2">
             <label for="description">Description</label>
             <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <div class="form-group mx-2">
+            <input type=file name=file>
         </div>
         <div class="from-group">
             <table class="table table-borderless">

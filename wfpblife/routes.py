@@ -1,7 +1,10 @@
+
+import os
+
 from flask import redirect, request, render_template, url_for, flash, session
 from datetime import datetime
 from wfpblife.forms import SignUpForm, LoginForm, IngredientsForm
-from wfpblife import app, db
+from wfpblife import app, db, cloudinary
 
 
 @app.route('/')
@@ -93,6 +96,11 @@ def submit_recipe():
     if 'email' in session:
         if request.method == 'POST':
 
+            file = request.files['file']
+            image = cloudinary.uploader.upload(file)
+
+            user = db.users.find_one({"email": session['email']})
+
             data = request.form.to_dict(flat=False)
             for quantity in data['quantity']:
                 quantity = data['quantity']
@@ -109,8 +117,11 @@ def submit_recipe():
                 })
 
             inserted_recipe = db.recipes.insert_one({
+                'user_id': user['_id'],
+                'date_added': datetime.utcnow(),
                 'title': request.form.get('title'),
                 'description': request.form.get('description'),
+                'image': image['url'],
                 'ingredients': ingredients
             }, {"w": "majority"})
             recipe = db.recipes.find_one({"_id": inserted_recipe.inserted_id})
