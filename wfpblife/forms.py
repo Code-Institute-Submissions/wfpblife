@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, FieldList, FormField, Form
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, FieldList, FormField, Form, IntegerField, DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
@@ -28,4 +28,5 @@ class LoginForm(FlaskForm):
 class IngredientsForm(FlaskForm):
     quantity = StringField('Qty.', validators= [DataRequired()])
     measurement = StringField('Measurement', validators= [DataRequired()])
-    item = StringField('item', validators= [DataRequired()])
+    item = StringField('Item', validators= [DataRequired()])
+    method = StringField('Method', validators=[DataRequired()])

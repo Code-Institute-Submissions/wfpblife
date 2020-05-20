@@ -6,6 +6,9 @@ from datetime import datetime
 from wfpblife.forms import SignUpForm, LoginForm, IngredientsForm
 from wfpblife import app, db, cloudinary
 
+from cloudinary import CloudinaryImage
+
+
 
 @app.route('/')
 def index():
@@ -15,7 +18,7 @@ def index():
 
     # Get the five more recently published recipes
     from wfpblife.latest_recipes import latest_recipes
-    recipes = db.recipes.aggregate(latest_recipes, allowDiskUse = True)
+    recipes = db.recipes.aggregate(latest_recipes, allowDiskUse = False)
 
     from wfpblife.most_popular_recipe import mpr
     mpr = db.recipes.aggregate(mpr, allowDiskUse = False)
@@ -96,8 +99,14 @@ def submit_recipe():
     if 'email' in session:
         if request.method == 'POST':
 
+            # Get the file and upload to cloudinary
             file = request.files['file']
             image = cloudinary.uploader.upload(file)
+
+            # Upload a resized version of image (360 x 270)
+            image_small = cloudinary.uploader.upload(
+                image['url'], upload_preset='bnpfces4')
+
 
             user = db.users.find_one({"email": session['email']})
 
@@ -107,13 +116,23 @@ def submit_recipe():
                 measurement = data['measurement']
                 item = data['item']
             
+            for method in data['method']:
+                method = data['method']
+            
             ingredients = []
+            instructions = []
 
             for i in range(len(quantity)):
                 ingredients.append({
                     'quantity': quantity[i],
                     'measurement': measurement[i],
                     'item': item[i]
+                })
+            
+            for j in range(len(method)):
+                instructions.append({
+                    'step': j+1.0,
+                    'text': method[j]
                 })
 
             inserted_recipe = db.recipes.insert_one({
@@ -122,8 +141,11 @@ def submit_recipe():
                 'title': request.form.get('title'),
                 'description': request.form.get('description'),
                 'image': image['url'],
-                'ingredients': ingredients
+                'image_small': image_small['url'],
+                'ingredients': ingredients,
+                'method': instructions
             }, {"w": "majority"})
+
             recipe = db.recipes.find_one({"_id": inserted_recipe.inserted_id})
             return render_template('recipe.html', recipe=recipe)
     else:
