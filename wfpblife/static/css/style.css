@@ -30,6 +30,48 @@ body {
     transition: all 0.2s;
 }
 
+.card {
+    border: none;
+    box-shadow: 0.9rem 0.8rem 2rem rgba(97, 165, 160, 0.5);
+    padding: 10px;
+}
+
+.card-content {
+    position: relative;
+}
+
+.card-img {
+    border-radius: 5%;
+}
+
+.card-img-container {
+    border: 2px solid rgb(97, 165, 160);
+    border-radius: 5%;
+    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
+    height: 120%;
+    margin: 5px;
+}
+
+.col-md-8.card-contents {
+    padding-left: 50px;
+}
+
+.card-text {
+    position: absolute;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    top: 30%;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.content-container, .mpr-container {
+    margin-top: 7rem;
+}
+
 .home_rotw:hover {
     background-color: white;
     border: 2px solid #61a5a0;
@@ -44,11 +86,27 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 50vh;
+    padding-top: 20px;
+}
+
+.main-text {
+    font-family: 'Raleway', sans-serif;
+    text-transform: uppercase;
 }
 
 .navbar, .navbar-brand, .nav-item {
     background-color: #61a5a0;
     color: white;
+    font-family: 'Roboto Slab', serif;
+    text-transform: uppercase;
+}
+
+#prep_time, #cook_time, #servings {
+    display: inline;
+}
+
+#recipe-search {
+    padding: 20px;
 }
 
 .recipes-container {
@@ -58,7 +116,19 @@ body {
 .rotw-img, .mpr-img {
     display: flex;
     margin: auto;
-    width: 100%;
+    width: 80%;
+}
+
+#rotw-description, #mpr-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+#rotw-title, #mpr-title, #explore-title {
+    color: #b54448;
+    font-family: 'Raleway', sans-serif;
+    text-transform: capitalize;
 }
 
 .signlog-container {
@@ -66,4 +136,21 @@ body {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+#submitted-by {
+    bottom: 20px;
+    position: absolute;
+    right: 120px;
+}
+
+#view-recipe-btn {
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+}
+
+#view-recipe-small-btn {
+    position: absolute;
+    top: 75%;
 }

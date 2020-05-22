@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% from '_recipe_page_base.html' import recipes_page %}
+
+
+{% block content %}
+
+    <!-- Adapt the greeting to accommodate new and returning users -->
+    {% if user.login_count >= 1 %}
+        <h1>Welcome back {{ user.username }}</h1>
+    {% else %}
+        <h1>Welcome {{ user.username }}</h1>
+    {% endif %}
+
+
+    {{ recipes_page(recipes) }}
+
+
+{% endblock content %}

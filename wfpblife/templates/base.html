@@ -8,9 +8,11 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-
         <!-- Font Awesome -->
         <script src="https://kit.fontawesome.com/338bed3efb.js" crossorigin="anonymous"></script>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto+Slab&display=swap" rel="stylesheet">
 
         <!-- Additional Styling -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -28,17 +30,22 @@
                     <div class="navbar-nav ml-auto">
                         <a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a>
                         <a class="nav-item nav-link" href="{{ url_for('get_recipes') }}">Recipes</a>
-                        <a class="nav-item nav-link" href="#">Shop</a>
 
                         <!-- Choose nav-items dependent on whether user is logged in or not -->
+
                         {% if not session['email'] %}
+                            <!-- Display only if user not logged in -->
                             <a class="nav-item nav-link" id="signup" href="{{ url_for('signup') }}">Sign Up</a>
+                            <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                        {% else %}
+                            <!-- Display only if user logged in -->
+                            <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+                            <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                         {% endif %}
 
                         {% if not session['email'] %}
-                            <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-                        {% else %}    
-                            <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                            <!-- Display only if user not logged in -->
+                        
                         {% endif %}
 
                     </div>
@@ -62,7 +69,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container content-container">
             {% block content %}
             {% endblock content %}
         </div>

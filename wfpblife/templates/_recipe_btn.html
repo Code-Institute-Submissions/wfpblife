@@ -1,9 +1,18 @@
-<!-- Create a base form template -->
+<!-- Create a base recipe button template -->
 {% macro recipe_btn(recipe) %}
     <div class="btn_wrapper">
         <form action="{{ url_for('get_recipe') }}"  method="GET">
             <input type="hidden" name="title" value="{{ recipe.title }}">
-        <button class="btn btn-lg">View recipe</button>
+            <button class="btn btn-success btn-lg" id="view-recipe-btn">View recipe</button>
+        </form>
+    </div>
+{% endmacro %}
+
+{% macro recipe_btn_small(recipe) %}
+    <div class="btn_wrapper">
+        <form action="{{ url_for('get_recipe') }}"  method="GET">
+            <input type="hidden" name="title" value="{{ recipe.title }}">
+            <button class="btn btn-success btn-lg" id="view-recipe-btn-small">View recipe</button>
         </form>
     </div>
 {% endmacro %}

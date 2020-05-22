@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% from'_form_base.html' import form_base %}
+
 
 {% block content %}
 
@@ -10,15 +12,14 @@
         {{ form.hidden_tag() }}
 
         <div class="form-group mx-2">
-            <label for="title">Recipe title</label>
-            <input type="text" class="form-control" id="title" name="title">
+            {{ form_base(form.title) }}
         </div>
         <div class="form-group mx-2">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            {{ form_base(form.description) }}
         </div>
         <div class="form-group mx-2">
-            <input type=file name=file>
+            {{ form.image.label(class="form-control-label mx-2") }}<br>
+            <input class="mx-2" type="file" name="file">
         </div>
         <div class="from-group">
             <table class="table table-borderless">
@@ -55,6 +56,15 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="form-group mx-2 mt-4">
+                {{ form_base(form.prep_time) }}
+            </div>
+            <div class="form-group mx-2 mt-4">
+                {{ form_base(form.cook_time) }}
+            </div>
+            <div class="form-group mx-2 mt-4">
+                {{ form_base(form.servings) }}
+            </div>
             <table class="table table-borderless">
                 <tbody id="dynamic-method-row">
                     <tr class="row method-row mx-2">

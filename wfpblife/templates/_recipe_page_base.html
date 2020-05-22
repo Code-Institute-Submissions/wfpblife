@@ -1,0 +1,31 @@
+<!-- Create a base recipes html template -->
+{% macro recipes_page(recipes) %}
+{% from'_recipe_btn.html' import recipe_btn_small %}
+
+
+<div class="container">
+    {% for recipe in recipes %}
+        <div class="container recipes-container">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-3 card-img-container">
+                        <img src={{recipe.image_small}} class="card-img recipe-img" alt="placeholder image">
+                    </div>
+                    <div class="col-md-8 card-contents">
+                        <div class="card-body">
+                            <h5 class="card-title">{{recipe.title}}</h5>
+                            <p class="card-text">{{recipe.description}}</p>
+                        </div>
+                        <div class="container" id="view-recipe-small-btn">
+                            <p class="card-text" id="submitted-by"><small class="text-muted">Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small></p>
+                        </div>
+                        <div class="container" id="view-recipe-small-btn">
+                            {{ recipe_btn_small(recipe) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+        
+{% endmacro %}
