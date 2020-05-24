@@ -6,6 +6,10 @@
         <h1>{{ recipe.title }}</h1>
         <img src={{ recipe.image}} class="rotw-img" alt="recipe image">
     </div>
+    <div class="timings">
+        <h3>Prep time: {{ recipe.prep_time }}</h3>
+        <h3>Cooking time: {{ recipe.cook_time }}</h3>
+    </div>
     <div class="ingredients">
         <h3>Ingredients</h3>
         {% for ingredient in recipe.ingredients %}
@@ -26,4 +30,25 @@
                 {% endfor %}
             </ol>
     </div>
+
+    <!-- Check if there are any comments -->
+    {% if comments %}
+        <div class="comments">
+            <h3>Comments</h3>
+            {% for comment in comments %}
+                {% if comment %}
+                    <h4>{{ comment.comments.title }}</h4>
+                    <p>{{ comment.comments.content }}</p>
+                    <p>{{ comment.comments.comment_by }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- If the recipe is owned by the user provide edit and delete functions -->
+    {% if owner %}
+        <a href="{{ url_for('edit_recipe', title=recipe.title) }}"><button class="btn btn-outline-primary">Edit</button></a>
+        <button type="button" class="btn btn-outline-danger">Delete</button>
+    {% endif %}
+    
 {% endblock content %}

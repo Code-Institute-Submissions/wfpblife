@@ -8,6 +8,7 @@ from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '7fa953dcdd7a296edab71c7579cdd8fc'
 cloudinary.config(

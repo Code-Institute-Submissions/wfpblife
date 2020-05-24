@@ -1,12 +1,9 @@
 import os
 
 from flask import redirect, request, render_template, url_for, flash, session
-from flask_paginate import Pagination, get_page_parameter
 from datetime import datetime
 from wfpblife.forms import SignUpForm, LoginForm, RecipeForm
 from wfpblife import app, db, cloudinary, bcrypt
-
-from cloudinary import CloudinaryImage
 
 
 
@@ -199,10 +196,34 @@ def submit_recipe():
 
 @app.route('/recipe', methods=['GET', 'POST'])
 def get_recipe():
+
+    # Set initial condition
+    owner = False
+
+    # Find the recipe
     title = request.args.get('title')
     recipe = db.recipes.find_one({'title': title})
+
+    if 'email' in session:
+        user = db.users.find_one({"email": session['email']})
+        # Check if the session user is the recipe owner
+        if user['_id'] == recipe['user_id']:
+            owner = True
+        else:
+            owner = False
     
-    return render_template('recipe.html', recipe=recipe)
+    comments = []
+
+    # Get the all comments and aggregate the author's username
+    from wfpblife.recipe_comments import recipe_comments
+    comments_aggregate = db.recipes.aggregate(recipe_comments, allowDiskUse = False)
+
+    # Select only those comments that are relevant to this recipe and append to the empty comments list
+    for comment in comments_aggregate:
+        if recipe['_id'] == comment['_id']:
+            comments.append(comment)
+
+    return render_template('recipe.html', recipe=recipe, owner=owner, comments = comments)
 
 
 @app.route('/recipes')
@@ -211,6 +232,7 @@ def get_recipes():
     # Get 10 recipes
     from wfpblife.recipes_user_lookup import user_lookup
     recipes = db.recipes.aggregate(user_lookup, allowDiskUse = False)
+    
 
 
     return render_template('recipes.html', recipes=recipes)
@@ -220,6 +242,79 @@ def get_recipes():
 def get_recipes2():
     recipes = db.recipes.find({}).skip(10).limit(10)
     return render_template('recipes2.html', recipes=recipes)
+
+
+@app.route('/edit_recipe/<title>', methods=['GET', 'POST'])
+def edit_recipe(title):
+    if 'email' in session:
+        user = db.users.find_one({"email": session['email']})
+    
+    recipe = db.recipes.find_one({'title': title})
+
+    # Check if the session user is the recipe owner
+    if user['_id'] == recipe['user_id']:
+        owner = True
+    else:
+        owner = False
+    
+    if request.method == 'POST':
+            # Retrieve the ingredients form the form
+            data = request.form.to_dict(flat=False)
+            
+            for quantity in data['quantity']:
+                quantity = data['quantity']
+                measurement = data['measurement']
+                item = data['item']
+
+            # Retrieve the method steps from the form            
+            for method in data['method']:
+                method = data['method']
+            
+            # Create empty lists to store ingredients and cooking method
+            ingredients = []
+            instructions = [] # Changed from method to avoid potential naming conflict
+
+            # Pass values to the ingredients list
+            for i in range(len(quantity)):
+                ingredients.append({
+                    'quantity': quantity[i],
+                    'measurement': measurement[i],
+                    'item': item[i]
+                })
+            
+            # Pass values to the instructions list
+            for j in range(len(method)):
+                instructions.append({
+                    'step': j+1.0,
+                    'text': method[j]
+                })
+            
+            print(instructions)
+
+            # Insert the recipe into the database
+            updated_recipe = db.recipes.update({"title": title}, {
+                
+                # Using set to prevent overwriting elements not required here
+                "$set": {
+                    'user_id': user['_id'],
+                    'prep_time': int(request.form.get('prep_time')), # Cast returned value to Int32
+                    'cook_time': int(request.form.get('cook_time')), # Cast returned value to Int32
+                    'date_added': datetime.utcnow(),
+                    'servings': int(request.form.get('servings')), # Cast returned value to Int32
+                    'title': request.form.get('title'),
+                    'description': request.form.get('description'),
+                    'ingredients': ingredients,
+                    'method': instructions
+                }
+            })
+
+            # Reacquire the recipe
+            recipe = db.recipes.find_one({'title': title})
+            
+            # Display it for the user to review
+            return render_template('recipe.html', owner=owner,  recipe=recipe)
+
+    return render_template('edit_recipe.html', owner=owner, recipe=recipe)
 
 
 @app.route('/account')
