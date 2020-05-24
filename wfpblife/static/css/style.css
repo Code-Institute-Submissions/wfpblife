@@ -36,17 +36,16 @@ body {
     padding: 10px;
 }
 
-.card-content {
+.card-contents {
     position: relative;
 }
 
 .card-img {
-    border-radius: 5%;
+    border-radius: 2%;
 }
 
 .card-img-container {
-    border: 2px solid rgb(97, 165, 160);
-    border-radius: 5%;
+    border-radius: 2%;
     box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
     height: 120%;
     margin: 5px;
@@ -60,7 +59,8 @@ body {
     position: absolute;
     font-size: 0.8rem;
     text-transform: uppercase;
-    top: 30%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .card-title {
@@ -114,6 +114,7 @@ body {
 }
 
 .rotw-img, .mpr-img {
+    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
     display: flex;
     margin: auto;
     width: 80%;

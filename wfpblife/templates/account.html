@@ -4,13 +4,16 @@
 
 {% block content %}
 
-    <!-- Adapt the greeting to accommodate new and returning users -->
-    {% if user.login_count >= 1 %}
-        <h1>Welcome back {{ user.username }}</h1>
-    {% else %}
-        <h1>Welcome {{ user.username }}</h1>
-    {% endif %}
+    <div class="container">
+        <!-- Adapt the greeting to accommodate new and returning users -->
+        {% if user.login_count >= 1 %}
+            <h1>Welcome back {{ user.username }}</h1>
+        {% else %}
+            <h1>Welcome {{ user.username }}</h1>
+        {% endif %}
 
-    {{ recipes_page(recipes) }}
+        {{ recipes_page(recipes, user) }}
+    </div>
+    
 
 {% endblock content %}

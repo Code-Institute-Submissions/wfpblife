@@ -1,6 +1,7 @@
 <!-- Create a base recipes html template -->
-{% macro recipes_page(recipes) %}
+{% macro recipes_page(recipes, user) %}
 {% from'_recipe_btn.html' import recipe_btn_small %}
+
 
 
 <div class="container">
@@ -17,7 +18,17 @@
                             <p class="card-text">{{recipe.description}}</p>
                         </div>
                         <div class="container" id="view-recipe-small-btn">
-                            <p class="card-text" id="submitted-by"><small class="text-muted">Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small></p>
+                            <p class="card-text" id="submitted-by"><small class="text-muted">
+
+                                <!-- Check if a user -->
+                                {% if user %}
+                                    {% if user['username'] == recipe['username'] %}
+                                        Submitted on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
+                                    {% endif %}
+                                {% else %}
+                                    Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
+                                {% endif %}
+                            </p>
                         </div>
                         <div class="container" id="view-recipe-small-btn">
                             {{ recipe_btn_small(recipe) }}

@@ -143,33 +143,14 @@ def submit_recipe():
 
             # Retrieve the ingredients form the form
             data = request.form.to_dict(flat=False)
-            for quantity in data['quantity']:
-                quantity = data['quantity']
-                measurement = data['measurement']
-                item = data['item']
 
-            # Retrieve the method steps from the form            
-            for method in data['method']:
-                method = data['method']
             
             # Create empty lists to store ingredients and cooking method
             ingredients = []
             instructions = [] # Changed from method to avoid potential naming conflict
 
-            # Pass values to the ingredients list
-            for i in range(len(quantity)):
-                ingredients.append({
-                    'quantity': quantity[i],
-                    'measurement': measurement[i],
-                    'item': item[i]
-                })
-            
-            # Pass values to the instructions list
-            for j in range(len(method)):
-                instructions.append({
-                    'step': j+1.0,
-                    'text': method[j]
-                })
+            populate_recipe(data, ingredients, instructions)
+
 
             # Insert the recipe into the database
             inserted_recipe = db.recipes.insert_one({
@@ -232,7 +213,6 @@ def get_recipes():
     # Get 10 recipes
     from wfpblife.recipes_user_lookup import user_lookup
     recipes = db.recipes.aggregate(user_lookup, allowDiskUse = False)
-    
 
 
     return render_template('recipes.html', recipes=recipes)
@@ -240,7 +220,11 @@ def get_recipes():
 
 @app.route('/recipes2')
 def get_recipes2():
-    recipes = db.recipes.find({}).skip(10).limit(10)
+
+    # Get the next 10 recipes
+    from wfpblife.recipes2_user_lookup import user_lookup
+    recipes = db.recipes.aggregate(user_lookup, allowDiskUse = False)
+
     return render_template('recipes2.html', recipes=recipes)
 
 
@@ -261,35 +245,11 @@ def edit_recipe(title):
             # Retrieve the ingredients form the form
             data = request.form.to_dict(flat=False)
             
-            for quantity in data['quantity']:
-                quantity = data['quantity']
-                measurement = data['measurement']
-                item = data['item']
-
-            # Retrieve the method steps from the form            
-            for method in data['method']:
-                method = data['method']
-            
-            # Create empty lists to store ingredients and cooking method
+            # # Create empty lists to store ingredients and cooking method
             ingredients = []
             instructions = [] # Changed from method to avoid potential naming conflict
 
-            # Pass values to the ingredients list
-            for i in range(len(quantity)):
-                ingredients.append({
-                    'quantity': quantity[i],
-                    'measurement': measurement[i],
-                    'item': item[i]
-                })
-            
-            # Pass values to the instructions list
-            for j in range(len(method)):
-                instructions.append({
-                    'step': j+1.0,
-                    'text': method[j]
-                })
-            
-            print(instructions)
+            populate_recipe(data, ingredients, instructions)
 
             # Insert the recipe into the database
             updated_recipe = db.recipes.update({"title": title}, {
@@ -317,6 +277,13 @@ def edit_recipe(title):
     return render_template('edit_recipe.html', owner=owner, recipe=recipe)
 
 
+@app.route('/delete_recipe/<title>')
+def delete_recipe(title):
+    recipe = db.recipes.delete_one({'title': title})
+    print(recipe)
+    return redirect(url_for('account'))
+
+
 @app.route('/account')
 def account():
     # Restrict access to this route to logged in users
@@ -324,6 +291,76 @@ def account():
         # Get the user
         user = db.users.find_one({"email": session['email']})
 
-        recipes = db.recipes.find({"user_id": user['_id']})
+        recipes = db.recipes.aggregate([
+            {
+                u"$match": {"user_id": user['_id']}
+            }, 
+            {
+                u"$lookup": {
+                    u"from": u"users",
+                    u"let": {
+                        u"id": u"$user_id"
+                    },
+                    u"pipeline": [
+                        {
+                            u"$match": {
+                                u"$expr": {
+                                    u"$eq": [
+                                        u"$_id",
+                                        u"$$id"
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    u"as": u"user"
+                }
+            }, 
+            {
+                u"$unwind": {
+                    u"path": u"$user",
+                    u"preserveNullAndEmptyArrays": False
+                }
+            }, 
+            {
+                u"$addFields": {
+                    u"username": u"$user.username"
+                }
+            }, 
+            {
+                u"$project": {
+                    u"user": 0.0
+                }
+            }
+        ])
 
     return render_template('account.html', user=user, recipes=recipes)
+
+
+
+def populate_recipe(data, ingredients, instructions):
+    for quantity in data['quantity']:
+        quantity = data['quantity']
+        measurement = data['measurement']
+        item = data['item']
+
+    # Retrieve the method steps from the form            
+    for method in data['method']:
+        method = data['method']
+
+    # Pass values to the ingredients list
+    for i in range(len(quantity)):
+        ingredients.append({
+            'quantity': quantity[i],
+            'measurement': measurement[i],
+            'item': item[i]
+        })
+    
+    # Pass values to the instructions list
+    for j in range(len(method)):
+        instructions.append({
+            'step': j+1.0,
+            'text': method[j]
+        })
+
+    return ingredients, instructions

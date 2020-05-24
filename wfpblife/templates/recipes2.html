@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% from '_recipe_page_base.html' import recipes_page %}
+
 
 {% block content %}
-    {% for recipe in recipes %}
-        <p>{{ recipe.title }}</p>
-    {% endfor %}
+    {{ recipes_page(recipes) }}
+
     <div class="pt-3">
         <small class="text-muted">
             <a href="{{ url_for('get_recipes') }}" class="ml-2">Back</a>

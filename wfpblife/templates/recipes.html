@@ -2,9 +2,9 @@
 {% from '_recipe_page_base.html' import recipes_page %}
 
 
-{% block content %}
-    
+{% block content %}    
     {{ recipes_page(recipes) }}
+
     <div class="pt-3">
         <small class="text-muted">
             <a href="{{ url_for('get_recipes2') }}" class="ml-2">More</a>
