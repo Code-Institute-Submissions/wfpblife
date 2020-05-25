@@ -1,3 +1,9 @@
+.author {
+    color: white;
+}
+
+
+
 body {
     margin: 0;
     padding: 0;
@@ -51,10 +57,6 @@ body {
     margin: 5px;
 }
 
-.col-md-8.card-contents {
-    padding-left: 50px;
-}
-
 .card-text {
     position: absolute;
     font-size: 0.8rem;
@@ -68,8 +70,36 @@ body {
     text-transform: uppercase;
 }
 
+
+.col-md-8.card-contents {
+    padding-left: 50px;
+}
+
+
 .content-container, .mpr-container {
     margin-top: 7rem;
+}
+
+.copyright {
+    margin-left: 40%;
+}
+
+.copyright-link, .copyright-link:hover, .copyright-link:active {
+    color: white;
+    text-decoration: none;
+}
+
+.dummy-container {
+    height: 100vh;
+}
+
+.fab {
+    color: white;
+}
+
+.footer-nav-item {
+    font-size: 1.2rem;
+    list-style-type: none;
 }
 
 .home_rotw:hover {
@@ -94,7 +124,7 @@ body {
     text-transform: uppercase;
 }
 
-.navbar, .navbar-brand, .nav-item {
+.navbar, .navbar-brand, .nav-item, .footer-outer-container {
     background-color: #61a5a0;
     color: white;
     font-family: 'Roboto Slab', serif;
@@ -111,6 +141,31 @@ body {
 
 .recipes-container {
     margin-top: 5rem;
+}
+
+#revolution {
+    background-color: #61a5a0;
+    color: white;
+    margin: 2rem 0;
+    padding: 2rem 0;
+}
+
+#revolution-inner-container {
+    margin: auto;
+    width: 80%;
+}
+
+#revolution_underline {
+    border: 0.5px solid white;
+    margin-bottom: 1rem;
+}
+
+#revolution_text {
+    color: white;
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.2rem;
+    margin-top: 5rem;
+    text-align: center;
 }
 
 .rotw-img, .mpr-img {
@@ -137,6 +192,10 @@ body {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.social-media-container {
+    text-align: center;
 }
 
 #submitted-by {

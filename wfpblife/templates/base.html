@@ -32,7 +32,6 @@
                         <a class="nav-item nav-link" href="{{ url_for('get_recipes') }}">Recipes</a>
 
                         <!-- Choose nav-items dependent on whether user is logged in or not -->
-
                         {% if not session['email'] %}
                             <!-- Display only if user not logged in -->
                             <a class="nav-item nav-link" id="signup" href="{{ url_for('signup') }}">Sign Up</a>
@@ -42,12 +41,6 @@
                             <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
                             <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                         {% endif %}
-
-                        {% if not session['email'] %}
-                            <!-- Display only if user not logged in -->
-                        
-                        {% endif %}
-
                     </div>
                 </div>
             </div>
@@ -69,11 +62,94 @@
             </div>
         </div>
 
-        <div class="container content-container">
-            {% block content %}
-            {% endblock content %}
-        </div>
+        {% block content %}
+        {% endblock content %}
         
+
+
+        <!--Start of Footer Section -->
+        <div class="container-fluid footer-outer-container">
+            <div class="container">
+                <div class="footer">
+                    <div class="row">
+                        <!-- A repeat of the main navigation link items -->
+                        <div class="col-lg-1 offset-lg-2 col-12 footer-nav mt-5">
+                            <ul class="m-0 p-0">
+                                <li class="footer-nav-item">
+                                    <a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="footer-nav-item">
+                                    <a class="nav-item nav-link" href="{{ url_for('get_recipes') }}">Recipes</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2 offset-lg-5 col-12 footer-nav mt-5">
+                            <ul class="m-0 p-0">
+                                {% if not session['email'] %}
+                                    <!-- Display only if user not logged in -->
+                                    <li class="footer-nav-item text-right">
+                                        <a class="nav-item nav-link" id="signup" href="{{ url_for('signup') }}">Sign Up</a>
+                                    </li>
+                                    <li class="footer-nav-item text-right">
+                                        <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                                    </li>
+                                {% else %}
+                                    <li class="footer-nav-item text-right">
+                                        <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+                                    </li>
+                                    <li class="footer-nav-item text-right">
+                                        <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+    
+                        
+                    </div>
+
+                    <div class="row mt-5 mx-3">
+                        <div class="container social-media-container">
+                            <div class="row">
+                                <div class="col-lg-2 offset-lg-1">
+                                    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-2x fa-facebook-f"></i></a>
+                                </div>
+                                <div class="col-lg-2">
+                                    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-2x fa-instagram"></i></i></a>
+                                </div>
+                                <div class="col-lg-2">
+                                    <a href="https://twitter.com/" target="_blank"><i class="fab fa-2x fa-twitter"></i></i></a>
+                                </div>
+                                <div class="col-lg-2">
+                                    <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-2x fa-linkedin-in"></i></a>
+                                </div>
+                                <div class="col-lg-2">
+                                    <a href="https://www.pinterest.ie/" target="_blank"><i class="fab fa-2x fa-pinterest"></i></i></a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mt-5">
+                        <div class="copyright">
+                            <p><small>© 2019 &nbsp; Website Design by <a class="copyright-link" href="https://d3dzines.wordpress.com/" target="_blank">
+                            <span class=" ml-3 author">D3DZINES</span></a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End of Footer Section -->
+
+
+
+
+
+
+
+
 
 
         <!-- Optional JavaScript -->

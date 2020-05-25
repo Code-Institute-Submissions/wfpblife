@@ -20,67 +20,78 @@
         </div>
 
         <hr>
-            <div class="container">
-                <h1 class="display-5 main-text text-center mt-5">wfpb recipes</h1>
-                <div id="recipe-search">
-                    <h2 class="pb-3 text-center" id="rotw-title">explore & share</h2>
-                    <div class="row justify-content-center">
-                    <div class="col-12 col-md-10 col-lg-8">
-                        <form class="card card-sm" method="POST" action="">
-                            <div class="card-body row no-gutters align-items-center">
-                                <div class="col">
-                                <input class="form-control form-control-lg form-control-borderless" name="recipe" placeholder="Search recipes">
-                                </div>
-                                <div class="col-auto">
-                                <button class="btn btn-lg btn-success" type="submit">Search</button></a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        <hr>
 
         <div class="container">
-            {% for recipe in recipes %}
-                <div class="container recipes-container">
-                <div class="card mb-3">
-                        <div class="row no-gutters">
-                            <div class="col-md-3 card-img-container">
-                            <img src={{recipe.recipes.image_small}} class="card-img recipe-img" alt="placeholder image">
+            <h1 class="display-5 main-text text-center mt-5">wfpb recipes</h1>
+            <div id="recipe-search">
+                <h2 class="pb-3 text-center" id="rotw-title">explore & share</h2>
+                <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <form class="card card-sm" method="POST" action="">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col">
+                            <input class="form-control form-control-lg form-control-borderless" name="recipe" placeholder="Search recipes">
                             </div>
-                            <div class="col-md-8 card-contents">
-                            <div class="card-body">
-                                <h5 class="card-title">{{recipe.recipes.title}}</h5>
-                                <p class="card-text">{{recipe.recipes.description}}</p>
-                            </div>
-                            <div class="container" id="view-recipe-small-btn">
-                                {{ recipe_btn_small(recipe.recipes) }}
-                                <p class="card-text" id="submitted-by"><small class="text-muted">Submitted by {{recipe.recipes.username}} on {{recipe.recipes.date_added.strftime('%d-%m-%Y')}}</small></p>
-                            </div>
+                            <div class="col-auto">
+                            <button class="btn btn-lg btn-success" type="submit">Search</button></a>
                             </div>
                         </div>
+                    </form>
                 </div>
                 </div>
-            {% endfor %}
-        </div>
-
-        <div class="container jumbotron-container mpr-container">
-            <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{rotw.image}});">Most Popular Recipe</h1>
-            <div class="jumbotron" id="recipe-of-the-week">
-                {% for mpr in mpr %}
-                <h2 class="pb-3 text-center" id="mpr-title">{{ mpr.title}}</h2>
-                <img src={{mpr.image}} class="mpr-img" alt="placeholder image">
-                <p class=" py-3 text-center" id="mpr-description">{{ mpr.description }}</p>
-                
-                {{ recipe_btn(mpr) }}
-                
-                {% endfor %}
             </div>
         </div>
-
-            <a href="{{ url_for('submit_recipe') }}">Submit recipe</a>
     </div>
-    
+    <div class="container-fluid" id="revolution">
+        <div class="container my-5">
+            <h1 class="display-5 main-text text-center">Join the revolution</h1>
+            <hr id="revolution_underline">
+            <div id="revolution-inner-container">
+                <p id="revolution_text">
+                    Dr. T. Colin Campbell has shown that heart disease, diabetes and obesity can be prevented and reversed using good nutrition. Help support our community achieve positive lifestyle changes by sharing your healthy whole-food, plant-based recipes.
+                </p>
+            </div>
+            <div class="submit-recipe-wrapper mt-5 text-center">
+                <a href="{{ url_for('submit_recipe') }}"><button class="btn btn-lg btn-outline-light" id="submit-recipe">Submit your recipe</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% for recipe in recipes %}
+            <div class="container recipes-container">
+            <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-3 card-img-container">
+                        <img src={{recipe.recipes.image_small}} class="card-img recipe-img" alt="placeholder image">
+                        </div>
+                        <div class="col-md-8 card-contents">
+                        <div class="card-body">
+                            <h5 class="card-title">{{recipe.recipes.title}}</h5>
+                            <p class="card-text">{{recipe.recipes.description}}</p>
+                        </div>
+                        <div class="container" id="view-recipe-small-btn">
+                            {{ recipe_btn_small(recipe.recipes) }}
+                            <p class="card-text" id="submitted-by"><small class="text-muted">Submitted by {{recipe.recipes.username}} on {{recipe.recipes.date_added.strftime('%d-%m-%Y')}}</small></p>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="container jumbotron-container mpr-container">
+        <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{rotw.image}});">Most Popular Recipe</h1>
+        <div class="jumbotron" id="recipe-of-the-week">
+            {% for mpr in mpr %}
+            <h2 class="pb-3 text-center" id="mpr-title">{{ mpr.title}}</h2>
+            <img src={{mpr.image}} class="mpr-img" alt="placeholder image">
+            <p class=" py-3 text-center" id="mpr-description">{{ mpr.description }}</p>
+            
+            {{ recipe_btn(mpr) }}
+            
+            {% endfor %}
+        </div>
+    </div>    
 {% endblock content %}
