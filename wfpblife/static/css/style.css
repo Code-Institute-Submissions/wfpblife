@@ -1,12 +1,13 @@
-.author {
-    color: white;
-}
-
-
-
+/* ELEMENTS */
 body {
     margin: 0;
     padding: 0;
+}
+
+
+/* CLASSES */
+.author {
+    color: white;
 }
 
 .add-ingredient {
@@ -18,10 +19,6 @@ body {
     position: relative;
     text-align: center;
     width: 100%;
-}
-
-.btn_wrapper {
-    position: relative;
 }
 
 .btn.home_rotw, .btn.home_rotw:active {
@@ -36,6 +33,24 @@ body {
     transition: all 0.2s;
 }
 
+.btn-md#view-recipe-btn-small {
+    position: absolute;
+    left: 50%;
+    top: 120%;
+    transform: translateX(-50%);
+}
+
+.btn-outline-dark {
+    border: 1px solid #b54448;
+    color: #b54448;
+}
+
+.btn-outline-dark:hover {
+    border: 1px solid #b54448;
+    background-color: #b54448;
+    color: white;
+}
+
 .card {
     border: none;
     box-shadow: 0.9rem 0.8rem 2rem rgba(97, 165, 160, 0.5);
@@ -46,8 +61,17 @@ body {
     position: relative;
 }
 
+.card-footer {
+    background-color: transparent;
+    position: absolute;
+    right: 0;
+    top: 70%;
+}
+
 .card-img {
     border-radius: 2%;
+    margin: 2.5%;
+    width: 95%
 }
 
 .card-img-container {
@@ -58,21 +82,13 @@ body {
 }
 
 .card-text {
-    position: absolute;
     font-size: 0.8rem;
     text-transform: uppercase;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .card-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
-}
-
-
-.col-md-8.card-contents {
-    padding-left: 50px;
 }
 
 
@@ -110,6 +126,15 @@ body {
     transform: translate(-50%, -1%)
 }
 
+.ingredients, .method {
+    font-family: 'Raleway', sans-serif;
+}
+
+.ingredients ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
 .jumbotron {
     background-color: transparent;
     background-position: center center;
@@ -117,6 +142,13 @@ body {
     background-size: cover;
     min-height: 50vh;
     padding-top: 20px;
+}
+
+.jumbo-404 {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .main-text {
@@ -131,16 +163,45 @@ body {
     text-transform: uppercase;
 }
 
+.recipes-container {
+    margin-top: 5rem;
+}
+
+.rotw-img, .mpr-img {
+    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
+    display: none;
+    max-width: 70%;
+}
+
+.rotw-img-small, .mpr-img-small {
+    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
+    display: flex;
+    margin: auto;
+    width: 100%;
+}
+
+.signlog-container {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.social-media-container {
+    text-align: center;
+}
+
+.title-404 {
+    text-align: center;
+}
+
+/* IDs */
 #prep_time, #cook_time, #servings {
     display: inline;
 }
 
 #recipe-search {
     padding: 20px;
-}
-
-.recipes-container {
-    margin-top: 5rem;
 }
 
 #revolution {
@@ -168,49 +229,33 @@ body {
     text-align: center;
 }
 
-.rotw-img, .mpr-img {
-    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
-    display: flex;
-    margin: auto;
-    width: 80%;
-}
-
 #rotw-description, #mpr-description {
     font-family: 'Raleway', sans-serif;
     font-size: 1rem;
     text-transform: uppercase;
 }
 
-#rotw-title, #mpr-title, #explore-title {
+#rotw-title, #mpr-title, #explore-title, #recipe-title {
     color: #b54448;
     font-family: 'Raleway', sans-serif;
     text-transform: capitalize;
 }
 
-.signlog-container {
+#view-recipe-btn, #view-recipe-btn:visited {
+    backface-visibility: hidden;
     left: 50%;
     position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
+    transition: all 0.15s;
 }
 
-.social-media-container {
-    text-align: center;
+#view-recipe-btn:hover {
+    box-shadow: 0.25rem 0.25rem 0.25rem  rgba(97, 165, 160, 0.7);
+    transform: translate(-50%, -5%);
 }
 
-#submitted-by {
-    bottom: 20px;
-    position: absolute;
-    right: 120px;
+#view-recipe-btn:active {
+    box-shadow: 0.125rem 0.125rem 0.125rem  rgba(97, 165, 160, 1);
+    transform: translate(-50%, 0%);
 }
 
-#view-recipe-btn {
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-}
-
-#view-recipe-small-btn {
-    position: absolute;
-    top: 75%;
-}

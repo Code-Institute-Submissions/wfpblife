@@ -1,0 +1,58 @@
+@media only screen and (min-width: 768px) {
+    .btn-md#view-recipe-btn-small {
+        left: 10%;
+        top: 80%;
+    }
+
+    .card-footer {
+        background-color: transparent;
+        position: absolute;
+        right: 0;
+        top: 70%;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .recipes-container {
+        margin-left: 15%;
+        width: 70%;
+    }
+
+    .rotw-img, .mpr-img {
+        display: block;
+        margin: auto;
+    }
+
+    .rotw-img-small, .mpr-img-small {
+        display: none;
+    }
+
+    .signlog-container {
+        width: 50%;
+    }
+
+    .timings {
+        display: flex;
+        font-size: 1.5rem;
+        justify-content: space-evenly;
+    }
+
+    .timings-underline {
+        margin-bottom: 5%;
+    }
+
+    #rotw-description, #mpr-description {
+        margin-left: 15%;
+        width: 70%;
+    }
+
+}

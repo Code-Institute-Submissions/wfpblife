@@ -4,33 +4,36 @@
 
 
 {% block content %}
-    <div class="container">
-        <div class="container jumbotron-container">
-            <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{rotw.image}});">Recipe of the week</h1>
-            <div class="jumbotron" id="recipe-of-the-week">
-                {% for rotw in rotw %}
-                    <h2 class = "pb-3 text-center" id="rotw-title">{{ rotw.title}}</h2>
-                        <img src={{rotw.image}} class="rotw-img" alt="recipe image">
-                    <p class=" py-3 text-center" id="rotw-description">{{ rotw.description }}</p>
 
-                    {{ recipe_btn(rotw) }}
+    <!-- RECIPE OF THE WEEK -->
+    <div class="container-fluid">
+        <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{rotw.image}});">Recipe of the week</h1>
+        <div class="jumbotron" id="recipe-of-the-week">
+            {% for rotw in rotw %}
+                <h2 class = "pb-3 text-center" id="rotw-title">{{ rotw.title}}</h2>
+                    <img src={{rotw.image}} class="rotw-img" alt="recipe image">
+                    <img src={{rotw.image_small}} class="rotw-img-small" alt="recipe image">
+                <p class="mt-3 py-3 text-center" id="rotw-description">{{ rotw.description }}</p>
 
-                {% endfor %}
-            </div>
+                {{ recipe_btn(rotw) }}
+
+            {% endfor %}
         </div>
+    </div>
 
+
+    <!-- RECIPE SEARCH -->
+    <div class="container">
         <hr>
-
-        <div class="container">
-            <h1 class="display-5 main-text text-center mt-5">wfpb recipes</h1>
-            <div id="recipe-search">
-                <h2 class="pb-3 text-center" id="rotw-title">explore & share</h2>
-                <div class="row justify-content-center">
+        <h1 class="display-5 main-text text-center mt-5">wfpb recipes</h1>
+        <div id="recipe-search">
+            <h2 class="pb-3 text-center" id="rotw-title">explore & share</h2>
+            <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
                     <form class="card card-sm" method="POST" action="">
                         <div class="card-body row no-gutters align-items-center">
                             <div class="col">
-                            <input class="form-control form-control-lg form-control-borderless" name="recipe" placeholder="Search recipes">
+                            <input class="form-control form-control-lg form-control-search" name="recipe" placeholder="Search recipes">
                             </div>
                             <div class="col-auto">
                             <button class="btn btn-lg btn-success" type="submit">Search</button></a>
@@ -38,10 +41,13 @@
                         </div>
                     </form>
                 </div>
-                </div>
             </div>
         </div>
+        <hr class="mb-5">
     </div>
+
+
+    <!-- CALL TO ACTION - JOIN THE REVOLUTION - SUBMIT YOUR RECIPE -->
     <div class="container-fluid" id="revolution">
         <div class="container my-5">
             <h1 class="display-5 main-text text-center">Join the revolution</h1>
@@ -57,41 +63,50 @@
         </div>
     </div>
 
-    <div class="container">
+
+    <!-- MOST RECENT RECIPES -->
+    <div class="container-fluid">
         {% for recipe in recipes %}
-            <div class="container recipes-container">
+        <div class="recipes-container">
             <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-3 card-img-container">
-                        <img src={{recipe.recipes.image_small}} class="card-img recipe-img" alt="placeholder image">
-                        </div>
-                        <div class="col-md-8 card-contents">
+                <div class="row no-gutters">
+                    <div class="col-md-3 card-img-container">
+                        <img src={{recipe.image_small}} class="card-img recipe-img" alt="placeholder image">
+                    </div>
+                    <div class="col-md-8 card-contents">
                         <div class="card-body">
-                            <h5 class="card-title">{{recipe.recipes.title}}</h5>
-                            <p class="card-text">{{recipe.recipes.description}}</p>
-                        </div>
-                        <div class="container" id="view-recipe-small-btn">
-                            {{ recipe_btn_small(recipe.recipes) }}
-                            <p class="card-text" id="submitted-by"><small class="text-muted">Submitted by {{recipe.recipes.username}} on {{recipe.recipes.date_added.strftime('%d-%m-%Y')}}</small></p>
-                        </div>
+                            <h5 class="card-title">{{recipe.title}}</h5>
+                            <p class="card-text">
+                                {{recipe.description}}
+                            </p>
+                            <div class="card-footer" id="submitted-by">
+                                <small class="text-muted">Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
+                            </div>
+                            <div>
+                               {{ recipe_btn_small(recipe) }}
+                            </div>
                         </div>
                     </div>
+                </div>
             </div>
-            </div>
+        </div>
         {% endfor %}
     </div>
 
-    <div class="container jumbotron-container mpr-container">
-        <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{rotw.image}});">Most Popular Recipe</h1>
-        <div class="jumbotron" id="recipe-of-the-week">
+
+    <!-- MOST POPULAR RECIPE -->
+    <div class="container-fluid">
+        <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{mpr.image}});">Most Popular Recipe</h1>
+        <div class="jumbotron" id="most-popular-recipe">
             {% for mpr in mpr %}
             <h2 class="pb-3 text-center" id="mpr-title">{{ mpr.title}}</h2>
             <img src={{mpr.image}} class="mpr-img" alt="placeholder image">
-            <p class=" py-3 text-center" id="mpr-description">{{ mpr.description }}</p>
+            <img src={{mpr.image_small}} class="mpr-img-small" alt="placeholder image">
+            <p class="mt-3 py-3 text-center" id="mpr-description">{{ mpr.description }}</p>
             
             {{ recipe_btn(mpr) }}
             
             {% endfor %}
         </div>
-    </div>    
+    </div>
 {% endblock content %}

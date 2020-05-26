@@ -1,10 +1,16 @@
 import os
 
+from bson.son import SON
 from flask import redirect, request, render_template, url_for, flash, session
 from datetime import datetime
 from wfpblife.forms import SignUpForm, LoginForm, RecipeForm
 from wfpblife import app, db, cloudinary, bcrypt
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -19,22 +25,81 @@ def index():
         return redirect(url_for('search', search_term=search_term))
 
     # Get the five more recently published recipes
-    from wfpblife.latest_recipes import latest_recipes
-    recipes = db.recipes.aggregate(latest_recipes, allowDiskUse = False)
+    username_lookup = user_lookup()
+    searched_recipes = db.recipes.find({}).sort('date_added', -1).limit(5)
 
-    # Get the most popular recipe
-    from wfpblife.most_popular_recipe import mpr
-    mpr = db.recipes.aggregate(mpr, allowDiskUse = False)
+    results = populate_recipes(username_lookup, searched_recipes)
 
-    return render_template('index.html', rotw=rotw, recipes=recipes, mpr=mpr)
+    mpr = popular_recipes(1)
+
+    return render_template('index.html', rotw=rotw, recipes=results, mpr=mpr)
 
 
-@app.route('/search')
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     search_term = request.args['search_term']
+    username_lookup = user_lookup()
     searched_recipes = db.recipes.find({ "$or": [ { "title": { "$regex": search_term } }, { "description": { "$regex": search_term } }, { "ingredients": { "$regex": search_term } } ] })
-    return render_template('search.html', recipes=searched_recipes)
+
+    # Filter the search results by author
+    recipes = []
+    results = []
+
+    filtered_recipes = []
+
+    for lookup in username_lookup:
+        for recipe in searched_recipes:
+            recipes.append(recipe['_id'])
+        for recipe in recipes:
+            if lookup['_id'] == recipe:
+                results.append(lookup)
     
+    authors = filter(results)
+
+    # Filter the search results by popularity
+    searched_recipes = db.recipes.find({"$or": [{"title": {"$regex": search_term}}, {
+                                       "description": {"$regex": search_term}}, {"ingredients": {"$regex": search_term}}]})
+
+    total = db.recipes.find()
+    recipes_sorted_by_popularity = popular_recipes(total.count())
+
+    pop_recipes = []
+    pop_results = []
+
+    select = None # To prevent reference before assignment error
+
+    if request.method == 'POST':
+        if 'filter' in request.form:
+            select = request.form.get('author_select')
+            popularity = request.form.get('popularity')
+
+            if popularity:
+                for result in recipes_sorted_by_popularity:
+                    for recipe in searched_recipes:
+                        pop_recipes.append(recipe['_id'])
+                    for recipe in pop_recipes:
+                        if result['_id'] == recipe:
+                            pop_results.append(result)
+
+            for result in results:
+                if result['username']  == select:
+                    filtered_recipes.append(result)
+            return render_template('search.html', authors=authors, filtered_recipes=filtered_recipes, pop_recipes=pop_results, recipes=results, search_term=search_term)
+
+
+        elif 'search' in request.form:
+            search_term = request.form.get('recipe')
+            return redirect(url_for('search', search_term=search_term))
+
+
+    return render_template('search.html', authors=authors, filtered_recipes=filtered_recipes, pop_recipes=pop_results, recipes=results, search_term=search_term)
+
+@app.route('/search/filter')
+def filter(results):
+    authors = []
+    for result in results:
+        authors.append(result['username'])
+    return authors
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -93,22 +158,23 @@ def login():
         
         email = form.email.data
         user = db.users.find_one({'email': email})
-        remember = form.remember_me.data
-        password = bcrypt.check_password_hash(user['password'], form.password.data)
 
-        if password:
-            # Use the user's email as the session object to avoid confusion
-            session['email'] = email
+        if user:
+            password = bcrypt.check_password_hash(user['password'], form.password.data)
+            if password:
+                # Use the user's email as the session object to avoid confusion
+                session['email'] = email
 
-            # Update the user login_count for query 'most active user'
-            db.users.update_one({'email': email}, {"$inc": {'login_count': 1} })
+                # Update the user login_count for query 'most active user'
+                db.users.update_one({'email': email}, {"$inc": {'login_count': 1} })
 
-            flash('You are now logged in', 'success')
-            return redirect(url_for('index'))
+                flash('You are now logged in', 'success')
+                return redirect(url_for('index'))
 
         # If the login details do not match any user in the database
         else:
             flash('Login unsuccessful. Please check email and password', 'danger')
+            return render_template('login.html', form=form)
     return render_template('login.html', form=form)
 
 
@@ -210,22 +276,23 @@ def get_recipe():
 @app.route('/recipes')
 def get_recipes():
 
-    # Get 10 recipes
-    from wfpblife.recipes_user_lookup import user_lookup
-    recipes = db.recipes.aggregate(user_lookup, allowDiskUse = False)
+    username_lookup = user_lookup()
+    searched_recipes = db.recipes.find({}).sort('title', 1).limit(10)
 
+    results = populate_recipes(username_lookup, searched_recipes)
 
-    return render_template('recipes.html', recipes=recipes)
-
+    return render_template('recipes.html', recipes=results)
 
 @app.route('/recipes2')
 def get_recipes2():
 
-    # Get the next 10 recipes
-    from wfpblife.recipes2_user_lookup import user_lookup
-    recipes = db.recipes.aggregate(user_lookup, allowDiskUse = False)
+    username_lookup = user_lookup()
+    searched_recipes = db.recipes.find({}).sort('title', 1).skip(10).limit(10)
 
-    return render_template('recipes2.html', recipes=recipes)
+    results = populate_recipes(username_lookup, searched_recipes)
+
+
+    return render_template('recipes2.html', recipes=results)
 
 
 @app.route('/edit_recipe/<title>', methods=['GET', 'POST'])
@@ -252,7 +319,7 @@ def edit_recipe(title):
             populate_recipe(data, ingredients, instructions)
 
             # Insert the recipe into the database
-            updated_recipe = db.recipes.update({"title": title}, {
+            recipe = db.recipes.update({"title": title}, {
                 
                 # Using set to prevent overwriting elements not required here
                 "$set": {
@@ -280,7 +347,6 @@ def edit_recipe(title):
 @app.route('/delete_recipe/<title>')
 def delete_recipe(title):
     recipe = db.recipes.delete_one({'title': title})
-    print(recipe)
     return redirect(url_for('account'))
 
 
@@ -364,3 +430,86 @@ def populate_recipe(data, ingredients, instructions):
         })
 
     return ingredients, instructions
+
+
+
+def user_lookup():
+    
+    recipes = db.recipes.aggregate([
+        {
+            u"$match": {}
+        }, 
+        {
+            u"$lookup": {
+                u"from": u"users",
+                u"let": {
+                    u"id": u"$user_id"
+                },
+                u"pipeline": [
+                    {
+                        u"$match": {
+                            u"$expr": {
+                                u"$eq": [
+                                    u"$_id",
+                                    u"$$id"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                u"as": u"user"
+            }
+        }, 
+        {
+            u"$unwind": {
+                u"path": u"$user",
+                u"preserveNullAndEmptyArrays": False
+            }
+        }, 
+        {
+            u"$addFields": {
+                u"username": u"$user.username"
+            }
+        }, 
+        {
+            u"$project": {
+                u"user": 0.0
+            }
+        }
+    ])
+
+    return recipes
+
+
+def populate_recipes(username_lookup, searched_recipes):
+    recipes = []
+    results = []
+
+    for lookup in username_lookup:
+        for recipe in searched_recipes:
+            recipes.append(recipe['_id'])
+        for recipe in recipes:
+            if lookup['_id'] == recipe:
+                results.append(lookup)
+
+    results.sort(key=lambda item: item.get('title'))
+    return results
+
+
+def popular_recipes(limit):
+    recipes = db.recipes.aggregate([
+        {
+            u"$addFields": {
+                u"ratings_total": {
+                    u"$sum": u"$ratings.value"
+                }
+            }
+        },
+        {
+            u"$sort": SON([(u"ratings_total", -1)])
+        },
+        {
+            u"$limit": limit
+        }
+    ])
+    return recipes

@@ -16,11 +16,12 @@
 
         <!-- Additional Styling -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/media_queries.css') }}">
 
     <title>wfpblife</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-dark navbar-expand-lg">
             <div class="container navbar-container">
                 <a class="navbar-brand" href="{{ url_for('index') }}">wfpb life</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +74,7 @@
                 <div class="footer">
                     <div class="row">
                         <!-- A repeat of the main navigation link items -->
-                        <div class="col-lg-1 offset-lg-2 col-12 footer-nav mt-5">
+                        <div class="col-1 offset-1 footer-nav mt-5">
                             <ul class="m-0 p-0">
                                 <li class="footer-nav-item">
                                     <a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a>
@@ -83,7 +84,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-2 offset-lg-5 col-12 footer-nav mt-5">
+                        <div class="col-4 offset-5 footer-nav mt-5">
                             <ul class="m-0 p-0">
                                 {% if not session['email'] %}
                                     <!-- Display only if user not logged in -->
@@ -110,19 +111,19 @@
                     <div class="row mt-5 mx-3">
                         <div class="container social-media-container">
                             <div class="row">
-                                <div class="col-lg-2 offset-lg-1">
+                                <div class="col-2 offset-1">
                                     <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-2x fa-facebook-f"></i></a>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-2">
                                     <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-2x fa-instagram"></i></i></a>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-2">
                                     <a href="https://twitter.com/" target="_blank"><i class="fab fa-2x fa-twitter"></i></i></a>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-2">
                                     <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-2x fa-linkedin-in"></i></a>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-2">
                                     <a href="https://www.pinterest.ie/" target="_blank"><i class="fab fa-2x fa-pinterest"></i></i></a>
                                 </div>
                             </div>

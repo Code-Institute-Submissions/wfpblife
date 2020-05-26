@@ -4,9 +4,9 @@
 
 
 
-<div class="container">
+<div class="container-fluid">
     {% for recipe in recipes %}
-        <div class="container recipes-container">
+        <div class="recipes-container">
             <div class="card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-3 card-img-container">
@@ -18,7 +18,7 @@
                             <p class="card-text">{{recipe.description}}</p>
                         </div>
                         <div class="container" id="view-recipe-small-btn">
-                            <p class="card-text" id="submitted-by"><small class="text-muted">
+                            <p class="card-footer" id="submitted-by"><small class="text-muted">
 
                                 <!-- Check if a user -->
                                 {% if user %}
@@ -30,7 +30,7 @@
                                 {% endif %}
                             </p>
                         </div>
-                        <div class="container" id="view-recipe-small-btn">
+                        <div class="container" id="view-recipe-btn-small">
                             {{ recipe_btn_small(recipe) }}
                         </div>
                     </div>

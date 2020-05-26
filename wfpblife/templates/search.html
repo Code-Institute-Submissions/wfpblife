@@ -4,6 +4,60 @@
 
 {% block content %}
     
-    {{ recipes_page(recipes) }}
+    <!-- RECIPE SEARCH -->
+    <div class="container">
+        <hr>
+        <h1 class="display-5 main-text text-center mt-5">wfpb recipes</h1>
+        <div id="recipe-search">
+            <h2 class="pb-3 text-center" id="rotw-title">explore & share</h2>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <form class="card card-sm" method="POST" action="">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col">
+                            <input class="form-control form-control-lg form-control-search" name="recipe" value="{{search_term}}">
+                            </div>
+                            <div class="col-auto">
+                            <button class="btn btn-lg btn-success" value="search" name="search" type="submit">Search</button></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr class="mb-5">
+        <div>
+            <form action="" method="post">
+                <h3 class="text-center">Filter results</h3>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <label class="input-group-text" for="author_select">By author</label>
+                    </div>
+                    <select class="author-select" name="author_select" id="author_select">
+                    <option selected>Select author</option>
+                    {% for author in authors %}
+                    <option value="{{ author }}">{{author}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-md btn-outline-warning">
+                        <input type="radio" name="popularity" id="popularity" autocomplete="off" checked> By popularity
+                    </label>
+                </div>
+                <input type="submit" name="filter" value="Apply filter">
+            </form>
+        </div>
+    </div>
+
+    {% if filtered_recipes %}
+        {{ recipes_page(filtered_recipes) }}
+    {% elif pop_recipes %}
+            {{ recipes_page(pop_recipes) }}
+    {% elif recipes %}
+        {{ recipes_page(recipes) }}
+    {% else %}
+        <h1>Nothing to see here!</h1>
+    {% endif %}
     
 {% endblock content %}

@@ -5,9 +5,9 @@
 {% block content %}
     {{ recipes_page(recipes) }}
 
-    <div class="pt-3">
+    <div class="pt-3 mb-5 text-center">
         <small class="text-muted">
-            <a href="{{ url_for('get_recipes') }}" class="ml-2">Back</a>
+            <a href="{{ url_for('get_recipes') }}"><button class="btn btn-lg btn-outline-dark">Back</button></a>
         </small>
     </div>
 {% endblock content %}
