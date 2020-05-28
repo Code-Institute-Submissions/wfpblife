@@ -2,42 +2,62 @@
 {% macro recipes_page(recipes, user) %}
 {% from'_recipe_btn.html' import recipe_btn_small %}
 
+    <div class="container-fluid mb-5">
 
+        <!-- Create recipe batches so search results and recipe pages contain the 'call to action' at the mid-point -->
 
-<div class="container-fluid">
-    {% for recipe in recipes %}
-        <div class="recipes-container">
-            <div class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-3 card-img-container">
-                        <img src={{recipe.image_small}} class="card-img recipe-img" alt="placeholder image">
+        {% set length = recipes | length %}
+
+        <!-- If the recipes have an odd number - increment by one, to create an mid-point -->
+        {% if length % 2 != 0 %}
+            {% set length = length + 1 %}
+        {% endif %}
+        {% set batch_length = (length/2)|int %}
+        {% for batch in recipes | batch(batch_length) %}
+            {% for recipe in batch %}
+                {% if recipe %}
+                    <div class="recipes-container">
+                        <div class="card mb-3">
+                            <div class="row no-gutters">
+                                <div class="col-md-3 card-img-container">
+                                    <img src={{recipe.image_small}} class="card-img recipe-img" alt="placeholder image">
+                                </div>
+                                <div class="col-md-8 card-contents">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{recipe.title}}</h5>
+                                        <p class="card-text">{{recipe.description}}</p>
+                                    </div>
+                                    <div class="container" id="view-recipe-small-btn">
+                                        <p class="card-footer" id="submitted-by"><small class="text-muted">
+                                                <!-- Check if the recipe belongs to the current user -->
+                    
+                                                <!-- If current user -->
+                                                {% if user %}
+                                                {% if user['username'] == recipe['username'] %}
+                                                Submitted on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
+                                            {% endif %}
+                    
+                                            <!-- If not current user -->
+                                            {% else %}
+                                            Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="container" id="view-recipe-btn-small">
+                                        {{ recipe_btn_small(recipe) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-8 card-contents">
-                        <div class="card-body">
-                            <h5 class="card-title">{{recipe.title}}</h5>
-                            <p class="card-text">{{recipe.description}}</p>
-                        </div>
-                        <div class="container" id="view-recipe-small-btn">
-                            <p class="card-footer" id="submitted-by"><small class="text-muted">
+                {% endif %}
+            {% endfor %}
 
-                                <!-- Check if a user -->
-                                {% if user %}
-                                    {% if user['username'] == recipe['username'] %}
-                                        Submitted on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
-                                    {% endif %}
-                                {% else %}
-                                    Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
-                                {% endif %}
-                            </p>
-                        </div>
-                        <div class="container" id="view-recipe-btn-small">
-                            {{ recipe_btn_small(recipe) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-</div>
+            <!-- Prevent display after the final batch -->
+            {% if loop.nextitem is defined %}
+                {% include 'revolution.html' %}
+            {% endif %}
+        {% endfor %}
+    </div>
         
 {% endmacro %}

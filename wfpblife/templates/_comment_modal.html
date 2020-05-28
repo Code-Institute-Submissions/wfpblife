@@ -1,0 +1,8 @@
+<!-- Create a base form template -->
+{% macro comment_modal() %}
+{% if 'filter' in request.form %}
+
+    <h1>{{action}}</h1>
+{% endif %}
+
+{% endmacro %}

@@ -85,44 +85,44 @@
             </table>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+    </form>
 
 
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 
-        <script>
-            $(document).ready( () => {
-    
-                var i = 1;
-    
-                $('#add').click( () => {
-                    i++;
+    <script>
+        $(document).ready( () => {
 
-                    $('#dynamic-ingredient-row').append('<tr class="row ingredients-row mx-2" id="row'+i+'"><td class="col-sm-1">{{ form.quantity(class= "form-control form-control-lg") }}</td><td class="col-sm-3">{{ form.measurement(class= "form-control form-control-lg") }}</td><td class="col-sm-7">{{ form.item(class= "form-control form-control-lg") }}</td><td class="text-right col-sm-1 mt-1"><button type="button" id="'+i+'" class="btn btn-danger btn-remove-ingredient mx-sm-3 mb-2"><i class="fas fa-minus-circle"></i></button></td></tr>');
-                })
-    
-                 var j = 1;
-    
-                 $('#add-method').click( () => {
-                     j++;
-                     $('#dynamic-method-row').append('<tr class="row-method mx-2" id="row'+j+'"><td class="col-sm-10">{{ form.method(class="form-control form-control-lg") }}</td><td class="text-right col-sm-1 mt-1"><button type="button" id="'+j+'" class="btn btn-danger btn-remove-method mx-sm-3 mb-2"><i class="fas fa-minus-circle"></i></button></td></tr>');
-                })
+            var i = 1;
 
-                
+            $('#add').click( () => {
+                i++;
 
+                $('#dynamic-ingredient-row').append('<tr class="row ingredients-row mx-2" id="row'+i+'"><td class="col-sm-1">{{ form.quantity(class= "form-control form-control-lg") }}</td><td class="col-sm-3">{{ form.measurement(class= "form-control form-control-lg") }}</td><td class="col-sm-7">{{ form.item(class= "form-control form-control-lg") }}</td><td class="text-right col-sm-1 mt-1"><button type="button" id="'+i+'" class="btn btn-danger btn-remove-ingredient mx-sm-3 mb-2"><i class="fas fa-minus-circle"></i></button></td></tr>');
             })
-    
-            $(document).on('click', '.btn-remove-ingredient', function() {
-                var button_id = this.id;
-                $('#row'+button_id+'').remove();
+
+                var j = 1;
+
+                $('#add-method').click( () => {
+                    j++;
+                    $('#dynamic-method-row').append('<tr class="row-method mx-2" id="row'+j+'"><td class="col-sm-10">{{ form.method(class="form-control form-control-lg") }}</td><td class="text-right col-sm-1 mt-1"><button type="button" id="'+j+'" class="btn btn-danger btn-remove-method mx-sm-3 mb-2"><i class="fas fa-minus-circle"></i></button></td></tr>');
             })
-    
-            $(document).on('click', '.btn-remove-method', function() {
-                console.log(this.id)
-                var button_id = this.id;
-                $('#row'+button_id+'').remove();
-            })
-        </script>
+
+            
+
+        })
+
+        $(document).on('click', '.btn-remove-ingredient', function() {
+            var button_id = this.id;
+            $('#row'+button_id+'').remove();
+        })
+
+        $(document).on('click', '.btn-remove-method', function() {
+            console.log(this.id)
+            var button_id = this.id;
+            $('#row'+button_id+'').remove();
+        })
+    </script>
 
     
 {% endblock content %}

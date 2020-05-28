@@ -6,6 +6,28 @@ body {
 
 
 /* CLASSES */
+
+.accordion>.card>.card-header {
+    background-color: transparent;
+}
+
+#accordion-title {
+    color: #b54448;
+    display: inline;
+
+}
+
+.fa-caret-down {
+    color: #b54448;
+    position: absolute;
+    right: 40px;
+}
+
+.accordion-button:hover, .accordion-button:active, .accordion-button:visited, .accordion-button:focus {
+    text-decoration: none;
+}
+
+
 .author {
     color: white;
 }
@@ -20,6 +42,32 @@ body {
     text-align: center;
     width: 100%;
 }
+
+.author-select {
+    width: 200px;
+}
+
+.filter-options {
+    display: flex;
+}
+
+.input-group-text{
+    background-color: #61a5a0;
+    color: white;
+}
+
+#popularity {
+    background-color: #b54448;
+    color: white;
+}
+
+label#popularity.btn.btn-md.active.focus {
+    background-color: white;
+    border: 1px solid #b54448;
+    box-shadow: none;
+    color: #b54448;
+}
+
 
 .btn.home_rotw, .btn.home_rotw:active {
     background-color: #61a5a0;
@@ -91,13 +139,27 @@ body {
     text-transform: uppercase;
 }
 
+.comments {
+    font-family: 'Raleway', sans-serif;
+}
+
+.comments-container {
+    border: 1px solid rgb(0, 0, 0, 0.2);
+    padding: 2%;
+}
+
+.comments-title {
+    color: #b54448;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
 
 .content-container, .mpr-container {
     margin-top: 7rem;
 }
 
 .copyright {
-    margin-left: 40%;
+    margin: auto;
 }
 
 .copyright-link, .copyright-link:hover, .copyright-link:active {
@@ -113,8 +175,15 @@ body {
     color: white;
 }
 
+.footer-nav {
+    margin: auto;
+
+}
+
 .footer-nav-item {
-    font-size: 1.2rem;
+    color: white;
+    display: inline;
+    font-size: 1rem;
     list-style-type: none;
 }
 
@@ -156,6 +225,15 @@ body {
     text-transform: uppercase;
 }
 
+ol li {
+    left: -2%;
+    letter-spacing: .022em;
+    margin-bottom: 30px;
+    padding-left: 40px;
+    padding-right: 25px;
+    position: relative;
+}
+
 .navbar, .navbar-brand, .nav-item, .footer-outer-container {
     background-color: #61a5a0;
     color: white;
@@ -165,6 +243,10 @@ body {
 
 .recipes-container {
     margin-top: 5rem;
+}
+
+#row-social-media, #row-copyright {
+    margin-top: 1.2rem;
 }
 
 .rotw-img, .mpr-img {
@@ -219,6 +301,7 @@ body {
 #revolution_underline {
     border: 0.5px solid white;
     margin-bottom: 1rem;
+    width: 70%;
 }
 
 #revolution_text {
@@ -239,6 +322,21 @@ body {
     color: #b54448;
     font-family: 'Raleway', sans-serif;
     text-transform: capitalize;
+}
+
+#submit-comment {
+    background-color: transparent;
+    border: 1px solid #b54448;
+    color: #b54448;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#submit-comment:hover {
+    background-color: #b54448;
+    border: 1px solid #b54448;
+    color: white;
 }
 
 #view-recipe-btn, #view-recipe-btn:visited {

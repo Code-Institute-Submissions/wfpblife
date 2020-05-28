@@ -39,7 +39,15 @@ def index():
 def search():
     search_term = request.args['search_term']
     username_lookup = user_lookup()
-    searched_recipes = db.recipes.find({ "$or": [ { "title": { "$regex": search_term } }, { "description": { "$regex": search_term } }, { "ingredients": { "$regex": search_term } } ] })
+
+    if search_term:
+        # If user enters a search term, search the database
+        searched_recipes = db.recipes.find({ "$or": [ { "title": { "$regex": search_term } }, { "description": { "$regex": search_term } }, { "ingredients": { "$regex": search_term } } ] })
+    else:
+        # Display response if user fails to enter search term
+        searched_recipes = []
+        flash('Please enter a search term', 'warning')
+
 
     # Filter the search results by author
     recipes = []
@@ -90,7 +98,6 @@ def search():
         elif 'search' in request.form:
             search_term = request.form.get('recipe')
             return redirect(url_for('search', search_term=search_term))
-
 
     return render_template('search.html', authors=authors, filtered_recipes=filtered_recipes, pop_recipes=pop_results, recipes=results, search_term=search_term)
 
@@ -244,11 +251,13 @@ def submit_recipe():
 @app.route('/recipe', methods=['GET', 'POST'])
 def get_recipe():
 
-    # Set initial condition
+    # Set initial conditions
+    user = None
     owner = False
+    comments = []
 
     # Find the recipe
-    title = request.args.get('title')
+    title = request.args.get('title') or title # Required to remove 'NoneType' bug when redirecting from comment post
     recipe = db.recipes.find_one({'title': title})
 
     if 'email' in session:
@@ -258,19 +267,34 @@ def get_recipe():
             owner = True
         else:
             owner = False
-    
-    comments = []
 
     # Get the all comments and aggregate the author's username
     from wfpblife.recipe_comments import recipe_comments
-    comments_aggregate = db.recipes.aggregate(recipe_comments, allowDiskUse = False)
+    comments_aggregate = db.recipes.aggregate(
+        recipe_comments, allowDiskUse=False)
 
     # Select only those comments that are relevant to this recipe and append to the empty comments list
     for comment in comments_aggregate:
         if recipe['_id'] == comment['_id']:
             comments.append(comment)
+    
+    # Restrict access to this route to logged in users
+    if request.method == 'POST':
 
-    return render_template('recipe.html', recipe=recipe, owner=owner, comments = comments)
+        db.recipes.update_one({'title': title}, { '$push': {
+                'comments': {
+                    'user_id':  user['_id'],
+                    'title': request.form.get('comment-title'),
+                    'content': request.form.get('comment-content'),
+                    'date': datetime.utcnow()
+                }
+            }
+        })
+        title = title
+        recipe = db.recipes.find({'title': title})
+        return redirect(url_for('get_recipe', recipe=recipe, title=title, owner=owner, user=user, comments=comments))
+    
+    return render_template('recipe.html', recipe=recipe, owner=owner, user=user, comments=comments)
 
 
 @app.route('/recipes')
@@ -339,14 +363,14 @@ def edit_recipe(title):
             recipe = db.recipes.find_one({'title': title})
             
             # Display it for the user to review
-            return render_template('recipe.html', owner=owner,  recipe=recipe)
+            return redirect(url_for('get_recipe', owner=owner,  recipe=recipe))
 
     return render_template('edit_recipe.html', owner=owner, recipe=recipe)
 
 
 @app.route('/delete_recipe/<title>')
 def delete_recipe(title):
-    recipe = db.recipes.delete_one({'title': title})
+    db.recipes.delete_one({'title': title})
     return redirect(url_for('account'))
 
 

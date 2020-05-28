@@ -29,26 +29,42 @@
         <div>
             <form action="" method="post">
                 <h3 class="text-center">Filter results</h3>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <label class="input-group-text" for="author_select">By author</label>
+                <div class="form-row">
+                    <div class="col input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="author_select">By author</label>
+                        </div>
+                        <select class="author-select" name="author_select" id="author_select">
+                            <option selected>Select author</option>
+                            {% for author in authors %}
+                                <option value="{{ author }}">{{author}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <select class="author-select" name="author_select" id="author_select">
-                    <option selected>Select author</option>
-                    {% for author in authors %}
-                    <option value="{{ author }}">{{author}}</option>
-                    {% endfor %}
-                    </select>
+                    <div class="col btn-group-toggle text-center" data-toggle="buttons">
+                        <label class="btn btn-md btn-toggle" id="popularity">
+                            <input type="radio" id="popularity" name="popularity" autocomplete="off"> By popularity
+                        </label>
+                    </div>
+                    <div class="col input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="categories">By catergory</label>
+                        </div>
+                        <select class="author-select" name="categories" id="categories">
+                            <option selected>Select category</option>
+                            {% for category in categories %}
+                                <option value="{{ category }}">{{category}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
-                <div class="btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-md btn-outline-warning">
-                        <input type="radio" name="popularity" id="popularity" autocomplete="off" checked> By popularity
-                    </label>
-                </div>
-                <input type="submit" name="filter" value="Apply filter">
+                <div class="col-auto text-center">
+                    <input type="submit" name="filter" value="Apply filter">
+                </div>  
             </form>
         </div>
     </div>
+
 
     {% if filtered_recipes %}
         {{ recipes_page(filtered_recipes) }}
@@ -57,6 +73,7 @@
     {% elif recipes %}
         {{ recipes_page(recipes) }}
     {% else %}
+        <!-- Catch feature for no search term entered AND no results returned -->
         <h1>Nothing to see here!</h1>
     {% endif %}
     
