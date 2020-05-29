@@ -257,7 +257,7 @@ def get_recipe():
     comments = []
 
     # Find the recipe
-    title = request.args.get('title') or title # Required to remove 'NoneType' bug when redirecting from comment post
+    title = request.args.get('title')
     recipe = db.recipes.find_one({'title': title})
 
 
@@ -287,22 +287,32 @@ def get_recipe():
         if recipe['_id'] == comment['_id']:
             comments.append(comment)
     
-    # Restrict access to this route to logged in users
     if request.method == 'POST':
         if 'edit' in request.form:
             old_title = request.form.get('old-comment-title')
             new_title = request.form.get('comment-title')
 
-            print(old_title)
-
             old_content = request.form.get('old-comment-content')
             new_content = request.form.get('comment-content')
 
             db.recipes.update_one({"comments": {"$elemMatch": { "title": old_title, "content": old_content }}}, {"$set": {"comments.$": { "title": new_title, "content": new_content, "date": datetime.utcnow(), "user_id": user['_id']}}})
+        
+        if 'delete' in request.form:
+            comment_title = request.form.get('comment-title')
+            comment_content = request.form.get('comment-content')
+
+            db.recipes.update_one({"title": title}, {"$pull": {"comments": { "title": comment_title, "content": comment_content }}})
+        
+        if 'submit' in request.form:
+            comment_title = request.form.get('comment-title')
+            comment_content = request.form.get('comment-content')
+
+            db.recipes.update_one( {"title": title }, {"$push": {"comments": { "title": comment_title, "content": comment_content, "date": datetime.utcnow(), "user_id": user['_id'] }}} )
 
         title = title
         recipe = db.recipes.find({'title': title})
-        return redirect(url_for('get_recipe', recipe=recipe, username=username, title=title, owner=owner, user=user, comments=comments))
+        return redirect(url_for('get_recipe', recipe=recipe, username=username, title=title, owner=owner, user=user, comments=comments))    
+
     
     return render_template('recipe.html', recipe=recipe, username=username, owner=owner, user=user, comments=comments)
 

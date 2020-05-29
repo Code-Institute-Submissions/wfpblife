@@ -1,0 +1,68 @@
+<!-- Check if the comment owner is the recipe owner -->
+                        {% if comment.comments.user_id ==  user['_id'] %}
+
+                            <button type="button" class="btn btn-outline-primary mb-5" id="edit-comment" data-toggle="modal" data-target="#edit-commentModal" data-title={{ comment.comments.title }} data-content={{ comment.comments.content }}>
+                                Edit
+                            </button>
+                            <button type="button" class="btn btn-outline-danger mb-5" id="delete-comment" data-toggle="modal" data-target="#delete-commentModal">
+                                Delete
+                            </button>
+                            
+                            <!-- Edit Comment Modal -->
+                            <div class="modal fade" id="edit-commentModal" tabindex="-1" role="dialog" aria-labelledby="edit-commentModalLabel"
+                            aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form action="", class="comments-form", method="POST">
+                                            <div class="modal-header">
+                                                <div class="form-group">
+                                                    <label for="comment-title">Comment title</label>
+                                                    <input type="hidden" class="form-control" name="old-comment-title" id="old-comment-title">
+                                                    <input type="text" class="form-control" name="comment-title" id="comment-title">
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="comment-text">Comment text</label>
+                                                    <input type="hidden" class="form-control" name="old-comment-content" id="old-comment-content-input">
+                                                    <textarea class="form-control" name="comment-content" id="comment-content"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer comment-footer">
+                                                <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            
+                            <!-- Delete Comment Modal -->
+                            <div class="modal fade" id="delete-commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form action="", class="comment-delete-form", method="POST">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirm deletion</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" class="form-control" name="comment-title" id="formGroupExampleInput" value="{{comment.comments.title}}">
+                                                Are you sure, you want to delete this comment?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">No, cancel{{comment.comments.title}}</button>
+                                                <input type="hidden" class="form-control" name="comment-content" id="formGroupExampleInput">
+                                                <button type="submit" name="delete" id="delete" class="btn btn-danger">Yes, delete comment</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}

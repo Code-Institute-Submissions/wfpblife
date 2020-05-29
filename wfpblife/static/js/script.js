@@ -23,3 +23,30 @@ if(window.location.href.includes('signup') || window.location.href.includes('log
         }
     })
 }
+
+
+$('#edit-commentModal').on('show.bs.modal', function (event) {
+    console.log('this works');
+    var button = $(event.relatedTarget);
+
+
+    var title = button.data('title')
+    var content = button.data('content')
+
+
+    var modal = $(this)
+    modal.find(".modal-content input").val(title);
+    modal.find(".modal-body input").val(content);
+})
+
+
+$('#delete-commentModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var title = button.data('title')
+    var content = button.data('content')
+
+
+    var modal = $(this)
+    modal.find(".modal-body input").val(title);
+    modal.find(".modal-footer input").val(content);
+})
