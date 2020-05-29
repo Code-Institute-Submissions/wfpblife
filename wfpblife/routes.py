@@ -260,6 +260,15 @@ def get_recipe():
     title = request.args.get('title') or title # Required to remove 'NoneType' bug when redirecting from comment post
     recipe = db.recipes.find_one({'title': title})
 
+
+    username_lookup = user_lookup()
+    searched_recipes = db.recipes.find({'title': title})
+
+    results = populate_recipes(username_lookup, searched_recipes)
+
+    for result in results:
+        username = result['username']
+
     if 'email' in session:
         user = db.users.find_one({"email": session['email']})
         # Check if the session user is the recipe owner
@@ -280,21 +289,22 @@ def get_recipe():
     
     # Restrict access to this route to logged in users
     if request.method == 'POST':
+        if 'edit' in request.form:
+            old_title = request.form.get('old-comment-title')
+            new_title = request.form.get('comment-title')
 
-        db.recipes.update_one({'title': title}, { '$push': {
-                'comments': {
-                    'user_id':  user['_id'],
-                    'title': request.form.get('comment-title'),
-                    'content': request.form.get('comment-content'),
-                    'date': datetime.utcnow()
-                }
-            }
-        })
+            print(old_title)
+
+            old_content = request.form.get('old-comment-content')
+            new_content = request.form.get('comment-content')
+
+            db.recipes.update_one({"comments": {"$elemMatch": { "title": old_title, "content": old_content }}}, {"$set": {"comments.$": { "title": new_title, "content": new_content, "date": datetime.utcnow(), "user_id": user['_id']}}})
+
         title = title
         recipe = db.recipes.find({'title': title})
-        return redirect(url_for('get_recipe', recipe=recipe, title=title, owner=owner, user=user, comments=comments))
+        return redirect(url_for('get_recipe', recipe=recipe, username=username, title=title, owner=owner, user=user, comments=comments))
     
-    return render_template('recipe.html', recipe=recipe, owner=owner, user=user, comments=comments)
+    return render_template('recipe.html', recipe=recipe, username=username, owner=owner, user=user, comments=comments)
 
 
 @app.route('/recipes')
@@ -307,14 +317,13 @@ def get_recipes():
 
     return render_template('recipes.html', recipes=results)
 
+
 @app.route('/recipes2')
 def get_recipes2():
-
     username_lookup = user_lookup()
     searched_recipes = db.recipes.find({}).sort('title', 1).skip(10).limit(10)
 
     results = populate_recipes(username_lookup, searched_recipes)
-
 
     return render_template('recipes2.html', recipes=results)
 
@@ -381,50 +390,12 @@ def account():
         # Get the user
         user = db.users.find_one({"email": session['email']})
 
-        recipes = db.recipes.aggregate([
-            {
-                u"$match": {"user_id": user['_id']}
-            }, 
-            {
-                u"$lookup": {
-                    u"from": u"users",
-                    u"let": {
-                        u"id": u"$user_id"
-                    },
-                    u"pipeline": [
-                        {
-                            u"$match": {
-                                u"$expr": {
-                                    u"$eq": [
-                                        u"$_id",
-                                        u"$$id"
-                                    ]
-                                }
-                            }
-                        }
-                    ],
-                    u"as": u"user"
-                }
-            }, 
-            {
-                u"$unwind": {
-                    u"path": u"$user",
-                    u"preserveNullAndEmptyArrays": False
-                }
-            }, 
-            {
-                u"$addFields": {
-                    u"username": u"$user.username"
-                }
-            }, 
-            {
-                u"$project": {
-                    u"user": 0.0
-                }
-            }
-        ])
+        username_lookup = user_lookup()
+        searched_recipes = db.recipes.find({"user_id": user['_id']})
 
-    return render_template('account.html', user=user, recipes=recipes)
+    results = populate_recipes(username_lookup, searched_recipes)
+
+    return render_template('account.html', user=user, recipes=results)
 
 
 

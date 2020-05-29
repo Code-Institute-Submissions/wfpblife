@@ -145,6 +145,7 @@ label#popularity.btn.btn-md.active.focus {
 
 .comments-container {
     border: 1px solid rgb(0, 0, 0, 0.2);
+    box-shadow: 1rem 1rem 1rem rgba(97, 165, 160, 0.5), 0.25rem 0.35rem 0.525rem rgba(97, 165, 160, 0.2);
     padding: 2%;
 }
 
@@ -152,6 +153,10 @@ label#popularity.btn.btn-md.active.focus {
     color: #b54448;
     font-size: 1.2rem;
     text-transform: uppercase;
+}
+
+.comment-footer {
+    border: none;
 }
 
 .content-container, .mpr-container {
@@ -239,6 +244,17 @@ ol li {
     color: white;
     font-family: 'Roboto Slab', serif;
     text-transform: uppercase;
+}
+
+.recipe-author {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    margin: auto;
+    text-transform: uppercase;
+}
+
+.recipe-author-container {
+    text-align: center;
 }
 
 .recipes-container {

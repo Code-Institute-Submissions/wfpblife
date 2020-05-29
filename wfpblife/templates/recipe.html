@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% from '_comment_modal.html' import comment_modal %}
 
 
 {% block content %}
@@ -15,6 +14,9 @@
         </div>
         <hr class="timings-underline">
 
+        <div class="recipe-author-container my-5">
+            <span class="recipe-author">Submitted by {{ username }}</span>
+        </div>
 
         <div class="accordion" id="accordionExample">
             
@@ -111,9 +113,40 @@
                             <hr>
                             <p>{{ comment.comments.content }}</p>
                             {% if comment.comments.user_id ==  user['_id'] %}
-                                <button type="submit" class="btn btn-primary mb-5" id="submit-comment" data-toggle="modal" data-target="#commentModal">
+                                <button type="button" class="btn btn-primary mb-5" id="submit-comment" data-toggle="modal" data-target="#edit-commentModal">
                                     Edit comment
                                 </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="edit-commentModal" tabindex="-1" role="dialog" aria-labelledby="edit-commentModalLabel"
+                                aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form action="", class="comments-form", method="POST">
+                                                <div class="modal-header">
+                                                    <div class="form-group">
+                                                        <label for="comment-title">Comment title</label>
+                                                        <input type="hidden" class="form-control" name="old-comment-title" id="formGroupExampleInput" value="{{comment.comments.title}}">
+                                                        <input type="text" class="form-control" name="comment-title" id="formGroupExampleInput" value="{{comment.comments.title}}">
+                                                    </div>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="comment-text">Comment text</label>
+                                                        <input type="hidden" class="form-control" name="old-comment-content" id="formGroupExampleInput" value="{{comment.comments.content}}">
+                                                        <textarea class="form-control" name="comment-content" id="comment-content">{{ comment.comments.content }}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer comment-footer">
+                                                    <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
                             <p><small class="text-muted">By {{ comment.comments.comment_by }}</small></p>
                         </div>
@@ -125,7 +158,7 @@
         <!-- Restrict commenting to users with an account -->
         {% if user %}
             <!-- Button trigger modal -->            
-            <button type="submit" class="btn btn-primary mb-5" id="submit-comment" data-toggle="modal" data-target="#commentModal">
+            <button type="button" class="btn btn-primary mb-5" id="submit-comment" data-toggle="modal" data-target="#commentModal">
                 Submit comment
             </button>
             
@@ -138,7 +171,7 @@
                             <div class="modal-header">
                                 <div class="form-group">
                                     <label for="comment-title">Comment title</label>
-                                    <input type="text" class="form-control" name="comment-title" id="formGroupExampleInput" placeholder="Enter a title">
+                                    <input type="text" class="form-control" name="comment-title" id="formGroupExampleInput" placeholder="data-old-title">
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -149,6 +182,9 @@
                                     <label for="comment-text">Comment text</label>
                                     <textarea class="form-control" name="comment-content" id="comment-content"></textarea>
                                 </div>
+                            </div>
+                            <div class="modal-footer comment-footer">
+                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
