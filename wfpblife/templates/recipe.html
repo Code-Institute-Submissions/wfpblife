@@ -13,7 +13,9 @@
             <span class="timings">Cooking time: {{ recipe.cook_time }}</span>
         </div>
         <hr class="timings-underline">
-
+        <div class="description">
+            <p class="mt-3 text-center" id="recipe-description">{{ recipe.description }}</p>
+        </div>
         <div class="recipe-author-container my-5">
             <span class="recipe-author">Submitted by {{ username }}</span>
         </div>
@@ -25,7 +27,7 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link accordion-button" type="button" data-toggle="collapse" data-target="#collapseOne"
                             aria-expanded="true" aria-controls="collapseOne">
-                            <h3 class="mb-3" id="accordion-title">Ingredients</h3><i class="fas fa-2x fa-caret-down"></i>
+                            <h3 class="mb-3" id="accordion-title">Ingredients</h3><i class="fas fa-2x fa-caret-up" id="accordion-icon"></i>
                         </button>
                     </h2>
                 </div>
@@ -47,7 +49,7 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link collapsed accordion-button" type="button" data-toggle="collapse" data-target="#collapseTwo"
                             aria-expanded="false" aria-controls="collapseTwo">
-                                <h3 class="mb-3" id="accordion-title">Method</h3><i class="fas fa-2x fa-caret-down"></i>
+                                <h3 class="mb-3" id="accordion-title">Method</h3><i class="fas fa-2x fa-caret-down" id="accordion-icon2"></i>
                         </button>
                     </h2>
                 </div>

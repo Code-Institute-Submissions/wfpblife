@@ -46,17 +46,6 @@
                             <input type="radio" id="popularity" name="popularity" autocomplete="off"> By popularity
                         </label>
                     </div>
-                    <div class="col input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="categories">By catergory</label>
-                        </div>
-                        <select class="author-select" name="categories" id="categories">
-                            <option selected>Select category</option>
-                            {% for category in categories %}
-                                <option value="{{ category }}">{{category}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
                 </div>
                 <div class="col-auto text-center">
                     <input type="submit" name="filter" value="Apply filter">

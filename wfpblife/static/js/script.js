@@ -24,11 +24,10 @@ if(window.location.href.includes('signup') || window.location.href.includes('log
     })
 }
 
+// Pass arguments to the various modal windows
 
 $('#edit-commentModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
-
-
     var title = button.data('title')
     var content = button.data('content')
 
@@ -43,9 +42,8 @@ $('#delete-commentModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var title = button.data('title')
     var content = button.data('content')
-
-
     var modal = $(this)
+
     modal.find(".modal-body input").val(title);
     modal.find(".modal-footer input").val(content);
 })
@@ -54,11 +52,42 @@ $('#delete-commentModal').on('show.bs.modal', function (event) {
 $('#edit-userModal').on('show.bs.modal', function (event) {
     console.log('this works');
     var button = $(event.relatedTarget);
-
     var username = button.data('username')
     var email = button.data('email')
 
     var modal = $(this)
     modal.find(".modal-body input[name='username']").val(username);
     modal.find(".modal-body input[name='email']").val(email);
+})
+
+
+// Interactive icons to indicate opening and closing action
+
+$('#collapseOne').on('show.bs.collapse', () => {
+    if($('#accordion-icon').hasClass('fa-caret-down')) {
+        $('#accordion-icon').removeClass('fa-caret-down');
+        $('#accordion-icon').addClass('fa-caret-up');
+    }
+})
+
+$('#collapseTwo').on('show.bs.collapse', () => {
+    if($('#accordion-icon2').hasClass('fa-caret-down')) {
+        $('#accordion-icon2').removeClass('fa-caret-down');
+        $('#accordion-icon2').addClass('fa-caret-up');
+    }
+})
+
+
+$('#collapseOne').on('hide.bs.collapse', () => {
+    if($('#accordion-icon').hasClass('fa-caret-up')) {
+        $('#accordion-icon').removeClass('fa-caret-up');
+        $('#accordion-icon').addClass('fa-caret-down');
+    }
+})
+
+$('#collapseTwo').on('hide.bs.collapse', () => {
+    if($('#accordion-icon2').hasClass('fa-caret-up')) {
+        $('#accordion-icon2').removeClass('fa-caret-up');
+        $('#accordion-icon2').addClass('fa-caret-down');
+    }
 })

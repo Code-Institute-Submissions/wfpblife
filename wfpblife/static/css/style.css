@@ -17,7 +17,7 @@ body {
 
 }
 
-.fa-caret-down {
+.fa-caret-down, .fa-caret-up {
     color: #b54448;
     position: absolute;
     right: 40px;
@@ -173,11 +173,24 @@ label#popularity.btn.btn-md.active.focus {
 }
 
 .dummy-container {
+    background-image: url('https://res.cloudinary.com/bogtrotter72/image/upload/v1590854650/wfpblife/qiyk0brqjrht5vh0dt7d.jpg');
+    background-position: center;
+    background-size: cover;
     height: 100vh;
+    position: relative;
 }
 
 .fab {
     color: white;
+}
+
+.flashed {
+    /* height: 100px; */
+    left: 50%;
+    position: absolute;
+    top: 6%;
+    transform: translateX(-50%);
+    z-index: 100;
 }
 
 .footer-nav {
@@ -281,7 +294,7 @@ ol li {
 .signlog-container {
     left: 50%;
     position: absolute;
-    top: 50%;
+    top: 55%;
     transform: translate(-50%, -50%);
 }
 

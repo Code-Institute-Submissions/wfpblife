@@ -312,7 +312,7 @@ def get_recipe():
 
         title = title
         recipe = db.recipes.find({'title': title})
-        return redirect(url_for('get_recipe', recipe=recipe, username=username, title=title, owner=owner, user=user, comments=comments))    
+        return redirect(url_for('get_recipe', recipe=recipe, username=username, title=title, owner=owner, user=user, comments=comments))
 
     
     return render_template('recipe.html', recipe=recipe, username=username, owner=owner, user=user, comments=comments)
@@ -363,7 +363,7 @@ def edit_recipe(title):
             populate_recipe(data, ingredients, instructions)
 
             # Insert the recipe into the database
-            recipe = db.recipes.update({"title": title}, {
+            db.recipes.update({"title": title}, {
                 
                 # Using set to prevent overwriting elements not required here
                 "$set": {
@@ -380,10 +380,11 @@ def edit_recipe(title):
             })
 
             # Reacquire the recipe
-            recipe = db.recipes.find_one({'title': title})
-            
+            recipe = db.recipes.find_one({'_id': recipe['_id']})
+            title = recipe['title']
+
             # Display it for the user to review
-            return redirect(url_for('get_recipe', owner=owner,  recipe=recipe))
+            return redirect(url_for('get_recipe', owner=owner, title=title, recipe=recipe))
 
     return render_template('edit_recipe.html', owner=owner, recipe=recipe)
 

@@ -1,79 +1,140 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="" method="post">
-        <div class="form-group mx-2">
-            <label for="title">Recipe title</label>
-            <input class="form-control" id="title" name="title" type="text" value="{{ recipe.title }}">
+    <div class="container my-5">
+        <div class="jumbotron mt-5" id="recipe">
+            <h1 class="text-center mt-3 mb-5" id=recipe-title>{{ recipe.title }}</h1>
+            <img src={{ recipe.image}} class="rotw-img" alt="recipe image">
         </div>
-        <div class="form-group mx-2">
-            <label for="description">Short description</label>
-            <input class="form-control" id="desciprtion" name="description" type="text" value="{{ recipe.description }}">
+        <div class="edit-msg">
+            <span class="msg mb-5">Edit your recipe</span>
         </div>
-        <div class="from-group">
-            <table class="table table-borderless">
-                <thead>
-                    <tr class="d-flex col-sm-12">
-                        <th class="col-sm-1">Qty.</th>
-                        <th class="col-sm-3">Measurement</th>
-                        <th class="col-sm-6">Item</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for ingredient in recipe.ingredients %}
-                        <tr class="d-flex col-sm-12">
-                            <td class="col-sm-1">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="quantity" value="{{ ingredient.quantity }}">
-                                </div>
-                            </td>
-                            <td class="col-sm-3">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="measurement" value="{{ ingredient.measurement }}">
-                                </div>
-                            </td>
-                            <td class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="item" value="{{ ingredient.item }}">
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="form-group mx-2 mt-4 col-4">
-            <label for="prep_time">Prep_time</label>
-            <input type="text" id="prep_time" name="prep_time" class="form-control" value="{{ recipe.prep_time }}">
-        </div>
-        <div class="form-group mx-2 mt-4 col-4">
-            <label for="cook_time">Cook_time</label>
-            <input type="text" id="cook_time" name="cook_time" class="form-control" value="{{ recipe.cook_time }}">
-        </div>
-        <div class="form-group mx-2 mt-4 col-4">
-            <label for="servings">Servings</label>
-            <input type="text" id="servings" name="servings" class="form-control" value="{{ recipe.servings }}">
-        </div>
-        <div class="from-group">
-            <table class="table table-borderless">
-                <thead>
-                    <tr class="d-flex col-sm-12">
-                        <th class="col-sm-1">Method</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for method in recipe.method %}
-                        <tr class="d-flex">
-                            <td class="col-sm-12 mx-2">
-                                <div class="form-group">
-                                    <input type="text" name="method" class="form-control" value="{{ method.text }}">
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <button type="submit" class="btn btn-primary mx-2">Submit</button>
-    </form>
+
+        <form action="" method="post">
+
+            <div class="form-group mx-2 mb-5">
+                <label for="title">Recipe title</label>
+                <input class="form-control" id="title" name="title" type="text" value="{{ recipe.title }}">
+            </div>
+            <div class="form-group mx-2 mb-5">
+                <label for="description">Short description</label>
+                <input class="form-control" id="desciprtion" name="description" type="text" value="{{ recipe.description }}">
+            </div>
+
+            <div class="accordion" id="recipe-accordion">
+                
+                <div class="card ingredients mb-5">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link accordion-button" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">
+                                <h3 class="mb-3" id="accordion-title">Ingredients</h3><i class="fas fa-2x fa-caret-up" id="accordion-icon"></i>
+                            </button>
+                        </h2>
+                    </div>
+            
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#recipe-accordion">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr class="d-flex col-sm-12">
+                                            <th class="col-sm-1">Qty.</th>
+                                            <th class="col-sm-3">Measurement</th>
+                                            <th class="col-sm-6">Item</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for ingredient in recipe.ingredients %}
+                                            <tr class="d-flex col-sm-12">
+                                                <td class="col-sm-1">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="quantity" value="{{ ingredient.quantity }}">
+                                                    </div>
+                                                </td>
+                                                <td class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="measurement" value="{{ ingredient.measurement }}">
+                                                    </div>
+                                                </td>
+                                                <td class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="item" value="{{ ingredient.item }}">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                
+                <div class="form-group mx-2 mt-4 col-4">
+                    <label for="prep_time">Prep_time</label>
+                    <input type="text" id="prep_time" name="prep_time" class="form-control" value="{{ recipe.prep_time }}">
+                </div>
+                <div class="form-group mx-2 mt-4 col-4">
+                    <label for="cook_time">Cook_time</label>
+                    <input type="text" id="cook_time" name="cook_time" class="form-control" value="{{ recipe.cook_time }}">
+                </div>
+                <div class="form-group mx-2 my-4 col-4">
+                    <label for="servings">Servings</label>
+                    <input type="text" id="servings" name="servings" class="form-control" value="{{ recipe.servings }}">
+                </div>
+
+
+
+                <div class="card method mb-5">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed accordion-button" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                                aria-expanded="false" aria-controls="collapseTwo">
+                                    <h3 class="mb-3" id="accordion-title">Method</h3><i class="fas fa-2x fa-caret-down" id="accordion-icon2"></i>
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#recipe-accordion">
+                        <div class="card-body">
+                            <div class="from-group my-5">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr class="d-flex col-sm-12">
+                                            <th class="col-sm-1">Method</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for method in recipe.method %}
+                                            <tr class="d-flex">
+                                                <td class="col-sm-12 mx-2">
+                                                    <div class="form-group">
+                                                        <textarea name="method" id="" rows="3" cols="120">{{ method.text }}</textarea>
+                                                        <!-- <input type="text" name="method" class="form-control" value="{{ method.text }}"> -->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            
+            
+            <button type="submit" name="edit-recipe" class="btn btn-primary mx-2">Submit</button>
+        </form>
+    </div>
+    
 {% endblock content %}
