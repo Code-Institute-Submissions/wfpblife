@@ -26,7 +26,6 @@ if(window.location.href.includes('signup') || window.location.href.includes('log
 
 
 $('#edit-commentModal').on('show.bs.modal', function (event) {
-    console.log('this works');
     var button = $(event.relatedTarget);
 
 
@@ -49,4 +48,17 @@ $('#delete-commentModal').on('show.bs.modal', function (event) {
     var modal = $(this)
     modal.find(".modal-body input").val(title);
     modal.find(".modal-footer input").val(content);
+})
+
+
+$('#edit-userModal').on('show.bs.modal', function (event) {
+    console.log('this works');
+    var button = $(event.relatedTarget);
+
+    var username = button.data('username')
+    var email = button.data('email')
+
+    var modal = $(this)
+    modal.find(".modal-body input[name='username']").val(username);
+    modal.find(".modal-body input[name='email']").val(email);
 })

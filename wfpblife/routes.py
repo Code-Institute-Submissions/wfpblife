@@ -140,7 +140,8 @@ def signup():
                 db.users.insert_one({
                 "username": form.username.data,
                 "email": form.email.data,
-                "password": password
+                "password": password,
+                "login_count": 0
             })
                 # Successful account creation message
                 flash('Account successfully created, you can now login!', 'success')
@@ -393,8 +394,23 @@ def delete_recipe(title):
     return redirect(url_for('account'))
 
 
-@app.route('/account')
+@app.route('/account', methods=['GET', 'POST'])
 def account():
+    if request.method == 'POST':
+        if 'edit' in request.form:
+            db.users.update_one({"email": session['email']}, {"$set": {
+                "username": request.form.get('username'),
+                "email": request.form.get('email')
+            }})
+            # Get the user
+            session['email'] = request.form.get('email')
+            user = db.users.find_one({"email": session['email']})
+
+        if 'delete' in request.form:
+            db.users.delete_one({"email": session['email']})
+            session.pop('email')
+            return redirect(url_for('index'))
+
     # Restrict access to this route to logged in users
     if 'email' in session:
         # Get the user
@@ -404,6 +420,10 @@ def account():
         searched_recipes = db.recipes.find({"user_id": user['_id']})
 
     results = populate_recipes(username_lookup, searched_recipes)
+        
+    if 'delete' in request.form:
+        print(user)
+
 
     return render_template('account.html', user=user, recipes=results)
 

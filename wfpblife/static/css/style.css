@@ -258,7 +258,7 @@ ol li {
 }
 
 .recipes-container {
-    margin-top: 5rem;
+    margin: 5rem 0;
 }
 
 #row-social-media, #row-copyright {
@@ -304,6 +304,7 @@ ol li {
 
 #revolution {
     background-color: #61a5a0;
+    border: none;
     color: white;
     margin: 2rem 0;
     padding: 2rem 0;

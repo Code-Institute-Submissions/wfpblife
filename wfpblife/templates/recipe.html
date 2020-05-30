@@ -18,7 +18,7 @@
             <span class="recipe-author">Submitted by {{ username }}</span>
         </div>
 
-        <div class="accordion" id="accordionExample">
+        <div class="accordion" id="recipe-accordion">
             
             <div class="card ingredients mb-5">
                 <div class="card-header" id="headingOne">
@@ -30,7 +30,7 @@
                     </h2>
                 </div>
         
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#recipe-accordion">
                     <div class="card-body">
                         {% for ingredient in recipe.ingredients %}
                             <ul>
@@ -51,7 +51,7 @@
                         </button>
                     </h2>
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#recipe-accordion">
                     <div class="card-body">
                         <ol>
                             {% for step in recipe.method %}
