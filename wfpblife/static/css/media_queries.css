@@ -22,6 +22,10 @@
         transform: translateY(-50%);
     }
 
+    .container-main {
+        margin-top: 10%;
+    }
+
     .recipes-container {
         margin-left: 15%;
         width: 70%;
@@ -41,20 +45,21 @@
     }
 
     .timings, .edit-msg {
-        display: flex;
         font-size: 1.5rem;
-        justify-content: space-evenly;
     }
 
     .timings-underline {
         margin-bottom: 5%;
     }
 
+
+    #footer-left, #footer-right {
+        text-align: center;
+    }
+
     #recipe-description {
-        font-family: 'Raleway', sans-serif;
         font-size: 1.2rem;
         margin-left: 10%;
-        text-transform: uppercase;
         width: 80%;
     }
 

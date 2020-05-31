@@ -15,6 +15,7 @@ def page_not_found(e):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    
     # Get the recipe designated recipe of the week
     from wfpblife.recipe_of_the_week import rotw
     rotw = db.recipes.aggregate(rotw, allowDiskUse = False)
@@ -37,6 +38,10 @@ def index():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+
+    # Clear any previous flashed messages
+    session.pop('_flashes', None)
+
     search_term = request.args['search_term']
     username_lookup = user_lookup()
 
@@ -76,7 +81,15 @@ def search():
 
     select = None # To prevent reference before assignment error
 
+    # If the user enters another search term into the field
     if request.method == 'POST':
+        if 'search' in request.form:
+            search_term = request.form.get('recipe')
+            return redirect(url_for('search', search_term=search_term))
+
+
+    # Prevent filtering if search term field is empty
+    if search_term:
         if 'filter' in request.form:
             select = request.form.get('author_select')
             popularity = request.form.get('popularity')
@@ -98,6 +111,7 @@ def search():
         elif 'search' in request.form:
             search_term = request.form.get('recipe')
             return redirect(url_for('search', search_term=search_term))
+     
 
     return render_template('search.html', authors=authors, filtered_recipes=filtered_recipes, pop_recipes=pop_results, recipes=results, search_term=search_term)
 
@@ -244,8 +258,9 @@ def submit_recipe():
             recipe = db.recipes.find_one({"_id": inserted_recipe.inserted_id})
             return render_template('recipe.html', recipe=recipe)
     else:
-        flash('You need to be logged in to submit a recipe', 'warning')
+        flash('You must be logged in to submit a recipe', 'danger')
         return redirect(url_for('login'))
+
     return render_template('submit_recipe.html', form=form)
 
 

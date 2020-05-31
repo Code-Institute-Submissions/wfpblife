@@ -13,8 +13,8 @@
                 <!-- Create a Cross Site Request Forgery token -->
                 {{ form.hidden_tag() }}
     
-                <fieldset class="form-group">
-                    <legend class="card-header bg-success text-white text-center border-bottom mb-4">
+                <fieldset class="form-group" id="signlog-fieldset-group">
+                    <legend class="card-header bg-success text-white text-center border-bottom" id="signlog-header">
                         Sign Up Today
                     </legend>
                     {{ form_base(form.username) }}
@@ -22,18 +22,18 @@
                     {{ form_base(form.password) }}
                     {{ form_base(form.confirm_password) }}                    
                 </fieldset>
-                <div class="form-group mx-2">
-                    {{ form.submit(class="btn btn-outline-info") }}
+                <div class="form-group mx-2" id="signlog-form-group">
+                    {{ form.submit(class="btn btn-outline-info", id="signlog-submit") }}
                 </div>
             </form>
     
-            <div class="pt-3">
+            <div class="py-1">
                 <small class="text-muted">
                     Already have an account?
                     <a href="{{ url_for('login') }}" class="ml-2">Login</a>
                 </small>
             </div>
-            <div class="close text-right">
+            <div class="close text-right" id="signlog-back">
                 <small>Back</small><i class="fas fa-arrow-circle-left mx-3"></i>
             </div>
         </div>

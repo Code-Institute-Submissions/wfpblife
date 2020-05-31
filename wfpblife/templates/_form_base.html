@@ -1,16 +1,16 @@
 <!-- Create a base form template -->
 {% macro form_base(field) %}
-    <div class="form-group mx-2">
-        {{ field.label(class="form-control-label") }}
+    <div class="form-group mx-2" id="signlog-form-group">
+        {{ field.label(class="form-control-label", id="signlog-label") }}
         {% if field.errors %}
-            {{ field(class="form-control form-control is-invalid") }}
+            {{ field(class="form-control form-control is-invalid", id="signlog-field") }}
             <div class="invalid-feedback">
                 {% for error in field.errors %}
                     <span>{{ error }}</span>
                 {% endfor %}
             </div>
         {% else %}
-            {{ field(class="form-control form-control") }}
+            {{ field(class="form-control") }}
         {% endif %}
     </div>
 {% endmacro %}

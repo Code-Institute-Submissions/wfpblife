@@ -5,20 +5,20 @@
 {% block content %}
     
     <!-- RECIPE SEARCH -->
-    <div class="container">
+    <div class="container mb-5">
         <hr>
         <h1 class="display-5 main-text text-center mt-5">wfpb recipes</h1>
         <div id="recipe-search">
             <h2 class="pb-3 text-center" id="rotw-title">explore & share</h2>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
-                    <form class="card card-sm" method="POST" action="">
-                        <div class="card-body row no-gutters align-items-center">
+                    <form class="card card-sm" id=card-search method="POST" action="">
+                        <div class="card-body row no-gutters align-items-center" id="card-search-body">
                             <div class="col">
-                            <input class="form-control form-control-lg form-control-search" name="recipe" value="{{search_term}}">
+                            <input class="form-control form-control-md form-control-search" name="recipe" value="{{search_term}}" id="card-search-text">
                             </div>
                             <div class="col-auto">
-                            <button class="btn btn-lg btn-success" value="search" name="search" type="submit">Search</button></a>
+                            <button class="btn btn-md btn-success" value="search" name="search" type="submit" id="card-search-text">Search</button></a>
                             </div>
                         </div>
                     </form>
@@ -48,7 +48,9 @@
                     </div>
                 </div>
                 <div class="col-auto text-center">
-                    <input type="submit" name="filter" value="Apply filter">
+                    <button type="button" class="btn btn-outline-success">
+                        <input type="submit" name="filter" value="Apply filter" id="btn-filter">
+                    </button>
                 </div>  
             </form>
         </div>
@@ -63,7 +65,9 @@
         {{ recipes_page(recipes) }}
     {% else %}
         <!-- Catch feature for no search term entered AND no results returned -->
-        <h1>Nothing to see here!</h1>
+        <h1 class="text-center" id="search-none">Your search did not return any results!</h1>
+        {% include 'revolution.html' %}
+        <h1 class="text-center" id="search-none">Your search did not return any results!</h1>
     {% endif %}
     
 {% endblock content %}

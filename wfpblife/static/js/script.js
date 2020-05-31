@@ -35,6 +35,7 @@ $('#edit-commentModal').on('show.bs.modal', function (event) {
     var modal = $(this)
     modal.find(".modal-content input").val(title);
     modal.find(".modal-body input").val(content);
+    modal.find(".modal-body textarea").val(content);
 })
 
 

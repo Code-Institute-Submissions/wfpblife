@@ -21,7 +21,6 @@ class LoginForm(FlaskForm):
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password',
                              validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
 
@@ -35,6 +34,6 @@ class RecipeForm(FlaskForm):
         'Short description', validators=[DataRequired()])
     image = FileField('Upload image')
     quantity = StringField('Qty.', validators=[DataRequired()])
-    measurement = StringField('Measurement', validators=[DataRequired()])
+    measurement = StringField('Measure', validators=[DataRequired()])
     item = StringField('Item', validators=[DataRequired()])
     method = StringField('Method', validators=[DataRequired()])

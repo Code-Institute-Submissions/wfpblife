@@ -5,31 +5,34 @@ body {
 }
 
 
-/* CLASSES */
+label#popularity.btn.btn-md.active.focus {
+    background-color: white;
+    border: 1px solid #b54448;
+    box-shadow: none;
+    color: #b54448;
+}
 
+ol li{
+    font-size: 0.8rem;
+    left: -15%;
+    letter-spacing: .022em;
+    margin-bottom: 30px;
+    padding-left: 30px;
+    position: relative;
+}
+
+ul li{
+    font-size: 0.8rem;
+}
+
+
+/* CLASSES */
 .accordion>.card>.card-header {
     background-color: transparent;
 }
 
-#accordion-title {
-    color: #b54448;
-    display: inline;
-
-}
-
-.fa-caret-down, .fa-caret-up {
-    color: #b54448;
-    position: absolute;
-    right: 40px;
-}
-
 .accordion-button:hover, .accordion-button:active, .accordion-button:visited, .accordion-button:focus {
     text-decoration: none;
-}
-
-
-.author {
-    color: white;
 }
 
 .add-ingredient {
@@ -43,31 +46,13 @@ body {
     width: 100%;
 }
 
+.author {
+    color: white;
+}
+
 .author-select {
-    width: 200px;
+    width: 190px;
 }
-
-.filter-options {
-    display: flex;
-}
-
-.input-group-text{
-    background-color: #61a5a0;
-    color: white;
-}
-
-#popularity {
-    background-color: #b54448;
-    color: white;
-}
-
-label#popularity.btn.btn-md.active.focus {
-    background-color: white;
-    border: 1px solid #b54448;
-    box-shadow: none;
-    color: #b54448;
-}
-
 
 .btn.home_rotw, .btn.home_rotw:active {
     background-color: #61a5a0;
@@ -81,10 +66,14 @@ label#popularity.btn.btn-md.active.focus {
     transition: all 0.2s;
 }
 
+.btn-group-lg>.btn, .btn-lg {
+    font-size: 1rem;
+}
+
 .btn-md#view-recipe-btn-small {
     position: absolute;
     left: 50%;
-    top: 120%;
+    top: 115%;
     transform: translateX(-50%);
 }
 
@@ -111,15 +100,17 @@ label#popularity.btn.btn-md.active.focus {
 
 .card-footer {
     background-color: transparent;
+    border-top: none;
+    padding: 0;
     position: absolute;
     right: 0;
-    top: 70%;
+    top: 85%;
 }
 
 .card-img {
     border-radius: 2%;
-    margin: 2.5%;
-    width: 95%
+    margin: 5%;
+    width: 90%
 }
 
 .card-img-container {
@@ -130,7 +121,7 @@ label#popularity.btn.btn-md.active.focus {
 }
 
 .card-text {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
 }
 
@@ -141,6 +132,7 @@ label#popularity.btn.btn-md.active.focus {
 
 .comments {
     font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
 }
 
 .comments-container {
@@ -151,12 +143,16 @@ label#popularity.btn.btn-md.active.focus {
 
 .comments-title {
     color: #b54448;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-transform: uppercase;
 }
 
 .comment-footer {
     border: none;
+}
+
+.container-main {
+    margin-top: 30%;
 }
 
 .content-container, .mpr-container {
@@ -176,7 +172,7 @@ label#popularity.btn.btn-md.active.focus {
     background-image: url('https://res.cloudinary.com/bogtrotter72/image/upload/v1590854650/wfpblife/qiyk0brqjrht5vh0dt7d.jpg');
     background-position: center;
     background-size: cover;
-    height: 100vh;
+    height: 110vh;
     position: relative;
 }
 
@@ -184,24 +180,39 @@ label#popularity.btn.btn-md.active.focus {
     color: white;
 }
 
+.fa-caret-down, .fa-caret-up {
+    color: #b54448;
+    position: absolute;
+    right: 40px;
+}
+
+i.fas.fa-plus-circle, i.fas.fa-minus-circle {
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: center;
+}
+
+.filter-options {
+    display: flex;
+}
+
 .flashed {
-    /* height: 100px; */
+    font-size: 0.8rem;
     left: 50%;
     position: absolute;
-    top: 6%;
+    top: 50%;
     transform: translateX(-50%);
     z-index: 100;
 }
 
 .footer-nav {
     margin: auto;
-
 }
 
 .footer-nav-item {
     color: white;
     display: inline;
-    font-size: 1rem;
+    font-size: 0.8rem;
     list-style-type: none;
 }
 
@@ -217,9 +228,39 @@ label#popularity.btn.btn-md.active.focus {
     font-family: 'Raleway', sans-serif;
 }
 
+.ingredients-col-item {
+    width: 50%;
+}
+
+.ingredients-col-measure {
+    width: 22%;
+}
+
+.ingredients-col-qty {
+    width: 12%;
+}
+
+.ingredients-form {
+    margin-top: 10%;
+}
+
+.ingredients-form-control {
+    font-size: 0.8rem;
+}
+
+.ingredients-row {
+    font-size: 0.8rem;
+    margin-left: 0%; /* Indents the margin a little */
+}
+
 .ingredients ul {
     list-style-type: none;
     padding-left: 0;
+}
+
+.input-group-text{
+    background-color: #61a5a0;
+    color: white;
 }
 
 .jumbotron {
@@ -240,16 +281,22 @@ label#popularity.btn.btn-md.active.focus {
 
 .main-text {
     font-family: 'Raleway', sans-serif;
+    font-size: 2.7rem;
     text-transform: uppercase;
 }
 
-ol li {
-    left: -2%;
-    letter-spacing: .022em;
-    margin-bottom: 30px;
-    padding-left: 40px;
-    padding-right: 25px;
-    position: relative;
+.row-method {
+    vertical-align: middle;
+}
+
+.method-row {
+    margin-left: 0%;
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 .navbar, .navbar-brand, .nav-item, .footer-outer-container {
@@ -257,16 +304,18 @@ ol li {
     color: white;
     font-family: 'Roboto Slab', serif;
     text-transform: uppercase;
+    z-index: 100;
 }
 
 .recipe-author {
     font-family: 'Raleway', sans-serif;
-    font-size: 1rem;
+    font-size: 0.7rem;
     margin: auto;
     text-transform: uppercase;
 }
 
 .recipe-author-container {
+    margin: 5% 0 10% 0;
     text-align: center;
 }
 
@@ -274,19 +323,15 @@ ol li {
     margin: 5rem 0;
 }
 
-#row-social-media, #row-copyright {
-    margin-top: 1.2rem;
-}
-
 .rotw-img, .mpr-img {
     box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
-    display: none;
-    max-width: 70%;
+    display: block;
+    max-width: 100%;
 }
 
 .rotw-img-small, .mpr-img-small {
     box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
-    display: flex;
+    display: none;
     margin: auto;
     width: 100%;
 }
@@ -294,7 +339,7 @@ ol li {
 .signlog-container {
     left: 50%;
     position: absolute;
-    top: 55%;
+    top: 60%;
     transform: translate(-50%, -50%);
 }
 
@@ -302,13 +347,81 @@ ol li {
     text-align: center;
 }
 
+.table td {
+    vertical-align: middle;
+}
+
+.timings, .edit-msg {
+    display: flex;
+    font-size: 1rem;
+    justify-content: space-evenly;
+}
+
 .title-404 {
     text-align: center;
 }
 
 /* IDs */
-#prep_time, #cook_time, #servings {
+
+#accordion-icon, #accordion-icon2, #accordion-title {
+    color: #b54448;
     display: inline;
+    font-size: 1.4rem;
+}
+
+#add, #add-method {
+    height: 2rem;
+    width: 2rem;
+}
+
+#btn-filter {
+    background-color: transparent;
+    border: none;
+    color: #28a745;
+}
+
+#card-search {
+    padding: 0;
+}
+
+#card-search-body {
+   padding: 0.5rem;
+}
+
+#card-search-text {
+    font-size: 0.8rem;
+}
+
+#comments-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.4rem;
+}
+
+#footer-left {
+    text-align: left;
+}
+
+#footer-right {
+    text-align: right;
+}
+
+#popularity {
+    background-color: #b54448;
+    color: white;
+    margin-bottom: 5%;
+}
+
+#prep_time, #cook_time, #servings {
+    display: block;
+    width: 45%;
+}
+
+#recipe-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    margin-left: 5%;
+    text-transform: uppercase;
+    width: 90%;
 }
 
 #recipe-search {
@@ -325,7 +438,7 @@ ol li {
 
 #revolution-inner-container {
     margin: auto;
-    width: 80%;
+    width: 100%;
 }
 
 #revolution_underline {
@@ -337,21 +450,46 @@ ol li {
 #revolution_text {
     color: white;
     font-family: 'Roboto Slab', serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-top: 5rem;
     text-align: center;
 }
 
 #rotw-description, #mpr-description {
     font-family: 'Raleway', sans-serif;
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
 }
 
 #rotw-title, #mpr-title, #explore-title, #recipe-title {
     color: #b54448;
     font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
     text-transform: capitalize;
+}
+
+#row-social-media, #row-copyright {
+    margin-top: 1.2rem;
+}
+
+#search-none {
+    color: #b54448;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    margin: 5% 0;
+    text-transform: capitalize;
+}
+
+#signlog-header, #signlog-label, #signlog-field, #signlog-submit, #signlog-back {
+    font-size: 0.8rem;
+}
+
+#signlog-fieldset-group {
+    margin-bottom: 0.3rem;
+}
+
+#signlog-form-group {
+    margin-bottom: 0;
 }
 
 #submit-comment {
@@ -367,6 +505,26 @@ ol li {
     background-color: #b54448;
     border: 1px solid #b54448;
     color: white;
+}
+
+#submit-recipe {
+    background-color: #b54448;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+#submit-recipe:hover {
+    background-color: transparent;
+    border: 1px solid #b54448;
+    color: #b54448;
+}
+
+#submit-recipe-title {
+    color: #b54448;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 22%;
+    text-transform: capitalize;
 }
 
 #view-recipe-btn, #view-recipe-btn:visited {
@@ -386,4 +544,3 @@ ol li {
     box-shadow: 0.125rem 0.125rem 0.125rem  rgba(97, 165, 160, 1);
     transform: translate(-50%, 0%);
 }
-
