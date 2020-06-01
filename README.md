@@ -46,3 +46,5 @@ Having modals on .
 
 
 Also followed along with [Corey Schafer’s](https://www.youtube.com/user/schafer5/) Flask YouTube tutorial series.
+
+The auto-resizing textarea code was provided by [James Padolsey](https://j11y.io/demos/plugins/jQuery/autoresize.jquery.js) and has not been altered. Thanks to [CSS tricks](https://css-tricks.com/textarea-tricks/) for the tip.

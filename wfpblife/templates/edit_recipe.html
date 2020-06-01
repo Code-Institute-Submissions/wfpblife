@@ -7,24 +7,26 @@
             <img src={{ recipe.image}} class="rotw-img" alt="recipe image">
         </div>
         <div class="edit-msg">
-            <span class="msg mb-5">Edit your recipe</span>
+            <span class="msg mb-3">Edit your recipe</span>
         </div>
 
         <form action="" method="post">
 
-            <div class="form-group mx-2 mb-5">
-                <label for="title">Recipe title</label>
-                <input class="form-control" id="title" name="title" type="text" value="{{ recipe.title }}">
+            <div class="form-group" id="edit-recipe-title">
+                <label for="title" class="edit-recipe-title">Recipe title</label>
+                <textarea class="edit-recipe-title" name="title" id="title">{{ recipe.title }}</textarea>
+                <!-- <input class="form-control" id="title" name="title" type="text" value="{{ recipe.title }}"> -->
             </div>
-            <div class="form-group mx-2 mb-5">
-                <label for="description">Short description</label>
-                <input class="form-control" id="desciprtion" name="description" type="text" value="{{ recipe.description }}">
+            <div class="form-group" id="edit-recipe-description">
+                <label for="description" class="edit-recipe-description">Short description</label>
+                <textarea class="edit-recipe-description" name="description" id="description">{{ recipe.description }}</textarea>
+                <!-- <input class="form-control" id="description" name="description" type="text" value="{{ recipe.description }}"> -->
             </div>
 
             <div class="accordion" id="recipe-accordion">
                 
                 <div class="card ingredients mb-5">
-                    <div class="card-header" id="headingOne">
+                    <div class="card-header card-header-edit-recipe" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link accordion-button" type="button" data-toggle="collapse" data-target="#collapseOne"
                                 aria-expanded="true" aria-controls="collapseOne">
@@ -34,33 +36,34 @@
                     </div>
             
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#recipe-accordion">
-                        <div class="card-body">
+                        <div class="card-body" id="edit-recipe-card">
 
                             <div class="form-group">
                                 <table class="table table-borderless">
                                     <thead>
-                                        <tr class="d-flex col-sm-12">
-                                            <th class="col-sm-1">Qty.</th>
-                                            <th class="col-sm-3">Measurement</th>
-                                            <th class="col-sm-6">Item</th>
+                                        <tr class="row ingredients-row">
+                                            <th class="ingredients-col-qty-edit">Qty.</th>
+                                            <th class="ingredients-col-measure-edit">Measure</th>
+                                            <th class="ingredients-col-item-edit">Item</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for ingredient in recipe.ingredients %}
-                                            <tr class="d-flex col-sm-12">
-                                                <td class="col-sm-1">
+                                            <tr class="row ingredients-row">
+                                                <td class="ingredients-col-qty-edit">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="quantity" value="{{ ingredient.quantity }}">
+                                                        <input type="text" class="form-control ingredients-form-control" name="quantity" value="{{ ingredient.quantity }}">
                                                     </div>
                                                 </td>
-                                                <td class="col-sm-3">
+                                                <td class="ingredients-col-measure-edit">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="measurement" value="{{ ingredient.measurement }}">
+                                                        <input type="text" class="form-control ingredients-form-control" name="measurement" value="{{ ingredient.measurement }}">
                                                     </div>
                                                 </td>
-                                                <td class="col-sm-6">
+                                                <td class="ingredients-col-item-edit">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="item" value="{{ ingredient.item }}">
+                                                        <!-- <textarea class="edit-recipe-ingredient-item" name="item" id="item">{{ ingredient.item }}</textarea> -->
+                                                        <input type="text" class="form-control ingredients-form-control" name="item" value="{{ ingredient.item }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -68,22 +71,21 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
 
 
                 
-                <div class="form-group mx-2 mt-4 col-4">
-                    <label for="prep_time">Prep_time</label>
+                <div class="form-group mt-4">
+                    <label for="prep_time">Prep time</label>
                     <input type="text" id="prep_time" name="prep_time" class="form-control" value="{{ recipe.prep_time }}">
                 </div>
-                <div class="form-group mx-2 mt-4 col-4">
-                    <label for="cook_time">Cook_time</label>
+                <div class="form-group mt-4">
+                    <label for="cook_time">Cook time</label>
                     <input type="text" id="cook_time" name="cook_time" class="form-control" value="{{ recipe.cook_time }}">
                 </div>
-                <div class="form-group mx-2 my-4 col-4">
+                <div class="form-group my-4">
                     <label for="servings">Servings</label>
                     <input type="text" id="servings" name="servings" class="form-control" value="{{ recipe.servings }}">
                 </div>
@@ -91,7 +93,7 @@
 
 
                 <div class="card method mb-5">
-                    <div class="card-header" id="headingTwo">
+                    <div class="card-header card-header-edit-method" id="headingTwo">
                         <h2 class="mb-0">
                             <button class="btn btn-link collapsed accordion-button" type="button" data-toggle="collapse" data-target="#collapseTwo"
                                 aria-expanded="false" aria-controls="collapseTwo">
@@ -100,20 +102,20 @@
                         </h2>
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#recipe-accordion">
-                        <div class="card-body">
-                            <div class="from-group my-5">
+                        <div class="card-body" id="edit-method-card">
+                            <div class="from-group">
                                 <table class="table table-borderless">
                                     <thead>
-                                        <tr class="d-flex col-sm-12">
-                                            <th class="col-sm-1">Method</th>
+                                        <tr class="row-edit-method">
+                                            <th class="col-edit-method">Method</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for method in recipe.method %}
-                                            <tr class="d-flex">
-                                                <td class="col-sm-12 mx-2">
+                                            <tr class="row-edit-method">
+                                                <td class="col-edit-method">
                                                     <div class="form-group">
-                                                        <textarea name="method" id="" rows="3" cols="120">{{ method.text }}</textarea>
+                                                        <textarea name="method" id="edit-method" name="method">{{ method.text }}</textarea>
                                                         <!-- <input type="text" name="method" class="form-control" value="{{ method.text }}"> -->
                                                     </div>
                                                 </td>
@@ -122,19 +124,21 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-            
-            
-            <button type="submit" name="edit-recipe" class="btn btn-primary mx-2">Submit</button>
+            <div class="submit-recipe-wrapper my-3 text-center">
+                <button type="submit" name="edit-recipe" class="btn btn-primary mx-2">Submit</button>
+            </div>
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/autoresize.js') }}"></script>
+
+    <script>
+        $('textarea').autoResize();
+    </script>
     
 {% endblock content %}

@@ -21,6 +21,10 @@ ol li{
     position: relative;
 }
 
+textarea, .ingredients-form-control, #prep_time, #cook_time, #servings {
+    border: 0.5px solid #61a5a0;
+}
+
 ul li{
     font-size: 0.8rem;
 }
@@ -107,6 +111,10 @@ ul li{
     top: 85%;
 }
 
+.card-header-edit-recipe, .card-header-edit-method {
+    padding: 0.3rem 0rem;
+}
+
 .card-img {
     border-radius: 2%;
     margin: 5%;
@@ -115,7 +123,7 @@ ul li{
 
 .card-img-container {
     border-radius: 2%;
-    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
     height: 120%;
     margin: 5px;
 }
@@ -175,6 +183,21 @@ ul li{
     height: 110vh;
     position: relative;
 }
+
+.edit-msg {
+    color: #b54448;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.edit-recipe-title, .edit-recipe-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    height: 5%;
+    padding: 10px;
+    width: 100%;
+}
+
 
 .fab {
     color: white;
@@ -351,6 +374,34 @@ i.fas.fa-plus-circle, i.fas.fa-minus-circle {
     vertical-align: middle;
 }
 
+.table td.col-edit-method{
+    padding: 0.1em;
+}
+
+.table th.col-edit-method{
+    padding: 0.4em;
+}
+
+.table td.ingredients-col-qty-edit, th.ingredients-col-qty-edit{
+    padding: 0.1em;
+    width: 13%;
+}
+
+
+.table td.ingredients-col-measure-edit, th.ingredients-col-measure-edit{
+    padding: 0.1em;
+    width: 22%;
+}
+
+.table td.ingredients-col-item-edit, th.ingredients-col-item-edit{
+    padding: 0.1em;
+    width: 60%;
+}
+
+.table th.ingredients-col-qty-edit, th.ingredients-col-measure-edit, th.ingredients-col-item-edit{
+    padding: 0.4em;
+}
+
 .timings, .edit-msg {
     display: flex;
     font-size: 1rem;
@@ -397,6 +448,18 @@ i.fas.fa-plus-circle, i.fas.fa-minus-circle {
     font-size: 1.4rem;
 }
 
+
+#edit-method {
+    padding: 10px;
+    width: 100%;
+}
+
+#edit-method-card, #edit-recipe-card {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    padding: 0;
+}
+
 #footer-left {
     text-align: left;
 }
@@ -412,6 +475,8 @@ i.fas.fa-plus-circle, i.fas.fa-minus-circle {
 }
 
 #prep_time, #cook_time, #servings {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
     display: block;
     width: 45%;
 }
