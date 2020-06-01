@@ -1,34 +1,31 @@
 @media only screen and (min-width: 768px) {
+    .btn-md#recipes-page-btn-small {
+        left: 36%;
+        top: 130%;
+    }
+    
     .btn-md#view-recipe-btn-small {
-        left: 10%;
-        top: 80%;
+        left: 50%;
+        top: 110%;
     }
 
-    .card-footer {
-        background-color: transparent;
-        position: absolute;
-        right: 0;
-        top: 70%;
+    .card-img-container {
+        margin: 0;
+        width: 100%;
     }
 
-    .card-title {
-        font-size: 1.5rem;
+    .card-text, .card-title, .card-recipes-text, .card-recipes-title {
+        margin-left: 1rem;
     }
 
-    .card-text {
-        font-size: 1rem;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
 
     .container-main {
         margin-top: 10%;
     }
 
     .recipes-container {
-        margin-left: 15%;
-        width: 70%;
+        margin-left: 5%;
+        width: 90%;
     }
 
     .rotw-img, .mpr-img {
@@ -41,7 +38,7 @@
     }
 
     .signlog-container {
-        width: 35%;
+        width: 55%;
     }
 
     .timings, .edit-msg {
@@ -68,4 +65,229 @@
         width: 70%;
     }
 
+    #signlog-header, #signlog-label, #signlog-field, #signlog-submit, #signlog-back {
+        font-size: 1.2rem;
+    }
+
+}
+
+
+@media only screen and (orientation: landscape) {
+    .btn-md#view-recipe-btn-small {
+        top: 102%;
+    }
+
+    .card-img-container {
+        margin: 10%;
+        width: 80%;
+    }
+
+    .recipe-card-body {
+        position: relative;
+        top: 40%;
+        transform: translateY(-50%);
+    }
+
+    .recipes-container {
+        margin: 4rem 15%;
+        width: 70%;
+    }
+
+    .recipe-img {
+        margin: 0;
+        width: 100%;
+    }
+
+    .rotw-img, .mpr-img {
+        display: block;
+        margin: auto;
+    }
+
+    .rotw-img-small, .mpr-img-small {
+        display: none;
+    }
+
+    .signlog-container {
+        transform: translate(-50%, -45%);
+    }
+    
+    #email, #password, #username, #confirm_password {
+        height: calc(0.8em + .75rem + 2px);
+    }
+
+    #signlog-form-group {
+        display: inline-flex;
+        width: 45%;
+    }
+
+    #signlog-label {
+        margin-right: 5px;
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (orientation: landscape) {
+    .btn-md#view-recipe-btn-small {
+        left: 50%;
+        position: relative;
+        top: 105%;
+    }
+
+    .card-footer {
+        top: 140%;
+    }
+
+    .card-img-container {
+        margin: 0;
+        width: 100%;
+    }
+
+    .card-text {
+        font-size: 0.8rem;
+        top: 110%;
+    }
+
+    .recipe-card-body {
+        top: 20%;
+    }
+
+    .recipe-card-row {
+        margin: 1.2rem 0;
+    }
+
+    .recipes-container {
+        margin-left: 5%;
+        width: 90%;
+    }
+
+    .signlog-container {
+        transform: translate(-50%, -45%);
+        width: 50%;
+    }
+}
+
+
+@media only screen and (min-width: 1024px) {
+    .card-recipes-title {
+        font-size: 1.5rem;
+    }
+
+    .card-recipes-text {
+        font-size: 1rem;
+    }
+
+    .signlog-container {
+        top: 60%;
+        transform: translate(-50%, -54%);
+    }
+
+    #signlog-form-group {
+        display: block;
+        margin-bottom: 1rem;
+        width: 95%;
+    }
+
+    #signlog-header, #signlog-label, #signlog-field, #signlog-submit, #signlog-back {
+        font-size: 1.2rem;
+    }
+
+     
+    #email, #password, #username, #confirm_password {
+        height: calc(1.5em + .75rem + 2px);
+    }
+}
+
+@media only screen and (min-width: 1024px) and (orientation: landscape) {
+    .btn-outline-dark {
+        font-size: 1.3rem;
+    }
+
+    .btn-md#recipes-page-btn-small {
+        font-size: 1.3rem;
+        top: 120%;
+    }
+
+    .card-recipes-footer {
+        font-size: 1.2rem;
+    }
+
+    .card-recipes-title {
+        font-size: 2rem;
+    }
+
+    .card-recipes-text {
+        font-size: 1.3rem;
+        margin-top: 20px;
+    }
+}
+
+
+
+@media only screen and (min-width: 1280px) {
+    .card-footer {
+        top: 200%;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        top: 120%;
+    }
+
+    .signlog-container {
+        width: 40%;
+    }
+
+    #card-search-text {
+        font-size: 1.2rem;
+    }
+
+    #revolution_text {
+        font-size: 1.2rem;
+    }
+
+    #rotw-description, #mpr-description {
+        font-size: 1rem;
+    }
+
+    #rotw-title, #mpr-title, #explore-title, #recipe-title {
+        font-size: 1.7rem;
+    }
+}
+
+
+@media only screen and (min-width: 1366px) {
+    .btn-md#recipes-page-btn-small {
+        font-size: 1.5rem;
+        left: 36.5%;
+        top: 115%;
+    }
+
+    .btn-outline-dark {
+        font-size: 1.5rem;
+    }
+
+    .card-recipes-footer {
+        font-size: 1.4rem;
+    }
+
+    .card-recipes-title {
+        font-size: 2rem;
+    }
+
+    .card-recipes-text {
+        font-size: 1.5rem;
+    }
+
+    .footer-nav-item {
+        font-size: 1rem;
+    }
+
+    .recipes-page-container {
+        margin: 5rem 15%;
+        width: 70%;
+    }
+
+    .signlog-container {
+        width: 30%;
+    }
 }

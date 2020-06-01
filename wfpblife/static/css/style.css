@@ -5,6 +5,12 @@ body {
 }
 
 
+i.fas.fa-plus-circle, i.fas.fa-minus-circle {
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: center;
+}
+
 label#popularity.btn.btn-md.active.focus {
     background-color: white;
     border: 1px solid #b54448;
@@ -77,7 +83,14 @@ ul li{
 .btn-md#view-recipe-btn-small {
     position: absolute;
     left: 50%;
-    top: 115%;
+    top: 105%;
+    transform: translateX(-50%);
+}
+
+.btn-md#recipes-page-btn-small {
+    position: absolute;
+    left: 50%;
+    top: 120%;
     transform: translateX(-50%);
 }
 
@@ -92,17 +105,21 @@ ul li{
     color: white;
 }
 
-.card {
+.card, .card-recipes {
     border: none;
     box-shadow: 0.9rem 0.8rem 2rem rgba(97, 165, 160, 0.5);
     padding: 10px;
 }
 
-.card-contents {
+.card-contents, .card-recipes-contents {
     position: relative;
 }
 
-.card-footer {
+.card-recipes-contents {
+    margin-top: 1rem;
+}
+
+.card-footer, .card-recipes-footer {
     background-color: transparent;
     border-top: none;
     padding: 0;
@@ -115,25 +132,29 @@ ul li{
     padding: 0.3rem 0rem;
 }
 
-.card-img {
+.card-img, .card-recipes-img {
     border-radius: 2%;
     margin: 5%;
     width: 90%
 }
 
-.card-img-container {
+.card-img-container, .card-recipes-img-container {
     border-radius: 2%;
     box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
     height: 120%;
     margin: 5px;
 }
 
-.card-text {
+.card-text, .card-recipes-text {
     font-size: 0.7rem;
     text-transform: uppercase;
 }
 
-.card-title {
+.card-recipes-text {
+    margin-bottom: 2rem;
+}
+
+.card-title, .card-recipes-title {
     font-size: 1.2rem;
     text-transform: uppercase;
 }
@@ -198,7 +219,6 @@ ul li{
     width: 100%;
 }
 
-
 .fab {
     color: white;
 }
@@ -207,12 +227,6 @@ ul li{
     color: #b54448;
     position: absolute;
     right: 40px;
-}
-
-i.fas.fa-plus-circle, i.fas.fa-minus-circle {
-    display: flex;
-    font-size: 0.8rem;
-    justify-content: center;
 }
 
 .filter-options {
@@ -308,10 +322,6 @@ i.fas.fa-plus-circle, i.fas.fa-minus-circle {
     text-transform: uppercase;
 }
 
-.row-method {
-    vertical-align: middle;
-}
-
 .method-row {
     margin-left: 0%;
 }
@@ -344,6 +354,13 @@ i.fas.fa-plus-circle, i.fas.fa-minus-circle {
 
 .recipes-container {
     margin: 5rem 0;
+    position: relative;
+}
+
+.recipes-page-container {
+    margin: 5rem 5%;
+    position: relative;
+    width: 90%;
 }
 
 .rotw-img, .mpr-img {
@@ -357,6 +374,10 @@ i.fas.fa-plus-circle, i.fas.fa-minus-circle {
     display: none;
     margin: auto;
     width: 100%;
+}
+
+.row-method {
+    vertical-align: middle;
 }
 
 .signlog-container {

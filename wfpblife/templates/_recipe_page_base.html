@@ -16,19 +16,19 @@
         {% for batch in recipes | batch(batch_length) %}
             {% for recipe in batch %}
                 {% if recipe %}
-                    <div class="recipes-container">
-                        <div class="card mb-3">
-                            <div class="row no-gutters">
-                                <div class="col-md-3 card-img-container">
-                                    <img src={{recipe.image_small}} class="card-img recipe-img" alt="placeholder image">
+                    <div class="recipes-page-container">
+                        <div class="card-recipes mb-3">
+                            <div class="row no-gutters recipe-card-row">
+                                <div class="col-md-3 card-recipes-img-container">
+                                    <img src={{recipe.image_small}} class="card-recipes-img recipe-img" alt="placeholder image">
                                 </div>
-                                <div class="col-md-8 card-contents">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{recipe.title}}</h5>
-                                        <p class="card-text">{{recipe.description}}</p>
+                                <div class="col-md-8 card-recipes-contents">
+                                    <div class="card-recipes-body">
+                                        <h5 class="card-recipes-title">{{recipe.title}}</h5>
+                                        <p class="card-recipes-text">{{recipe.description}}</p>
                                     </div>
                                     <div class="container" id="view-recipe-small-btn">
-                                        <p class="card-footer" id="submitted-by"><small class="text-muted">
+                                        <p class="card-recipes-footer" id="submitted-by"><small class="text-muted">
                                                 <!-- Check if the recipe belongs to the current user -->
                     
                                                 <!-- If current user -->
@@ -43,9 +43,9 @@
                                             {% endif %}
                                         </p>
                                     </div>
-                                    <div class="container" id="view-recipe-btn-small">
-                                        {{ recipe_btn_small(recipe) }}
-                                    </div>
+
+                                    {{ recipe_btn_small(recipe) }}
+
                                 </div>
                             </div>
                         </div>

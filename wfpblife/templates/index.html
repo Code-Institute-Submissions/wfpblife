@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% from'_recipe_btn.html' import recipe_btn %}
-{% from'_recipe_btn.html' import recipe_btn_small %}
 
 
 {% block content %}
@@ -54,12 +53,12 @@
         {% for recipe in recipes %}
             <div class="recipes-container">
                 <div class="card mb-3">
-                    <div class="row no-gutters">
+                    <div class="row no-gutters recipe-card-row">
                         <div class="col-md-3 card-img-container">
                             <img src={{recipe.image_small}} class="card-img recipe-img" alt="placeholder image">
                         </div>
                         <div class="col-md-8 card-contents">
-                            <div class="card-body">
+                            <div class="card-body recipe-card-body">
                                 <h5 class="card-title">{{recipe.title}}</h5>
                                 <p class="card-text">
                                     {{recipe.description}}
@@ -67,11 +66,16 @@
                                 <div class="card-footer" id="submitted-by">
                                     <small class="text-muted">Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
                                 </div>
-                                <div>
-                                {{ recipe_btn_small(recipe) }}
-                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="btn_wrapper">
+                        <form action="{{ url_for('get_recipe') }}"  method="GET">
+                            <input type="hidden" name="title" value="{{ recipe.title }}">
+                            <button class="btn btn-success btn-md" id="view-recipe-btn-small">View recipe</button>
+                        </form>
                     </div>
                 </div>
             </div>
