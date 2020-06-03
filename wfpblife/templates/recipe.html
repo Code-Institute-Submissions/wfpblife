@@ -112,7 +112,7 @@
                     <div class="comments-container mb-3">
                         <h4 class="comments-title">{{ comment.comments.title }}</h4>
                         <hr>
-                        <p>{{ comment.comments.content }}</p>
+                        <p class="comments-content">{{ comment.comments.content }}</p>
 
                         <!-- Check if the comment owner is the recipe owner -->
                         {% if comment.comments.user_id ==  user['_id'] %}

@@ -19,7 +19,7 @@
     }
 
     ol li{
-        left: 0%;
+        left: -6%;
     }
 
     .recipe-card-body {
@@ -67,6 +67,16 @@
 
 
 @media only screen and (min-width: 768px) {
+
+    ol li {
+        left: -4%;
+    }
+
+    ul li {
+        left: 0%;
+        position: relative;
+    }
+
     .btn-md#recipes-page-btn-small {
         left: 36%;
         top: 130%;
@@ -153,6 +163,16 @@
 
 
 @media only screen and (min-width: 768px) and (orientation: landscape) {
+    /* ELEMENTS */
+    ol li {
+        left: 0%;
+    }
+
+    ul li {
+        left: 3%;
+    }
+
+    /* CLASSES */
     .btn-md#view-recipe-btn-small {
         left: 50%;
         position: relative;
@@ -201,6 +221,19 @@
 
 
 @media only screen and (min-width: 1024px) {
+
+    /* ELEMENTS */
+    ol, ul {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+
+    ul li {
+        font-size: 1rem;
+    }
+
+
+    /* CLASSES */
     .card-recipes-title {
         font-size: 1.5rem;
     }
@@ -217,8 +250,21 @@
         font-size: 1.5rem;
     }
 
+    .comments {
+        font-size: 1rem;
+    }
+
+    .comments-title {
+        font-size: 1.2rem;
+    }
+
     .main-text {
         font-size: 3rem;
+    }
+
+    .recipes-container {
+        margin-left: 15%;
+        width: 70%;
     }
 
     .signlog-container {
@@ -226,8 +272,18 @@
         transform: translate(-50%, -54%);
     }
 
+    /* IDs */
+    #accordion-icon, #accordion-icon2, #accordion-title {
+        font-size: 1.5rem;
+    }
+
     #card-search-text {
         font-size: 1rem;
+    }
+
+    #comments-title {
+        font-size: 1.5rem;
+        margin-left: 1rem;
     }
 
     #revolution-text {
@@ -260,6 +316,7 @@
 
 
 @media only screen and (min-width: 1024px) and (orientation: landscape) {
+    /* CLASSES */
     .btn-outline-dark {
         font-size: 1.3rem;
     }
@@ -285,6 +342,7 @@
 
 
 @media only screen and (min-width: 1280px) {
+    /* CLASSES */
     .card-footer {
         top: 100%;
     }
@@ -305,6 +363,7 @@
 
 
 @media only screen and (min-width: 1366px) {
+    /* CLASSES */
     .btn-group-lg>.btn, .btn-lg, .btn-md#view-recipe-btn-small {
         font-size: 1.2rem;
     }

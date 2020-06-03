@@ -110,21 +110,17 @@ ul li{
     color: white;
 }
 
-.card, .card-recipes {
+.card {
     border: none;
     box-shadow: 0.9rem 0.8rem 2rem rgba(97, 165, 160, 0.5);
     padding: 10px;
 }
 
-.card-contents, .card-recipes-contents {
+.card-contents {
     position: relative;
 }
 
-.card-recipes-contents {
-    margin-top: 1rem;
-}
-
-.card-footer, .card-recipes-footer {
+.card-footer {
     background-color: transparent;
     border-top: none;
     padding: 0;
@@ -137,29 +133,26 @@ ul li{
     padding: 0.3rem 0rem;
 }
 
-.card-img, .card-recipes-img {
+.card-img {
     border-radius: 2%;
     margin: 5%;
     width: 90%
 }
 
-.card-img-container, .card-recipes-img-container {
+.card-img-container {
     border-radius: 2%;
     box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7), 0.25rem 0.35rem 0.525rem rgba(0, 0, 0, 0.2);
     height: 120%;
     margin: 5px;
 }
 
-.card-text, .card-recipes-text {
+.card-text {
     font-size: 0.7rem;
     text-transform: uppercase;
 }
 
-.card-recipes-text {
-    margin-bottom: 2rem;
-}
 
-.card-title, .card-recipes-title {
+.card-title {
     font-size: 1.2rem;
     text-transform: uppercase;
 }
@@ -423,7 +416,6 @@ ul li{
     width: 13%;
 }
 
-
 .table td.ingredients-col-measure-edit, th.ingredients-col-measure-edit{
     padding: 0.1em;
     width: 22%;
@@ -453,7 +445,7 @@ ul li{
 #accordion-icon, #accordion-icon2, #accordion-title {
     color: #b54448;
     display: inline;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 #add, #add-method {
@@ -487,9 +479,10 @@ ul li{
 
 #comments-title {
     font-family: 'Raleway', sans-serif;
-    font-size: 1.4rem;
-}
+    font-size: 1.2rem;
+    margin-left: 0.45rem;
 
+}
 
 #edit-method {
     padding: 10px;
@@ -508,6 +501,10 @@ ul li{
 
 #footer-right {
     text-align: right;
+}
+
+#headingOne, #headingTwo {
+    padding: .75rem 0.45rem;
 }
 
 #popularity {
