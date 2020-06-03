@@ -61,7 +61,12 @@ ul li{
 }
 
 .author-select {
-    width: 190px;
+    background-color: #61a5a0;
+    border: none;
+    color: white;
+    padding: 5px;
+    height: 35px;
+    width: 120px;
 }
 
 .btn.home_rotw, .btn.home_rotw:active {
@@ -352,6 +357,12 @@ ul li{
     text-align: center;
 }
 
+.recipe-card-row {
+    align-items: center;
+    display: flex;
+    margin: 1.2rem 0;
+}
+
 .recipes-container {
     margin: 5rem 0;
     position: relative;
@@ -385,6 +396,10 @@ ul li{
     position: absolute;
     top: 60%;
     transform: translate(-50%, -50%);
+}
+
+.small, small {
+    font-size: 70%;
 }
 
 .social-media-container {
@@ -450,6 +465,12 @@ ul li{
     background-color: transparent;
     border: none;
     color: #28a745;
+}
+
+#btn-filter:hover, #btn-filter:active {
+    background-color: #28a745;
+    border: none;
+    color: white;
 }
 
 #card-search {

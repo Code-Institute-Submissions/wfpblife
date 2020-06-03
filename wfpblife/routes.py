@@ -23,6 +23,7 @@ def index():
     # Get the search term and redirect to provide user feedback in the URL
     if request.method == 'POST':
         search_term = request.form.get('recipe')
+        search_term = search_term.lower()
         return redirect(url_for('search', search_term=search_term))
 
     # Get the five more recently published recipes
@@ -43,6 +44,7 @@ def search():
     session.pop('_flashes', None)
 
     search_term = request.args['search_term']
+    search_term = search_term.lower()
     username_lookup = user_lookup()
 
     if search_term:
@@ -218,13 +220,13 @@ def submit_recipe():
         if request.method == 'POST':
 
             # Get the file and upload to cloudinary
-            file = request.files['file']
-            image = cloudinary.uploader.upload(file, responsive_breakpoints={
-                "create_derived": True, "bytes_step": 20000, "min_width": 200, "max_width": 1000}, transformation=[{'width': 1200, 'height': 500, 'gravity': 'auto', 'crop': 'fill'}])
+            # file = request.files['file']
+            # image = cloudinary.uploader.upload(file, responsive_breakpoints={
+            #     "create_derived": True, "bytes_step": 20000, "min_width": 200, "max_width": 1000}, transformation=[{'width': 1200, 'height': 500, 'gravity': 'auto', 'crop': 'fill'}])
 
             # Use the remote upload facility to create a resized version of the uploaded image (360 x 270)
-            image_small = cloudinary.uploader.upload(
-                image['url'], upload_preset='bnpfces4')
+            # image_small = cloudinary.uploader.upload(
+            #     image['url'], upload_preset='bnpfces4')
 
             # Get the user
             user = db.users.find_one({"email": session['email']})
@@ -239,24 +241,26 @@ def submit_recipe():
 
             populate_recipe(data, ingredients, instructions)
 
+            if form.validate_on_submit():
 
-            # Insert the recipe into the database
-            inserted_recipe = db.recipes.insert_one({
-                'user_id': user['_id'],
-                'prep_time': int(request.form.get('prep_time')), # Cast returned value to Int32
-                'cook_time': int(request.form.get('cook_time')), # Cast returned value to Int32
-                'date_added': datetime.utcnow(),
-                'servings': int(request.form.get('servings')), # Cast returned value to Int32
-                'title': request.form.get('title'),
-                'description': request.form.get('description'),
-                'image': image['url'],
-                'image_small': image_small['url'],
-                'ingredients': ingredients,
-                'method': instructions
-            }, {"w": "majority"})
 
-            recipe = db.recipes.find_one({"_id": inserted_recipe.inserted_id})
-            return render_template('recipe.html', recipe=recipe)
+                # Insert the recipe into the database
+                inserted_recipe = db.recipes.insert_one({
+                    'user_id': user['_id'],
+                    'prep_time': int(request.form.get('prep_time')), # Cast returned value to Int32
+                    'cook_time': int(request.form.get('cook_time')), # Cast returned value to Int32
+                    'date_added': datetime.utcnow(),
+                    'servings': int(request.form.get('servings')), # Cast returned value to Int32
+                    'title': request.form.get('title'),
+                    'description': request.form.get('description'),
+                    # 'image': image['url'],
+                    # 'image_small': image_small['url'],
+                    'ingredients': ingredients,
+                    'method': instructions
+                }, {"w": "majority"})
+
+                recipe = db.recipes.find_one({"_id": inserted_recipe.inserted_id})
+                return render_template('recipe.html', recipe=recipe)
     else:
         flash('You must be logged in to submit a recipe', 'danger')
         return redirect(url_for('login'))

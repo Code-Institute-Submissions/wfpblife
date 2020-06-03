@@ -31,11 +31,8 @@
                 <h3 class="text-center">Filter results</h3>
                 <div class="form-row">
                     <div class="col input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="author_select">By author</label>
-                        </div>
                         <select class="author-select" name="author_select" id="author_select">
-                            <option selected>Select author</option>
+                            <option>By author</option>
                             {% for author in authors %}
                                 <option value="{{ author }}">{{author}}</option>
                             {% endfor %}

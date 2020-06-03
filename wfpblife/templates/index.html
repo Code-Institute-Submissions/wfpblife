@@ -49,16 +49,18 @@
 
 
     <!-- MOST RECENT RECIPES -->
-    <div class="container-fluid">
+    <div class="container-fluid container-fluid-main">
         {% for recipe in recipes %}
             <div class="recipes-container">
                 <div class="card mb-3">
                     <div class="row no-gutters recipe-card-row">
-                        <div class="col-md-3 card-img-container">
+                        <!-- <div class="col-md-3 card-img-container"> -->
+                        <div class="col-sm-4 card-img-container">
                             <img src={{recipe.image_small}} class="card-img recipe-img" alt="placeholder image">
                         </div>
-                        <div class="col-md-8 card-contents">
-                            <div class="card-body recipe-card-body">
+                        <!-- <div class="col-md-8 card-contents"> -->
+                        <div class="col-sm-7 card-contents">
+                            <div class="card-body recipe-card-body-main">
                                 <h5 class="card-title">{{recipe.title}}</h5>
                                 <p class="card-text">
                                     {{recipe.description}}
@@ -87,7 +89,7 @@
     </div>
 
     <!-- MOST POPULAR RECIPE -->
-    <div class="container-fluid">
+    <div class="container-fluid container-main">
         <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{mpr.image}});">Most Popular Recipe</h1>
         <div class="jumbotron" id="most-popular-recipe">
             {% for mpr in mpr %}
