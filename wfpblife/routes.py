@@ -220,13 +220,13 @@ def submit_recipe():
         if request.method == 'POST':
 
             # Get the file and upload to cloudinary
-            # file = request.files['file']
-            # image = cloudinary.uploader.upload(file, responsive_breakpoints={
-            #     "create_derived": True, "bytes_step": 20000, "min_width": 200, "max_width": 1000}, transformation=[{'width': 1200, 'height': 500, 'gravity': 'auto', 'crop': 'fill'}])
+            file = request.files['file']
+            image = cloudinary.uploader.upload(file, responsive_breakpoints={
+                "create_derived": True, "bytes_step": 20000, "min_width": 200, "max_width": 1000}, transformation=[{'width': 1200, 'height': 500, 'gravity': 'auto', 'crop': 'fill'}])
 
             # Use the remote upload facility to create a resized version of the uploaded image (360 x 270)
-            # image_small = cloudinary.uploader.upload(
-            #     image['url'], upload_preset='bnpfces4')
+            image_small = cloudinary.uploader.upload(
+                image['url'], upload_preset='bnpfces4')
 
             # Get the user
             user = db.users.find_one({"email": session['email']})
