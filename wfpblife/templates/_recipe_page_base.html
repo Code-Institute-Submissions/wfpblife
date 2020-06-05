@@ -63,6 +63,14 @@
                 {% include 'revolution.html' %}
             {% endif %}
         {% endfor %}
+
+        <!-- If there are no recipes to display -->
+        {% if length == 0 %}
+            <h1 class="no-recipe text-center">You have not submitted any recipes</h1>
+            {% include 'revolution.html' %}
+            <h1 class="no-recipe text-center">You have not submitted any recipes</h1>
+        {% endif %}
+
     </div>
         
 {% endmacro %}

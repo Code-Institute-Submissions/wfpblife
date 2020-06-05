@@ -4,90 +4,97 @@
 
 {% block content %}
 
-    <h4 class="text-center" id="submit-recipe-title">Submit a recipe</h4>
+    <h4 class="text-center" id="submit-recipe-title">Share your recipe</h4>
 
 
-    <form action="", class="ingredients-form" , method="POST" enctype="multipart/form-data">
-        <!-- Create a Cross Site Request Forgery token -->
-        {{ form.hidden_tag() }}
-
-        <div class="form-group mx-2">
-            {{ form_base(form.title) }}
-        </div>
-        <div class="form-group mx-2">
-            {{ form_base(form.description) }}
-        </div>
-        <div class="form-group mx-2">
-            {{ form.image.label(class="form-control-label mx-2") }}<br>
-            <input class="mx-2" type="file" name="file">
-        </div>
-        <div class="from-group">
-            <table class="table table-borderless">
-                <tbody>
-                    <tr class="row ingredients-row">
-                        <th class="ingredients-col-qty">
-                            {{ form.quantity.label(class="form-control-label") }}
-                        </th>
-                        <th class="ingredients-col-measure">
-                            {{ form.measurement.label(class="form-control-label") }}
-                        </th>
-                        <th class="ingredient-col-item">
-                            {{ form.item.label(class="form-control-label") }}
-                        </th>
-                    </tr>
-                    <tr class="row-ingredients">
-                        <table id="dynamic-ingredient-row">
-                            <tr class="row ingredients-row mx-2">
-                                <td class="ingredients-col-qty">
-                                    {{ form.quantity(class="form-control ingredients-form-control") }}
-                                </td>
-                                <td class="ingredients-col-measure">
-                                    {{ form.measurement(class="form-control ingredients-form-control") }}
-                                </td>
-                                <td class="ingredients-col-item">
-                                    {{ form.item(class="form-control ingredients-form-control") }}
-                                </td>
-                                <td class="ml-2 text-center">
-                                    <button type="button" id="add" class="btn btn-success"><i
-                                            class="fas fa-plus-circle"></i></button>
-                                </td>
-                            </tr>
-                        </table>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="form-group mt-4 ">
-                {{ form_base(form.prep_time) }}
+    <div class="container ingredients-form mb-5">
+        <form method="POST" enctype="multipart/form-data">
+            <!-- Create a Cross Site Request Forgery token -->
+            {{ form.hidden_tag() }}
+    
+            <div class="form-group">
+                {{ form_base(form.title) }}
             </div>
             <div class="form-group">
-                {{ form_base(form.cook_time) }}
+                {{ form_base(form.description) }}
             </div>
-            <div class="form-group">
-                {{ form_base(form.servings) }}
+            <div class="form-group" id="upload-image">
+                {{ form.image.label(class="form-control-label mx-2") }}<br>
+                <input class="mx-2" type="file" name="file">
             </div>
-            <table class="table table-borderless">
-                <tbody id="dynamic-method-row">
-                    <tr class="row method-row">
-                        <th class="method-col">
-                            {{ form.method.label(class="form-control-label") }}
-                        </th>
-                    </tr>
-                    <tr class="row-method">
-                        <td class="method-col">
-                            {{ form.method(class="form-control method-form-control") }}
-                        </td>
-                        <td class="ml-2 text-center">
-                            <button type="button" id="add-method" class="btn btn-success"><i
-                                    class="fas fa-plus-circle"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="submit-recipe-wrapper my-3 text-center">
-            <button type="submit" class="btn" id="submit-recipe">Submit</button>
-        </div>
-    </form>
+            <div class="from-group">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr class="row ingredients-title">
+                            <th class="ingredients-col">
+                                Ingredients
+                            </th>
+                        </tr>
+                        <tr class="row ingredients-row">
+                            <th class="ingredients-col-qty">
+                                {{ form.quantity.label(class="form-control-label") }}
+                            </th>
+                            <th class="ingredients-col-measure">
+                                {{ form.measurement.label(class="form-control-label") }}
+                            </th>
+                            <th class="ingredient-col-item">
+                                {{ form.item.label(class="form-control-label") }}
+                            </th>
+                        </tr>
+                        <tr class="row-ingredients">
+                            <table id="dynamic-ingredient-row">
+                                <tr class="row ingredients-row">
+                                    <td class="ingredients-col-qty">
+                                        {{ form.quantity(class="form-control ingredients-form-control") }}
+                                    </td>
+                                    <td class="ingredients-col-measure">
+                                        {{ form.measurement(class="form-control ingredients-form-control") }}
+                                    </td>
+                                    <td class="ingredients-col-item">
+                                        {{ form.item(class="form-control ingredients-form-control") }}
+                                    </td>
+                                    <td class="ml-2 text-center">
+                                        <button type="button" id="add" class="btn btn-success"><i
+                                                class="fas fa-plus-circle"></i></button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group mt-4 ">
+                    {{ form_base(form.prep_time) }}
+                </div>
+                <div class="form-group">
+                    {{ form_base(form.cook_time) }}
+                </div>
+                <div class="form-group">
+                    {{ form_base(form.servings) }}
+                </div>
+                <table class="table table-borderless">
+                    <tbody id="dynamic-method-row">
+                        <tr class="row method-title">
+                            <th class="method-col">
+                                {{ form.method.label(class="form-control-label") }}
+                            </th>
+                        </tr>
+                        <tr class="row-method">
+                            <td class="method-col">
+                                {{ form.method(class="form-control method-form-control") }}
+                            </td>
+                            <td class="ml-2 text-center">
+                                <button type="button" id="add-method" class="btn btn-success"><i
+                                        class="fas fa-plus-circle"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="submit-recipe-wrapper my-3 text-center">
+                <button type="submit" class="btn" id="submit-recipe">Submit</button>
+            </div>
+        </form>
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -95,45 +102,21 @@
     <script>
         $(document).ready( () => {
 
-            if($(window).width() < 767) {
-                var i = 1;
+            var i = 1;
 
-                $('#add').click( () => {
-                    i++;
-                    $('#dynamic-ingredient-row').append('<tr class="row ingredients-row mx-2" id="row'+i+'"><td class="ingredients-col-qty">{{ form.quantity(class="form-control ingredients-form-control") }}</td><td class="ingredients-col-measure">{{ form.measurement(class="form-control ingredients-form-control") }}</td><td class="ingredients-col-item">{{ form.item(class="form-control ingredients-form-control") }}</td><td class="ml-2 text-center"><button type="button" id="'+i+'" class="btn btn-danger btn-remove-ingredient"><i class="fas fa-minus-circle" style="width: 0.4rem; height: 1rem;"></i></button></td></tr>');
-                })
-
-
-                    var j = 1;
-
-                    $('#add-method').click( () => {
-                        j++;
-
-                        $('#dynamic-method-row').append('<tr class="row-method" id="row'+j+'"><td class="method-col">{{ form.method(class="form-control method-form-control") }}</td><td class="ml-2 text-center"><button type="button" id="'+j+'" class="btn btn-danger btn-remove-method"><i class="fas fa-minus-circle" style="width: 0.4rem; height: 1rem;"></i></button></td></tr>')
-                })
-            }
-
-            if($(window).width() > 767) {
-                var i = 1;
-
-                $('#add').click( () => {
-                    i++;
-                    $('#dynamic-ingredient-row').append('<tr class="row ingredients-row mx-2" id="row'+i+'"><td class="col-sm-1">{{ form.quantity(class= "form-control form-control-lg") }}</td><td class="col-sm-3">{{ form.measurement(class= "form-control form-control-lg") }}</td><td class="col-sm-7">{{ form.item(class= "form-control form-control-lg") }}</td><td class="text-right col-sm-1 mt-1"><button type="button" id="'+i+'" class="btn btn-danger btn-remove-ingredient mx-sm-3 mb-2"><i class="fas fa-minus-circle"></i></button></td></tr>');
-                })
+            $('#add').click( () => {
+                i++;
+                $('#dynamic-ingredient-row').append('<tr class="row ingredients-row" id="row'+i+'"><td class="ingredients-col-qty">{{ form.quantity(class="form-control ingredients-form-control") }}</td><td class="ingredients-col-measure">{{ form.measurement(class="form-control ingredients-form-control") }}</td><td class="ingredients-col-item">{{ form.item(class="form-control ingredients-form-control") }}</td><td class="ml-2 text-center"><button type="button" id="'+i+'" class="btn btn-danger btn-remove-ingredient"><i class="fas fa-minus-circle" style="width: 0.4rem; height: 1rem;"></i></button></td></tr>');
+            })
 
 
-                    var j = 1;
+            var j = 1;
 
-                    $('#add-method').click( () => {
-                        j++;
-                        $('#dynamic-method-row').append('<tr class="row-method mx-2" id="row'+j+'"><td class="col-sm-10">{{ form.method(class="form-control form-control-lg") }}</td><td class="text-right col-sm-1 mt-1"><button type="button" id="'+j+'" class="btn btn-danger btn-remove-method mx-sm-3 mb-2"><i class="fas fa-minus-circle"></i></button></td></tr>');
-                })
-            }
+            $('#add-method').click( () => {
+                j++;
 
-
-
-            
-
+                $('#dynamic-method-row').append('<tr class="row-method" id="row'+j+'"><td class="method-col">{{ form.method(class="form-control method-form-control") }}</td><td class="ml-2 text-center"><button type="button" id="'+j+'" class="btn btn-danger btn-remove-method"><i class="fas fa-minus-circle" style="width: 0.4rem; height: 1rem;"></i></button></td></tr>')
+            })   
         })
 
         $(document).on('click', '.btn-remove-ingredient', function() {

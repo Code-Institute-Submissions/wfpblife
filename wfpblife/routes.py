@@ -3,6 +3,9 @@ import os
 from bson.son import SON
 from flask import redirect, request, render_template, url_for, flash, session
 from datetime import datetime
+
+
+
 from wfpblife.forms import SignUpForm, LoginForm, RecipeForm
 from wfpblife import app, db, cloudinary, bcrypt
 
@@ -219,14 +222,24 @@ def submit_recipe():
     if 'email' in session:
         if request.method == 'POST':
 
+            file = None
             # Get the file and upload to cloudinary
-            file = request.files['file']
-            image = cloudinary.uploader.upload(file, responsive_breakpoints={
-                "create_derived": True, "bytes_step": 20000, "min_width": 200, "max_width": 1000}, transformation=[{'width': 1200, 'height': 500, 'gravity': 'auto', 'crop': 'fill'}])
+            if form.validate_on_submit():
+                file = request.files['file']
+                if file:
 
-            # Use the remote upload facility to create a resized version of the uploaded image (360 x 270)
-            image_small = cloudinary.uploader.upload(
-                image['url'], upload_preset='bnpfces4')
+                    # If the user uploads an image force the image size to 2000 * 1000 focussing at the cetnre
+                    image = cloudinary.uploader.upload(file, upload_preset='wfpblife')
+
+                    # Use the remote upload facility to create a resized version of the uploaded image (360 x 270)
+                    image_small = cloudinary.uploader.upload(
+                        image['url'], upload_preset='bnpfces4')
+                else:
+
+                    # Use a default image
+                    image = cloudinary.uploader.upload('https://res.cloudinary.com/bogtrotter72/image/upload/v1590854650/wfpblife/qiyk0brqjrht5vh0dt7d.jpg', upload_preset='wfpblife')
+                    image_small = cloudinary.uploader.upload(
+                        image['url'], upload_preset='bnpfces4')
 
             # Get the user
             user = db.users.find_one({"email": session['email']})
@@ -243,7 +256,6 @@ def submit_recipe():
 
             if form.validate_on_submit():
 
-
                 # Insert the recipe into the database
                 inserted_recipe = db.recipes.insert_one({
                     'user_id': user['_id'],
@@ -253,8 +265,8 @@ def submit_recipe():
                     'servings': int(request.form.get('servings')), # Cast returned value to Int32
                     'title': request.form.get('title'),
                     'description': request.form.get('description'),
-                    # 'image': image['url'],
-                    # 'image_small': image_small['url'],
+                    'image': image['url'],
+                    'image_small': image_small['url'],
                     'ingredients': ingredients,
                     'method': instructions
                 }, {"w": "majority"})
@@ -304,8 +316,11 @@ def get_recipe():
 
     # Select only those comments that are relevant to this recipe and append to the empty comments list
     for comment in comments_aggregate:
-        if recipe['_id'] == comment['_id']:
-            comments.append(comment)
+        if recipe:
+            if recipe['_id'] == comment['_id']:
+                comments.append(comment)
+        else:
+            return render_template('404.html')
     
     if request.method == 'POST':
         if 'edit' in request.form:

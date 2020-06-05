@@ -4,7 +4,6 @@ body {
     padding: 0;
 }
 
-
 i.fas.fa-plus-circle, i.fas.fa-minus-circle {
     display: flex;
     font-size: 0.8rem;
@@ -151,7 +150,6 @@ ul li{
     text-transform: uppercase;
 }
 
-
 .card-title {
     font-size: 1.2rem;
     text-transform: uppercase;
@@ -196,7 +194,7 @@ ul li{
 }
 
 .dummy-container {
-    background-image: url('https://res.cloudinary.com/bogtrotter72/image/upload/v1590854650/wfpblife/qiyk0brqjrht5vh0dt7d.jpg');
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://res.cloudinary.com/bogtrotter72/image/upload/v1590854650/wfpblife/qiyk0brqjrht5vh0dt7d.jpg');
     background-position: center;
     background-size: cover;
     height: 110vh;
@@ -263,6 +261,13 @@ ul li{
     font-family: 'Raleway', sans-serif;
 }
 
+.ingredients-col, .method-col {
+    font-weight: normal;
+    color: #b54448;
+    font-size: 1.2rem;
+    margin-left: 5%;
+}
+
 .ingredients-col-item {
     width: 50%;
 }
@@ -276,7 +281,9 @@ ul li{
 }
 
 .ingredients-form {
-    margin-top: 10%;
+    margin-top: 4%;
+    overflow: hidden;
+    width: 100%;
 }
 
 .ingredients-form-control {
@@ -285,7 +292,7 @@ ul li{
 
 .ingredients-row {
     font-size: 0.8rem;
-    margin-left: 0%; /* Indents the margin a little */
+    margin-left: 2%; /* Indents the margin a little */
 }
 
 .ingredients ul {
@@ -312,16 +319,13 @@ ul li{
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    width: 60%;
 }
 
 .main-text {
     font-family: 'Raleway', sans-serif;
     font-size: 2.7rem;
     text-transform: uppercase;
-}
-
-.method-row {
-    margin-left: 0%;
 }
 
 .navbar {
@@ -399,7 +403,8 @@ ul li{
     text-align: center;
 }
 
-.table td {
+.table td, .table th {
+    padding: 0.35rem;
     vertical-align: middle;
 }
 
@@ -440,8 +445,8 @@ ul li{
     text-align: center;
 }
 
-/* IDs */
 
+/* IDs */
 #accordion-icon, #accordion-icon2, #accordion-title {
     color: #b54448;
     display: inline;
@@ -629,6 +634,10 @@ ul li{
     font-size: 1.5rem;
     margin-top: 22%;
     text-transform: capitalize;
+}
+
+#upload-image {
+    font-size: 0.8rem;
 }
 
 #view-recipe-btn, #view-recipe-btn:visited {
