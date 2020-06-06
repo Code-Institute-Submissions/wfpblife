@@ -4,30 +4,34 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container container-account">
         <!-- Adapt the greeting to accommodate new and returning users -->
         {% if user.login_count > 1 %}
-            <h1>Welcome back {{ user.username }}</h1>
+            <h1 class="account-welcome text-center">Welcome back {{ user.username }}</h1>
         {% else %}
             <h1>Welcome {{ user.username }}</h1>
         {% endif %}
+    </div>
 
-        <div class="accordion" id="recipe-accordion">
+    <div class="container-fluid">
+        <div class="accordion" id="account-accordion">
             
             <div class="card ingredients mb-5">
                 <div class="card-header" id="headingOne">
                     <h2 class="mb-0">
-                        <button class="btn btn-link accordion-button" type="button" data-toggle="collapse" data-target="#collapseOne"
-                            aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-link accordion-button" type="button" data-toggle="collapse" data-target="#collapseOneAccount"
+                            aria-expanded="true" aria-controls="collapseOneAccount">
                             <h3 class="mb-3" id="accordion-title">Account details</h3><i class="fas fa-2x fa-caret-up" id="accordion-icon"></i>
                         </button>
                     </h2>
                 </div>
         
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#recipe-accordion">
+                <div id="collapseOneAccount" class="collapse show" aria-labelledby="headingOne" data-parent="#account-accordion">
                     <div class="card-body">
-                        <p>Userame: {{ user.username }}</p>
-                        <p>Email: {{ user.email }}</p>
+                        <div class="account-details">
+                            <p>Userame: {{ user.username }}</p>
+                            <p>Email: {{ user.email }}</p>
+                        </div>
                     </div>
                     <button type="button" class="btn btn-outline-primary mb-5 ml-3" id="edit-user" data-toggle="modal" data-target="#edit-userModal" data-username='{{ user.username }}' data-email='{{ user.email }}'>
                         Edit

@@ -24,6 +24,20 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
+class RequestResetForm(FlaskForm):
+    email = StringField('Email',
+                        validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password',
+                             validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')
+
+
 class RecipeForm(FlaskForm):
     title = StringField('Recipe title', validators=[DataRequired()])
     description = TextAreaField(
@@ -35,9 +49,9 @@ class RecipeForm(FlaskForm):
                               DataRequired()])
     item = StringField('Item', validators=[DataRequired()])
 
-    prep_time = IntegerField('Prep time', validators=[
+    prep_time = IntegerField('Prep time (mins)', validators=[
                              number_range(min=0, message='Please enter a number (in minutes)')])
-    cook_time = IntegerField('Cook time', validators=[
+    cook_time = IntegerField('Cook time (mins)', validators=[
                              number_range(min=0, message='Please enter a number (in minutes)')])
     servings = IntegerField('Servings', validators=[
                             number_range(min=0, max=100)])

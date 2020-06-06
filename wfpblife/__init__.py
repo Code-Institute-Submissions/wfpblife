@@ -10,11 +10,11 @@ from pymongo import MongoClient
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '7fa953dcdd7a296edab71c7579cdd8fc'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 cloudinary.config(
     cloud_name='bogtrotter72',
-    api_key='853615826873476',
-    api_secret='N6Dn0sE1Ns6NrP5IMbsAAy7aQlc'
+    api_key=os.getenv('CLOUDINARY_API'),
+    api_secret=os.getenv('CLOUDINARY_SECRET')
 )
 
 db_user = os.getenv('MONGO_USER')

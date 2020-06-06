@@ -44,6 +44,13 @@ ul li{
     text-decoration: none;
 }
 
+.account-welcome {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.5rem;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
 .add-ingredient {
     justify-content: right;
     margin-left: auto;
@@ -176,6 +183,10 @@ ul li{
     border: none;
 }
 
+.container-account {
+    margin-top: 20%;
+}
+
 .container-main {
     margin-top: 30%;
 }
@@ -280,14 +291,31 @@ ul li{
     width: 12%;
 }
 
+.ingredients-col-item-edit {
+    width: 50%;
+}
+
+.ingredients-col-measure-edit {
+    width: 22%;
+}
+
+.ingredients-col-qty-edit {
+    width: 12%;
+}
+
 .ingredients-form {
     margin-top: 4%;
     overflow: hidden;
     width: 100%;
 }
 
-.ingredients-form-control {
+.ingredients-form-control, .ingredients-form-control-edit {
     font-size: 0.8rem;
+}
+
+.ingredients-form-control-edit {
+    border: 0.5px solid #61a5a0;
+    padding: 0.05rem 0.2rem;
 }
 
 .ingredients-row {
@@ -417,18 +445,19 @@ ul li{
 }
 
 .table td.ingredients-col-qty-edit, th.ingredients-col-qty-edit{
+    
     padding: 0.1em;
-    width: 13%;
+    width: 15%;
 }
 
 .table td.ingredients-col-measure-edit, th.ingredients-col-measure-edit{
     padding: 0.1em;
-    width: 22%;
+    width: 23%;
 }
 
 .table td.ingredients-col-item-edit, th.ingredients-col-item-edit{
     padding: 0.1em;
-    width: 60%;
+    width: 57%;
 }
 
 .table th.ingredients-col-qty-edit, th.ingredients-col-measure-edit, th.ingredients-col-item-edit{
@@ -447,10 +476,17 @@ ul li{
 
 
 /* IDs */
-#accordion-icon, #accordion-icon2, #accordion-title {
+
+#accordion-icon, #accordion-icon2, #accordion-title, #accordion-title-ingredients, #accordion-title-method {
     color: #b54448;
     display: inline;
     font-size: 1.2rem;
+}
+
+
+#account-accordion {
+    margin-left: 5%;
+    width: 90%;
 }
 
 #add, #add-method {
@@ -509,7 +545,7 @@ ul li{
 }
 
 #headingOne, #headingTwo {
-    padding: .75rem 0.45rem;
+    padding: .3rem 0rem;
 }
 
 #popularity {
@@ -522,7 +558,7 @@ ul li{
     font-family: 'Raleway', sans-serif;
     font-size: 0.8rem;
     display: block;
-    width: 45%;
+    width: 15%;
 }
 
 #recipe-description {
@@ -620,6 +656,7 @@ ul li{
     background-color: #b54448;
     color: white;
     font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
 }
 
 #submit-recipe:hover {

@@ -30,14 +30,13 @@
                         <h2 class="mb-0">
                             <button class="btn btn-link accordion-button" type="button" data-toggle="collapse" data-target="#collapseOne"
                                 aria-expanded="true" aria-controls="collapseOne">
-                                <h3 class="mb-3" id="accordion-title">Ingredients</h3><i class="fas fa-2x fa-caret-up" id="accordion-icon"></i>
+                                <h3 class="mb-3" id="accordion-title-ingredients">Ingredients</h3><i class="fas fa-2x fa-caret-up" id="accordion-icon"></i>
                             </button>
                         </h2>
                     </div>
             
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#recipe-accordion">
                         <div class="card-body" id="edit-recipe-card">
-
                             <div class="form-group">
                                 <table class="table table-borderless">
                                     <thead>
@@ -52,18 +51,18 @@
                                             <tr class="row ingredients-row">
                                                 <td class="ingredients-col-qty-edit">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control ingredients-form-control" name="quantity" value="{{ ingredient.quantity }}">
+                                                        <input type="text" class="form-control ingredients-form-control-edit" name="quantity" value="{{ ingredient.quantity }}">
                                                     </div>
                                                 </td>
                                                 <td class="ingredients-col-measure-edit">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control ingredients-form-control" name="measurement" value="{{ ingredient.measurement }}">
+                                                        <input type="text" class="form-control ingredients-form-control-edit" name="measurement" value="{{ ingredient.measurement }}">
                                                     </div>
                                                 </td>
                                                 <td class="ingredients-col-item-edit">
                                                     <div class="form-group">
                                                         <!-- <textarea class="edit-recipe-ingredient-item" name="item" id="item">{{ ingredient.item }}</textarea> -->
-                                                        <input type="text" class="form-control ingredients-form-control" name="item" value="{{ ingredient.item }}">
+                                                        <input type="text" class="form-control ingredients-form-control-edit" name="item" value="{{ ingredient.item }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -74,20 +73,18 @@
                         </div>
                     </div>
                 </div>
-
-
                 
                 <div class="form-group mt-4">
                     <label for="prep_time">Prep time</label>
-                    <input type="text" id="prep_time" name="prep_time" class="form-control" value="{{ recipe.prep_time }}">
+                    <input type="text" id="prep_time" name="prep_time" class="form-control form-control-edit" value="{{ recipe.prep_time }}">
                 </div>
                 <div class="form-group mt-4">
                     <label for="cook_time">Cook time</label>
-                    <input type="text" id="cook_time" name="cook_time" class="form-control" value="{{ recipe.cook_time }}">
+                    <input type="text" id="cook_time" name="cook_time" class="form-control form-control-edit" value="{{ recipe.cook_time }}">
                 </div>
                 <div class="form-group my-4">
                     <label for="servings">Servings</label>
-                    <input type="text" id="servings" name="servings" class="form-control" value="{{ recipe.servings }}">
+                    <input type="text" id="servings" name="servings" class="form-control form-control-edit" value="{{ recipe.servings }}">
                 </div>
 
 
@@ -97,7 +94,7 @@
                         <h2 class="mb-0">
                             <button class="btn btn-link collapsed accordion-button" type="button" data-toggle="collapse" data-target="#collapseTwo"
                                 aria-expanded="false" aria-controls="collapseTwo">
-                                    <h3 class="mb-3" id="accordion-title">Method</h3><i class="fas fa-2x fa-caret-down" id="accordion-icon2"></i>
+                                    <h3 class="mb-3" id="accordion-title-method">Method</h3><i class="fas fa-2x fa-caret-down" id="accordion-icon2"></i>
                             </button>
                         </h2>
                     </div>

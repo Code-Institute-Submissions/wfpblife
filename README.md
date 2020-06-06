@@ -79,8 +79,9 @@ Developer tools were used extensively to ensure a good balance between font size
 ## Features
 ### Existing features
 * **Responsive Navigation** - The navigation items adapt to the user's login status - displaying _signup_ and _login_ if the user is not logged in and _account_ and _logout_ if they are.
+* **Dynamic Form Fields** - The recipe submission form provides users with the ability to dynamically add and remove ingredient and method elements. The icons are clear indicators of this functionality.
 * **Data handling** - Users can store and manipulate recipe data records and personal information.
-* **User functionality** - Users are encouraged to explore and share their recipes, and are provided with the entire range of CRUD functionality.  
+* **User functionality** - Users are encouraged to explore and share their recipes, and are provided with the entire range of CRUD functionality.
 
 
 ### Planned features 
@@ -89,6 +90,7 @@ Developer tools were used extensively to ensure a good balance between font size
     * recipe performance (number of views, ratings, etc.)
     * recipe download or print facility
 * To maintain content quality the site could incorporate moderation (initially from the site owner but then through volunteer moderators)
+* To improve user experience by including _Forgotten Password_ functionality
 
 ***
 ## Technologies Used
@@ -103,15 +105,13 @@ Developer tools were used extensively to ensure a good balance between font size
 
 Preliminary tests of the database used fake (test) data created in Mockaroo and adjusted slightly to required format required by MongoDB. Both [MongoDB Compass](https://www.mongodb.com/products/compass) and [Studio3T](https://studio3t.com/) proved useful in experimenting with the aggregation framework.
 
-
-SEARCHING FOR RECIPES
-VIEW RECIPES
-SUBMIT RECIPES
-EDIT
-DELETE
-CREATE ACCOUNT
-EDIT ACCOUNT
-DELETE ACCOUNT
+All CRUD operation were checked, including:
+* Creating a user account, recipes and comments
+* Searching for recipes, and filtering these by popularity and author
+* Entering search parameters directly into the url for recipes not in the database (and providing a suitable 404 response)
+* Viewing recipes
+* Updating user account details, recipes and comments (including attempting to update recipes where user is not recipe owner)
+* Deleting user account details, recipes and comments
 
 
 ### Manual Testing

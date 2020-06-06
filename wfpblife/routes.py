@@ -1,12 +1,11 @@
 import os
 
 from bson.son import SON
-from flask import redirect, request, render_template, url_for, flash, session
 from datetime import datetime
-
-
-
-from wfpblife.forms import SignUpForm, LoginForm, RecipeForm
+from flask import redirect, request, render_template, url_for, flash, session
+from flask_mail import Message
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from wfpblife.forms import SignUpForm, LoginForm, RecipeForm, RequestResetForm, ResetPasswordForm
 from wfpblife import app, db, cloudinary, bcrypt
 
 
@@ -132,10 +131,9 @@ def filter(results):
 def signup():
     form = SignUpForm()
 
-    # Clear any previous flashed messages
-    session.pop('_flashes', None)
-
     if form.validate_on_submit():
+        # Clear any previous flashed messages
+        session.pop('_flashes', None)
 
         # Check whether either the email or username already exists
         username_exists = db.users.find_one({"username": form.username.data})
@@ -235,8 +233,7 @@ def submit_recipe():
                     image_small = cloudinary.uploader.upload(
                         image['url'], upload_preset='bnpfces4')
                 else:
-
-                    # Use a default image
+                    # If no image provided by user, use a default image
                     image = cloudinary.uploader.upload('https://res.cloudinary.com/bogtrotter72/image/upload/v1590854650/wfpblife/qiyk0brqjrht5vh0dt7d.jpg', upload_preset='wfpblife')
                     image_small = cloudinary.uploader.upload(
                         image['url'], upload_preset='bnpfces4')
@@ -303,11 +300,12 @@ def get_recipe():
 
     if 'email' in session:
         user = db.users.find_one({"email": session['email']})
-        # Check if the session user is the recipe owner
-        if user['_id'] == recipe['user_id']:
-            owner = True
-        else:
-            owner = False
+        if recipe:
+            # Check if the session user is the recipe owner
+            if user['_id'] == recipe['user_id']:
+                owner = True
+            else:
+                owner = False
 
     # Get the all comments and aggregate the author's username
     from wfpblife.recipe_comments import recipe_comments
@@ -385,6 +383,8 @@ def edit_recipe(title):
         owner = True
     else:
         owner = False
+        flash('You may only edit your own recipes', 'danger')
+        return redirect(url_for('index'))
     
     if request.method == 'POST':
             # Retrieve the ingredients form the form
@@ -425,6 +425,18 @@ def edit_recipe(title):
 
 @app.route('/delete_recipe/<title>')
 def delete_recipe(title):
+
+    # Additional failsafe to prevent recipe deletion from other user
+    if 'email' in session:
+        user = db.users.find_one({"email": session['email']})
+    
+    recipe = db.recipes.find_one({'title': title})
+
+    # Check if the session user is the recipe owner
+    if not user['_id'] == recipe['user_id']:
+        flash('You may only delete your own recipes', 'danger')
+        return redirect(url_for('index'))
+
     db.recipes.delete_one({'title': title})
     return redirect(url_for('account'))
 
@@ -459,9 +471,7 @@ def account():
     if 'delete' in request.form:
         print(user)
 
-
     return render_template('account.html', user=user, recipes=results)
-
 
 
 def populate_recipe(data, ingredients, instructions):
