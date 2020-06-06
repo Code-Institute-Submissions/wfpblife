@@ -66,6 +66,7 @@
     }
 
     .signlog-container {
+        top: 90%;
         transform: translate(-50%, -45%);
     }
 
@@ -520,10 +521,6 @@
         margin: 5rem 15%;
         width: 70%;
     }
-
-    .signlog-container {
-        width: 30%;
-    }
 }
 
 @media only screen and (min-width: 1600px) {
@@ -538,6 +535,10 @@
 
     .ingredients-row {
         width: 160%;
+    }
+
+    .signlog-container {
+        width: 30%;
     }
 
     .table td.ingredients-col-item-edit, th.ingredients-col-item-edit {
