@@ -3,8 +3,6 @@ import os
 from bson.son import SON
 from datetime import datetime
 from flask import redirect, request, render_template, url_for, flash, session
-from flask_mail import Message
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from wfpblife.forms import SignUpForm, LoginForm, RecipeForm, RequestResetForm, ResetPasswordForm
 from wfpblife import app, db, cloudinary, bcrypt
 
