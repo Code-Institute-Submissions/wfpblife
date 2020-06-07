@@ -17,7 +17,7 @@
             <p class="mt-3 text-center" id="recipe-description">{{ recipe.description }}</p>
         </div>
         <div class="recipe-author-container">
-            <span class="recipe-author">Submitted by {{ username }}</span>
+            <span class="recipe-author">Submitted by {{ username }} on {{recipe.date_added.strftime('%d-%m-%Y')}}</span>
         </div>
 
         <div class="accordion" id="recipe-accordion">
@@ -73,7 +73,7 @@
 
             <!-- Link -->
             <a href="{{ url_for('edit_recipe', title=recipe.title) }}"><button
-                    class="btn btn-outline-primary mb-5">Edit</button></a>
+                    class="btn mb-5" id="edit-recipe">Edit</button></a>
             
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-danger mb-5" data-toggle="modal" data-target="#confirm">Delete</button>
@@ -116,7 +116,7 @@
 
                         <!-- Check if the comment owner is the recipe owner -->
                         {% if comment.comments.user_id ==  user['_id'] %}
-                            <button type="button" class="btn btn-outline-primary mb-5" id="edit-comment" data-toggle="modal" data-target="#edit-commentModal" data-title='{{ comment.comments.title }}' data-content='{{ comment.comments.content }}'>
+                            <button type="button" class="btn mb-5" id="edit-comment" data-toggle="modal" data-target="#edit-commentModal" data-title='{{ comment.comments.title }}' data-content='{{ comment.comments.content }}'>
                                 Edit
                             </button>
 
@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <p><small class="text-muted">By {{ comment.comments.comment_by }}</small></p>
+                        <p><small class="text-muted">By {{ comment.comments.comment_by }} {{comment.comments.date.strftime('%d-%m-%Y')}}</small></p>
                     </div>
                 {% endfor %}
             </div>
@@ -215,7 +215,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer comment-footer">
-                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" name="submit" class="btn" id="submit-comment-modal">Submit</button>
                             </div>
                         </form>
                     </div>

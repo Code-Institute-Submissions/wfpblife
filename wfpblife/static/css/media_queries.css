@@ -31,6 +31,10 @@
         height: 180vh;
     }
 
+    .edit-msg {
+        font-size: 1.2rem;
+    }
+
     .ingredients-col, .method-col {
         margin-left: 4%;
     }

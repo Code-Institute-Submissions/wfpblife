@@ -38,14 +38,9 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col btn-group-toggle text-center" data-toggle="buttons">
-                        <label class="btn btn-md btn-toggle" id="popularity">
-                            <input type="radio" id="popularity" name="popularity" autocomplete="off"> By popularity
-                        </label>
-                    </div>
                 </div>
                 <div class="col-auto text-center">
-                    <button type="button" class="btn btn-outline-success">
+                    <button type="button" class="btn btn-outline-danger">
                         <input type="submit" name="filter" value="Apply filter" id="btn-filter">
                     </button>
                 </div>  
@@ -56,8 +51,6 @@
 
     {% if filtered_recipes %}
         {{ recipes_page(filtered_recipes) }}
-    {% elif pop_recipes %}
-            {{ recipes_page(pop_recipes) }}
     {% elif recipes %}
         {{ recipes_page(recipes) }}
     {% else %}

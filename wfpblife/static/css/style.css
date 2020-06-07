@@ -10,12 +10,6 @@ i.fas.fa-plus-circle, i.fas.fa-minus-circle {
     justify-content: center;
 }
 
-label#popularity.btn.btn-md.active.focus {
-    background-color: white;
-    border: 1px solid #b54448;
-    box-shadow: none;
-    color: #b54448;
-}
 
 ol li{
     font-size: 0.8rem;
@@ -26,7 +20,7 @@ ol li{
     position: relative;
 }
 
-textarea, .ingredients-form-control, #prep_time, #cook_time, #servings {
+textarea, .ingredients-form-control, #prep_time, #cook_time, #servings, #title, #description, #method {
     border: 0.5px solid #61a5a0;
 }
 
@@ -44,11 +38,15 @@ ul li{
     text-decoration: none;
 }
 
-.account-welcome {
+.account-recipes, .account-welcome {
     font-family: 'Roboto Slab', serif;
     font-size: 1.5rem;
     margin-bottom: 50px;
     text-transform: uppercase;
+}
+
+.account-recipes {
+    margin-bottom: 30px;
 }
 
 .add-ingredient {
@@ -67,12 +65,27 @@ ul li{
 }
 
 .author-select {
-    background-color: #61a5a0;
-    border: none;
-    color: white;
+    background-color: transparent;
+    border: 1px solid #61a5a0;
+    color: #61a5a0;
+    left: 50%;
     padding: 5px;
+    position: relative;
     height: 35px;
+    transform: translateX(-50%);
     width: 120px;
+}
+
+.btn-edit-recipe, .btn-edit-recipe:active, #edit-comment, #edit-comment:active, #edit-recipe, #edit-recipe:active {
+    background-color: #61a5a0;
+    border: 2px solid #61a5a0;
+    color: white;
+}
+
+.btn-edit-recipe:hover, #edit-comment:hover, #edit-recipe:hover {
+    background-color: white;
+    border: 2px solid #61a5a0;
+    color: #61a5a0;
 }
 
 .btn.home_rotw, .btn.home_rotw:active {
@@ -174,7 +187,6 @@ ul li{
 }
 
 .comments-title {
-    color: #b54448;
     font-size: 1rem;
     text-transform: uppercase;
 }
@@ -189,6 +201,10 @@ ul li{
 
 .container-main {
     margin-top: 30%;
+}
+
+.container-mpr {
+    margin-top: 10%;
 }
 
 .content-container, .mpr-container {
@@ -466,7 +482,8 @@ ul li{
 
 .timings, .edit-msg {
     display: flex;
-    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
     justify-content: space-evenly;
 }
 
@@ -497,11 +514,11 @@ ul li{
 #btn-filter {
     background-color: transparent;
     border: none;
-    color: #28a745;
+    color: #b54448;
+    transition: all 0.1s ease-in-out;
 }
 
 #btn-filter:hover, #btn-filter:active {
-    background-color: #28a745;
     border: none;
     color: white;
 }
@@ -519,10 +536,23 @@ ul li{
 }
 
 #comments-title {
+    color: #b54448;
     font-family: 'Raleway', sans-serif;
     font-size: 1.2rem;
     margin-left: 0.45rem;
 
+}
+
+#submit-comment-modal, #submit-comment-modal:active {
+    background-color: #b54448;
+    border: 2px solid #b54448;
+    color: white;
+}
+
+#submit-comment-modal:hover {
+    background-color: white;
+    border: 2px solid #b54448;
+    color: #b54448;
 }
 
 #edit-method {
@@ -546,12 +576,6 @@ ul li{
 
 #headingOne, #headingTwo {
     padding: .3rem 0rem;
-}
-
-#popularity {
-    background-color: #b54448;
-    color: white;
-    margin-bottom: 5%;
 }
 
 #prep_time, #cook_time, #servings {

@@ -71,15 +71,14 @@ def search():
     
     authors = filter(results)
 
-    # Filter the search results by popularity
+    # Filter the search results
+    # Recipes need to be reacquired for filtering purposes
     searched_recipes = db.recipes.find({"$or": [{"title": {"$regex": search_term}}, {
                                        "description": {"$regex": search_term}}, {"ingredients": {"$regex": search_term}}]})
 
     total = db.recipes.find()
-    recipes_sorted_by_popularity = popular_recipes(total.count())
 
-    pop_recipes = []
-    pop_results = []
+
 
     select = None # To prevent reference before assignment error
 
@@ -89,33 +88,23 @@ def search():
             search_term = request.form.get('recipe')
             return redirect(url_for('search', search_term=search_term))
 
-
     # Prevent filtering if search term field is empty
     if search_term:
+        # Filter only when the Apply Filter button is clicked
         if 'filter' in request.form:
             select = request.form.get('author_select')
-            popularity = request.form.get('popularity')
-
-            if popularity:
-                for result in recipes_sorted_by_popularity:
-                    for recipe in searched_recipes:
-                        pop_recipes.append(recipe['_id'])
-                    for recipe in pop_recipes:
-                        if result['_id'] == recipe:
-                            pop_results.append(result)
 
             for result in results:
                 if result['username']  == select:
                     filtered_recipes.append(result)
-            return render_template('search.html', authors=authors, filtered_recipes=filtered_recipes, pop_recipes=pop_results, recipes=results, search_term=search_term)
-
+            return render_template('search.html', authors=authors, filtered_recipes=filtered_recipes, recipes=results, search_term=search_term)
 
         elif 'search' in request.form:
             search_term = request.form.get('recipe')
             return redirect(url_for('search', search_term=search_term))
      
+    return render_template('search.html', authors=authors, filtered_recipes=filtered_recipes, recipes=results, search_term=search_term)
 
-    return render_template('search.html', authors=authors, filtered_recipes=filtered_recipes, pop_recipes=pop_results, recipes=results, search_term=search_term)
 
 @app.route('/search/filter')
 def filter(results):

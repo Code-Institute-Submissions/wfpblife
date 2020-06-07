@@ -9,13 +9,17 @@
         {% if user.login_count > 1 %}
             <h1 class="account-welcome text-center">Welcome back {{ user.username }}</h1>
         {% else %}
-            <h1>Welcome {{ user.username }}</h1>
+            <h1 class="account-welcome text-center">Welcome {{ user.username }}</h1>
         {% endif %}
+    </div>
+
+    <div class="container container-account-details">
+        <!-- Adapt the greeting to accommodate new and returning users -->
+        <h1 class="account-welcome text-center">Your account details</h1>
     </div>
 
     <div class="container-fluid">
         <div class="accordion" id="account-accordion">
-            
             <div class="card ingredients mb-5">
                 <div class="card-header" id="headingOne">
                     <h2 class="mb-0">
@@ -41,6 +45,7 @@
                     </button>
                 </div>
             </div>
+
             <!-- Edit User Modal -->
             <div class="modal fade" id="edit-userModal" tabindex="-1" role="dialog" aria-labelledby="edit-userModalLabel"
             aria-hidden="true">
@@ -71,7 +76,7 @@
                 </div>
             </div>
 
-            <!-- Delete Comment Modal -->
+            <!-- Delete User Modal -->
             <div class="modal fade" id="delete-userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -98,6 +103,12 @@
         </div>
     </div>
 
+    {% if recipes %}
+        <div class="container container-account-recipes">
+            <!-- Adapt the greeting to accommodate new and returning users -->
+            <h1 class="account-recipes text-center">Your recipes</h1>
+        </div>
+    {% endif %}
 
         {{ recipes_page(recipes, user) }}
     

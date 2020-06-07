@@ -8,7 +8,7 @@ The primary purpose of the project is to provide a site that will encourage user
 
 The site contains a large call-to-action, contains imagery and colors that suggest health and vitality, and prevents users from commenting or submitting recipes unless they create an account; unless they **_JOIN_** the revolution.  Further encouragement is offered by allowing users' recipes to become **_Most Popular Recipe_** and **_Recipe of the Week_**, thereby creating a sense of competition.
 
-The incorporation of HTML, CSS, JavaScript and Python elements in an organised, well-structured manner should satisfy the last goal of displaying the developers's talents as a junior web developer.
+The incorporation of HTML, CSS, JavaScript and Python elements in an organised, well-structured manner should satisfy the last goal of displaying the developers's talents as a junior web developer. The site can be viewed [here](https://wfpblife.herokuapp.com/)
 
 
 ***
@@ -25,7 +25,7 @@ As a subscriber to the [Forks Over Knives](https://www.forksoverknives.com) news
 
 
 ### Strategy & Planning
-The UX design process revolves around a mobile-first design.  As the site revolves around the subject of healthy eating the predominantly green colour scheme provides a sense of relaxation, growth and success.  Large images of the recipes are used to entice users to **_Explore_** the site **_& Share_** their own recipe ideas.
+The UX design process revolves around a mobile-first design.  As the focus for the site is healthy eating, a predominantly green colour scheme (which provides a sense of relaxation, growth and success) was chosen.  Large images of the recipes are used to entice users to **_Explore_** the site **_& Share_** their own recipe ideas.
 
 The design could also be seen to reflect trends in the field as both the Jamie Oliver and Forks over Knives websites use similar imagery and colour scheme.
 
@@ -33,7 +33,14 @@ The design could also be seen to reflect trends in the field as both the Jamie O
 #### User Stories
 * As a casual user I want an engaging site that provides simple, clear recipes that I can use to enhance my diet.
 * As an engaged user I want a platform where I can view, use and comment on others' recipes, and share and receive feedback on my own recipes.
+* As a potential site owner, my initial goal is to establish a community of like-minded individuals.  At a later stage, I will use the site to launch a range of select products targeting the client base. 
 * As a novice developer, I am looking for a platform to showcase my web development abilities. 
+
+
+#### Prioritization
+As the module guiding this Milestone Project is called Data Driven Development, priority was given at all times to the data. While the presentation of the data informed some of the more superficial surface decisions, the chief force was simple, clear, functioning code.  Of primary importance therefore, is the provision of functionality that allows users to create, locate, display, edit and delete whole-food plant-based recipes.
+
+Finally, in order to demonstrate an understanding of JavaScript and game design, means were sought by which code could provide a game that might be easily expanded upon in future iterations.
 
 
 ### Scope
@@ -65,10 +72,11 @@ The design of wireframe and database continued in this manner, first one driving
 
 
 ### Surface
-The aesthetic of the site is clean, fresh and suggestive of the potential gains in terms of health and vitality, from choosing a whole-food, plant-based diet. The idea for the colours reflect those from the **Jamie Oliver** site and the **Forks Over Knives** newsletter
- is purposefully designed to have a relaxing yet playful feel.  This conscious design decision was made in an attempt to counteract the stress of preparing for tests.  The background is designed to subtly mirror the block graphic used in the game.  Its colours match those in the game and are muted to reinforce the background positioning.
+The aesthetic of the site is clean, fresh and suggestive of the potential gains in terms of health and vitality, from choosing a whole-food, plant-based diet. The idea for the colours reflect those from the **Jamie Oliver** site and the **Forks Over Knives** newsletter. The colour of many of the buttons have default bootstrap colours.  At times, the choice of the simple green and red colours takes advantage of the implied _success_ and _danger_ in their class names.  At other times, however, the choice provides something of a contrast to the green and red used throughout the site.  The amount of space surrounding elements on larger screens underpins the clean, fresh image of the site.  This is countered (slightly) by the use of box shading.  To that, the use of shading provides a degree of three-dimensionality; offering the recipe to the user.
 
-### Design Decisions
+While most of the buttons retain their bootstrap default _hover_ and _active_ actions, the _Recipe of the Week_ and _Most Popular Recipe_ have been provided with a small animation.  This provides a further, visual signal that they are deemed to be of greater importance.  It is hoped that this will kindle the users' competitive spirit (if only subconsciously).
+
+### Data Design Decisions
 The next phase of the design process revolved around creating mock data to populate the fields, as laid out in the schema.  It was felt that this would prove the schema design and highlight any difficulties in querying the database, prior to committing the design to code.
 
 The tools used to achieve this included the command line, [Mongo Shell](https://docs.mongodb.com/manual/mongo/), [Robo 3T](https://robomongo.org/), [Moon Modeler](https://www.datensen.com/data-modeling/moon-modeler-for-databases.html) and [Mockaroo](https://www.mockaroo.com). While Mockaroo proved useful in creating some of the test data, a solution has yet to be found to the problem of creating data in the required formats for MongoDB.
@@ -80,6 +88,9 @@ Developer tools were used extensively to ensure a good balance between font size
 ### Existing features
 * **Responsive Navigation** - The navigation items adapt to the user's login status - displaying _signup_ and _login_ if the user is not logged in and _account_ and _logout_ if they are.
 * **Dynamic Form Fields** - The recipe submission form provides users with the ability to dynamically add and remove ingredient and method elements. The icons are clear indicators of this functionality.
+* **Image uploads** - User experience is enhanced through the inclusion of an image upload facility, allowing users to share their own recipe image.
+* **Image resizing** - Images are automatically resized on upload.
+* **User interactivity** - To add to the user experience, a degree of interactivity is provided by the accordions on each recipe page.
 * **Data handling** - Users can store and manipulate recipe data records and personal information.
 * **User functionality** - Users are encouraged to explore and share their recipes, and are provided with the entire range of CRUD functionality.
 
@@ -89,8 +100,9 @@ Developer tools were used extensively to ensure a good balance between font size
     * ranking for **Most frequent visitor**, **Most active contributor** and **Most active reviewer**
     * recipe performance (number of views, ratings, etc.)
     * recipe download or print facility
-* To maintain content quality the site could incorporate moderation (initially from the site owner but then through volunteer moderators)
-* To improve user experience by including _Forgotten Password_ functionality
+* A shop, to allow the site owner to launch a range of select products targeting the client base.
+* To improve user experience by including _Forgotten Password_ functionality.
+* Improve image handling, including the ability to replace images and / or provide muliple images.
 
 ***
 ## Technologies Used
@@ -149,8 +161,15 @@ Initially sign up and login elements were designed as modals but during testing 
 ### Interesting bug - remaining
 
 
+## Deployment
+This site is hosted using Github pages, and is deployed directly from the master branch.  To use the resource, clone or download the respository, and create and activate a local environment ([virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)). If you download the zip file, extract the files and open the folder in your chosen IDE. Open a terminal window and navigate to the root folder.  To install all the dependencies enter `pip install -r requirements.txt` into the command line.  Before the application can be used, it will be necessary to create a connection to your own database and enter the connecton details into the `__init__.py` file.  An example of this process can be found [here](https://flask.palletsprojects.com/en/1.1.x/tutorial/database/).  To allow debugging, change the `debug` setting in the `run.py` file to `True`.  To run the application enter `python run.py` into the command line and then point your browser to the url shown (usually http://127.0.0.1:5000)
+
+***
+
+### Media
+Favicon created at [favicon.io](https://favicon.io/favicon-converter/).  All of the recipe images and texts have been taken from [Forks Over Knives](https://www.forksoverknives.com) and are largely unaltered.
 
 
-Also followed along with [Corey Schafer’s](https://www.youtube.com/user/schafer5/) Flask YouTube tutorial series.
 
-The auto-resizing textarea code was provided by [James Padolsey](https://j11y.io/demos/plugins/jQuery/autoresize.jquery.js) and has not been altered. Thanks to [CSS tricks](https://css-tricks.com/textarea-tricks/) for the tip.
+### Acknowledgements
+I would like to acknowledge [Corey Schafer](https://www.youtube.com/user/schafer5/) and his Flask YouTube tutorial series, mainly for the provision of general information.  I would also like to acknowledge [James Padolsey](https://j11y.io/demos/plugins/jQuery/autoresize.jquery.js) for the auto-resizing textarea code, which has not been altered. Thanks to [CSS tricks](https://css-tricks.com/textarea-tricks/) for the tip.
