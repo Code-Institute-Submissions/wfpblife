@@ -5,6 +5,7 @@
 {% block content %}
 
     <!-- RECIPE OF THE WEEK -->
+    <!-- Result of database query -->
     <div class="container-fluid container-main">
         <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{rotw.image}});">Recipe of the week</h1>
         <div class="jumbotron" id="recipe-of-the-week">
@@ -44,11 +45,12 @@
         </div>
     </div>
 
-
+    <!-- CALL TO ACTION - WILL REQUIRE USERS TO SIGN UP / LOGIN -->
     {% include 'revolution.html' %}
 
 
     <!-- MOST RECENT RECIPES -->
+    <!-- Displays the 5 most recently submitted recipes - from database query -->
     <div class="container-fluid container-fluid-main">
         {% for recipe in recipes %}
             <div class="recipes-container">
@@ -87,6 +89,7 @@
     </div>
 
     <!-- MOST POPULAR RECIPE -->
+    <!-- Result of database query -->
     <div class="container-fluid container-main container-mpr">
         <h1 class="display-4 main-text text-center mt-5" style="background-image:url({{mpr.image}});">Most Popular Recipe</h1>
         <div class="jumbotron" id="most-popular-recipe">

@@ -11,20 +11,16 @@
         </div>
 
         <form action="" method="post">
-
             <div class="form-group" id="edit-recipe-title">
                 <label for="title" class="edit-recipe-title">Recipe title</label>
                 <textarea class="edit-recipe-title" name="title" id="title">{{ recipe.title }}</textarea>
-                <!-- <input class="form-control" id="title" name="title" type="text" value="{{ recipe.title }}"> -->
             </div>
             <div class="form-group" id="edit-recipe-description">
                 <label for="description" class="edit-recipe-description">Short description</label>
                 <textarea class="edit-recipe-description" name="description" id="description">{{ recipe.description }}</textarea>
-                <!-- <input class="form-control" id="description" name="description" type="text" value="{{ recipe.description }}"> -->
             </div>
 
             <div class="accordion" id="recipe-accordion">
-                
                 <div class="card ingredients mb-5">
                     <div class="card-header card-header-edit-recipe" id="headingOne">
                         <h2 class="mb-0">
@@ -61,7 +57,6 @@
                                                 </td>
                                                 <td class="ingredients-col-item-edit">
                                                     <div class="form-group">
-                                                        <!-- <textarea class="edit-recipe-ingredient-item" name="item" id="item">{{ ingredient.item }}</textarea> -->
                                                         <input type="text" class="form-control ingredients-form-control-edit" name="item" value="{{ ingredient.item }}">
                                                     </div>
                                                 </td>
@@ -87,8 +82,6 @@
                     <input type="text" id="servings" name="servings" class="form-control form-control-edit" value="{{ recipe.servings }}">
                 </div>
 
-
-
                 <div class="card method mb-5">
                     <div class="card-header card-header-edit-method" id="headingTwo">
                         <h2 class="mb-0">
@@ -113,7 +106,6 @@
                                                 <td class="col-edit-method">
                                                     <div class="form-group">
                                                         <textarea name="method" id="edit-method" name="method">{{ method.text }}</textarea>
-                                                        <!-- <input type="text" name="method" class="form-control" value="{{ method.text }}"> -->
                                                     </div>
                                                 </td>
                                             </tr>
@@ -134,6 +126,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/autoresize.js') }}"></script>
 
+    <!-- Resize the method textareas - particularly useful for viewing on mobile devices -->
     <script>
         $('textarea').autoResize();
     </script>

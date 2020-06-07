@@ -4,17 +4,22 @@
 
     <div class="container-fluid p-0 mb-5">
 
-        <!-- Create recipe batches so search results and recipe pages contain the 'call to action' at the mid-point -->
+        <!-- Create recipe batches and inject the 'Join the Revolution call to action' at the mid-point -->
 
+        <!-- Get the length of the recipes list -->
         {% set length = recipes | length %}
 
-        <!-- If the recipes have an odd number - increment by one, to create an mid-point -->
+        <!-- If the recipes length is an odd number - increment by one, to create a mid-point -->
         {% if length % 2 != 0 %}
             {% set length = length + 1 %}
         {% endif %}
+
+        <!-- Create the midpoint and cast it to type integer -->
         {% set batch_length = (length/2)|int %}
         {% for batch in recipes | batch(batch_length) %}
             {% for recipe in batch %}
+
+                <!-- Prevent errors if there are no recipes -->
                 {% if recipe %}
                     <div class="recipes-container">
                         <div class="card mb-3">
@@ -29,8 +34,8 @@
                                             {{recipe.description}}
                                         </p>
                                         <div class="card-footer" id="submitted-by"><small class="text-muted">
-                                            <!-- Check if the recipe belongs to the current user -->
-                                        
+
+                                            <!-- Check if the recipe belongs to the current user and adapt submission info accordingly -->
                                             <!-- If current user -->
                                             {% if user %}
                                                 {% if user['username'] == recipe['username'] %}
@@ -39,7 +44,7 @@
                                         
                                             <!-- If not current user -->
                                             {% else %}
-                                            Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
+                                                Submitted by {{recipe.username}} on {{recipe.date_added.strftime('%d-%m-%Y')}}</small>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -64,10 +69,13 @@
             {% endif %}
         {% endfor %}
 
-        <!-- If there are no recipes to display -->
+        <!-- If the user has not submitted any recipes display a message on the user's dashboard -->
         {% if length == 0 %}
             <h1 class="no-recipe text-center">You have not submitted any recipes</h1>
+
+            <!-- Encourage user to submit a recipe -->
             {% include 'revolution.html' %}
+            
             <h1 class="no-recipe text-center">You have not submitted any recipes</h1>
         {% endif %}
 

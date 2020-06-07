@@ -99,19 +99,15 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 
+    <!-- Appended here to avail of ingredient values -->
     <script>
         $(document).ready( () => {
-
             var i = 1;
-
             $('#add').click( () => {
                 i++;
                 $('#dynamic-ingredient-row').append('<tr class="row ingredients-row" id="row'+i+'"><td class="ingredients-col-qty">{{ form.quantity(class="form-control ingredients-form-control") }}</td><td class="ingredients-col-measure">{{ form.measurement(class="form-control ingredients-form-control") }}</td><td class="ingredients-col-item">{{ form.item(class="form-control ingredients-form-control") }}</td><td class="ml-2 text-center"><button type="button" id="'+i+'" class="btn btn-danger btn-remove-ingredient"><i class="fas fa-minus-circle" style="width: 0.4rem; height: 1rem;"></i></button></td></tr>');
             })
-
-
             var j = 1;
-
             $('#add-method').click( () => {
                 j++;
 

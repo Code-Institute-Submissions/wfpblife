@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 @media only screen and (orientation: landscape) {
     /* ELEMENTS */
     ol li{
@@ -17,13 +24,15 @@
     /* Override Bootstrap's default min width setting of 576px */
     .col-sm-4 {
         -ms-flex: 0 0 33.333333%;
-        flex: 0 0 33.333333%;
+        -webkit-box-flex: 0;
+                flex: 0 0 33.333333%;
         max-width: 33.333333%;
     }
 
     .col-sm-7 {
         -ms-flex: 0 0 58.333333%;
-        flex: 0 0 58.333333%;
+        -webkit-box-flex: 0;
+                flex: 0 0 58.333333%;
         max-width: 58.333333%;
     }
 
@@ -47,7 +56,9 @@
     .recipe-card-body {
         position: relative;
         top: 40%;
-        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
     }
 
     .recipes-container {
@@ -71,7 +82,9 @@
 
     .signlog-container {
         top: 90%;
-        transform: translate(-50%, -45%);
+        -webkit-transform: translate(-50%, -45%);
+            -ms-transform: translate(-50%, -45%);
+                transform: translate(-50%, -45%);
     }
 
     
@@ -338,7 +351,9 @@
 
     .signlog-container {
         top: 60%;
-        transform: translate(-50%, -54%);
+        -webkit-transform: translate(-50%, -54%);
+            -ms-transform: translate(-50%, -54%);
+                transform: translate(-50%, -54%);
     }
 
     .table td.ingredients-col-item-edit, th.ingredients-col-item-edit {

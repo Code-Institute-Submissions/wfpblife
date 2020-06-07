@@ -1,4 +1,4 @@
-# Get the latest 5 recipes and username form user collection
+# Get the latest 5 recipes and matching usernames from user collection
 
 latest_recipes = [
         {

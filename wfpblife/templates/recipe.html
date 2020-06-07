@@ -21,7 +21,6 @@
         </div>
 
         <div class="accordion" id="recipe-accordion">
-            
             <div class="card ingredients mb-5">
                 <div class="card-header" id="headingOne">
                     <h2 class="mb-0">
@@ -68,9 +67,8 @@
         </div>
 
 
-        <!-- If the recipe is owned by the user provide edit and delete functions -->
+        <!-- If the recipe is owned by the user display edit and delete functions -->
         {% if owner %}
-
             <!-- Link -->
             <a href="{{ url_for('edit_recipe', title=recipe.title) }}"><button
                     class="btn mb-5" id="edit-recipe">Edit</button></a>
@@ -114,7 +112,7 @@
                         <hr>
                         <p class="comments-content">{{ comment.comments.content }}</p>
 
-                        <!-- Check if the comment owner is the recipe owner -->
+                        <!-- Check if the comment author is the recipe owner -->
                         {% if comment.comments.user_id ==  user['_id'] %}
                             <button type="button" class="btn mb-5" id="edit-comment" data-toggle="modal" data-target="#edit-commentModal" data-title='{{ comment.comments.title }}' data-content='{{ comment.comments.content }}'>
                                 Edit
@@ -222,13 +220,5 @@
                 </div>
             </div>
         {% endif %}
-    </div>
-    
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    
+    </div>    
 {% endblock content %}

@@ -2,14 +2,14 @@ import os
 
 from bson.son import SON
 from datetime import datetime
-from flask import redirect, request, render_template, url_for, flash, session
-from wfpblife.forms import SignUpForm, LoginForm, RecipeForm
-from wfpblife import app, db, cloudinary, bcrypt
+from flask import flash, redirect, request, render_template, session, url_for
+from wfpblife.forms import LoginForm, RecipeForm, SignUpForm
+from wfpblife import app, bcrypt, cloudinary, db
 
 
 @app.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
+    # 404 status set explicitly
     return render_template('404.html'), 404
 
 
@@ -26,10 +26,9 @@ def index():
         search_term = search_term.lower()
         return redirect(url_for('search', search_term=search_term))
 
-    # Get the five more recently published recipes
+    # Get the five most recently published recipes
     username_lookup = user_lookup()
     searched_recipes = db.recipes.find({}).sort('date_added', -1).limit(5)
-
     results = populate_recipes(username_lookup, searched_recipes)
 
     mpr = popular_recipes(1)
@@ -77,8 +76,6 @@ def search():
                                        "description": {"$regex": search_term}}, {"ingredients": {"$regex": search_term}}]})
 
     total = db.recipes.find()
-
-
 
     select = None # To prevent reference before assignment error
 
@@ -169,6 +166,8 @@ def login():
         session.pop('_flashes', None)
         
         email = form.email.data
+
+        # Check if the user is in the database
         user = db.users.find_one({'email': email})
 
         if user:
@@ -213,7 +212,7 @@ def submit_recipe():
                 file = request.files['file']
                 if file:
 
-                    # If the user uploads an image force the image size to 2000 * 1000 focussing at the cetnre
+                    # If the user uploads an image force the image size to 2000 * 1000 focussing at the centre
                     image = cloudinary.uploader.upload(file, upload_preset='wfpblife')
 
                     # Use the remote upload facility to create a resized version of the uploaded image (360 x 270)
@@ -228,7 +227,7 @@ def submit_recipe():
             # Get the user
             user = db.users.find_one({"email": session['email']})
 
-            # Retrieve the ingredients form the form
+            # Retrieve the ingredients from the form
             data = request.form.to_dict(flat=False)
 
             
@@ -276,7 +275,6 @@ def get_recipe():
     title = request.args.get('title')
     recipe = db.recipes.find_one({'title': title})
 
-
     username_lookup = user_lookup()
     searched_recipes = db.recipes.find({'title': title})
 
@@ -308,6 +306,7 @@ def get_recipe():
             return render_template('404.html')
     
     if request.method == 'POST':
+        # Editing an existing comment
         if 'edit' in request.form:
             old_title = request.form.get('old-comment-title')
             new_title = request.form.get('comment-title')
@@ -315,14 +314,17 @@ def get_recipe():
             old_content = request.form.get('old-comment-content')
             new_content = request.form.get('comment-content')
 
+            # Find the exacting matching comment and update it
             db.recipes.update_one({"comments": {"$elemMatch": { "title": old_title, "content": old_content }}}, {"$set": {"comments.$": { "title": new_title, "content": new_content, "date": datetime.utcnow(), "user_id": user['_id']}}})
-        
+
+        # Deleting an existing comment
         if 'delete' in request.form:
             comment_title = request.form.get('comment-title')
             comment_content = request.form.get('comment-content')
 
             db.recipes.update_one({"title": title}, {"$pull": {"comments": { "title": comment_title, "content": comment_content }}})
         
+        # Submitting a new comment
         if 'submit' in request.form:
             comment_title = request.form.get('comment-title')
             comment_content = request.form.get('comment-content')
@@ -339,12 +341,10 @@ def get_recipe():
 
 @app.route('/recipes')
 def get_recipes():
-
     username_lookup = user_lookup()
     searched_recipes = db.recipes.find({}).sort('title', 1).limit(10)
 
     results = populate_recipes(username_lookup, searched_recipes)
-
     return render_template('recipes.html', recipes=results)
 
 
@@ -354,7 +354,6 @@ def get_recipes2():
     searched_recipes = db.recipes.find({}).sort('title', 1).skip(10).limit(10)
 
     results = populate_recipes(username_lookup, searched_recipes)
-
     return render_template('recipes2.html', recipes=results)
 
 
@@ -370,6 +369,7 @@ def edit_recipe(title):
         owner = True
     else:
         owner = False
+        # Security feature - 'should' not happen
         flash('You may only edit your own recipes', 'danger')
         return redirect(url_for('index'))
     
@@ -491,7 +491,6 @@ def populate_recipe(data, ingredients, instructions):
 
 
 def user_lookup():
-    
     recipes = db.recipes.aggregate([
         {
             u"$match": {}
@@ -534,7 +533,6 @@ def user_lookup():
             }
         }
     ])
-
     return recipes
 
 

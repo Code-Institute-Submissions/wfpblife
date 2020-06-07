@@ -5,16 +5,20 @@
 {% block content %}
 
     <div class="container container-account">
+
         <!-- Adapt the greeting to accommodate new and returning users -->
+
+        <!-- If the user is a returning user -->
         {% if user.login_count > 1 %}
             <h1 class="account-welcome text-center">Welcome back {{ user.username }}</h1>
+        
+        <!-- Else the user is a new user -->
         {% else %}
             <h1 class="account-welcome text-center">Welcome {{ user.username }}</h1>
         {% endif %}
     </div>
 
     <div class="container container-account-details">
-        <!-- Adapt the greeting to accommodate new and returning users -->
         <h1 class="account-welcome text-center">Your account details</h1>
     </div>
 
@@ -37,6 +41,8 @@
                             <p>Email: {{ user.email }}</p>
                         </div>
                     </div>
+
+                    <!-- Pass values to modal script and prepopulate the fields -->
                     <button type="button" class="btn btn-outline-primary mb-5 ml-3" id="edit-user" data-toggle="modal" data-target="#edit-userModal" data-username='{{ user.username }}' data-email='{{ user.email }}'>
                         Edit
                     </button>
@@ -105,7 +111,7 @@
 
     {% if recipes %}
         <div class="container container-account-recipes">
-            <!-- Adapt the greeting to accommodate new and returning users -->
+            <!-- Only display the heading if the user has recipes to display -->
             <h1 class="account-recipes text-center">Your recipes</h1>
         </div>
     {% endif %}

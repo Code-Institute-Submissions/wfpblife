@@ -3,6 +3,8 @@ from bson.son import SON
 from bson.tz_util import FixedOffset
 from datetime import datetime
 
+# Get the highest rated recipe within the date parameters shown here
+# This value will need to be adjusted for the live version but is forced here to correspond to data in the test database
 rotw = [
     {
         u"$match": {

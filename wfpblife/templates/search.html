@@ -49,11 +49,15 @@
     </div>
 
 
+    <!-- Display the filtered recipes -->
     {% if filtered_recipes %}
         {{ recipes_page(filtered_recipes) }}
+    
+    <!-- Display the unfiltered recipes -->
     {% elif recipes %}
         {{ recipes_page(recipes) }}
     {% else %}
+
         <!-- Catch feature for no search term entered AND no results returned -->
         <h1 class="text-center" id="search-none">Your search did not return any results!</h1>
         {% include 'revolution.html' %}

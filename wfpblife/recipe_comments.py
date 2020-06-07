@@ -1,3 +1,5 @@
+# Get usernames from user collection and add the field to the recipes collectoin
+
 recipe_comments = [
     {
         u"$unwind": {
